@@ -1,0 +1,983 @@
+<!-- marketplace.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kahawa Space - Coffee Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Copy all the base styles from news.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2c1810;
+            background-color: #faf7f2;
+        }
+
+        :root {
+            --primary-dark: #2c1810;
+            --primary-brown: #8b5a2b;
+            --primary-medium: #b87c4b;
+            --primary-light: #e6d5b8;
+            --accent-gold: #c9a227;
+            --cream: #faf7f2;
+            --white: #ffffff;
+            --gray-light: #f0e9e0;
+            --gray: #9b8b7a;
+            --success: #2e7d32;
+        }
+
+        /* Navigation (same as before) */
+        .navbar {
+            background-color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary-brown);
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span:last-child {
+            color: var(--accent-gold);
+            font-weight: 400;
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a i {
+            color: var(--primary-medium);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .nav-links .coming-soon {
+            background: var(--gray-light);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--primary-brown);
+            margin-left: 5px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-login {
+            padding: 0.5rem 1.2rem;
+            border: 2px solid var(--primary-light);
+            background: transparent;
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            border-color: var(--primary-brown);
+        }
+
+        .btn-signup {
+            padding: 0.5rem 1.2rem;
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-signup:hover {
+            background: var(--primary-brown);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #3d2a1c 100%);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Marketplace Categories */
+        .marketplace-categories {
+            padding: 3rem 5%;
+            background: var(--white);
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .category-tab {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--gray-light);
+            border-radius: 40px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-tab i {
+            color: var(--primary-brown);
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        .category-tab.active i {
+            color: var(--primary-dark);
+        }
+
+        /* Filters */
+        .filters-section {
+            background: var(--cream);
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .filters-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 30px;
+            background: var(--white);
+            color: var(--primary-dark);
+            font-weight: 500;
+            min-width: 150px;
+        }
+
+        .price-range {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .price-range input {
+            width: 100px;
+            padding: 0.8rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 30px;
+        }
+
+        /* Product Grid */
+        .marketplace-main {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-badge.b2b {
+            background: var(--success);
+            color: white;
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-brown));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+        }
+
+        .product-origin-flag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .product-details {
+            padding: 1.5rem;
+        }
+
+        .product-seller {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .seller-verified {
+            color: var(--success);
+            font-size: 0.8rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin: 0.5rem 0;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin: 0.5rem 0;
+        }
+
+        .product-price small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--gray);
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            flex: 1;
+            padding: 0.8rem;
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-brown);
+        }
+
+        .btn-secondary {
+            padding: 0.8rem 1.2rem;
+            background: transparent;
+            border: 2px solid var(--gray-light);
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-brown);
+        }
+
+        /* Seller Spotlight */
+        .seller-spotlight {
+            background: var(--cream);
+            padding: 4rem 5%;
+        }
+
+        .seller-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .seller-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--gray-light);
+        }
+
+        .seller-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: var(--primary-brown);
+        }
+
+        .seller-name {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .seller-location {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .seller-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        /* Newsletter and Footer same as news.html */
+        .newsletter {
+            background: var(--accent-gold);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            color: var(--primary-dark);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: #e6d5b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #3d2a1c;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background: #3d2a1c;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .filters-container {
+                flex-direction: column;
+            }
+
+            .price-range {
+                width: 100%;
+            }
+
+            .price-range input {
+                width: 100%;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <i class="fas fa-mug-hot"></i>
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links">
+            <a href="marketplace.html" class="active"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>            
+        </div>
+        <div class="auth-buttons">
+            <button class="btn-login">Log In</button>
+            <button class="btn-signup">Join</button>
+            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>The Coffee Marketplace</h1>
+        <p>Source green coffee directly from origin, discover specialty roasters, and equip your café</p>
+    </div>
+
+    <div class="marketplace-categories">
+        <div class="category-tabs">
+            <button class="category-tab active"><i class="fas fa-seedling"></i> Green Coffee</button>
+            <button class="category-tab"><i class="fas fa-fire"></i> Roasted Coffee</button>
+            <button class="category-tab"><i class="fas fa-blender"></i> Equipment</button>
+            <button class="category-tab"><i class="fas fa-book"></i> Books & Education</button>
+        </div>
+    </div>
+
+    <div class="filters-section">
+        <div class="filters-container">
+            <select class="filter-select">
+                <option>All Origins</option>
+                <option>Tanzania</option>
+                <option>Ethiopia</option>
+                <option>Kenya</option>
+                <option>Brazil</option>
+                <option>Colombia</option>
+            </select>
+            <select class="filter-select">
+                <option>Processing Method</option>
+                <option>Washed</option>
+                <option>Natural</option>
+                <option>Honey</option>
+                <option>Pulped Natural</option>
+            </select>
+            <select class="filter-select">
+                <option>Grade</option>
+                <option>Specialty (SCA 80+)</option>
+                <option>Premium (SCA 84+)</option>
+                <option>Micro-lot (SCA 86+)</option>
+            </select>
+            <div class="price-range">
+                <input type="number" placeholder="Min $">
+                <span>-</span>
+                <input type="number" placeholder="Max $">
+            </div>
+            <button class="btn-primary">Apply Filters</button>
+        </div>
+    </div>
+
+    <div class="marketplace-main">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <p>Showing 24 of 156 green coffee lots</p>
+            <select class="filter-select" style="width: auto;">
+                <option>Sort by: Latest</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>SCA Score</option>
+            </select>
+        </div>
+
+        <div class="product-grid">
+            <!-- Product Card 1 - Tanzania -->
+            <div class="product-card">
+                <span class="product-badge b2b">B2B</span>
+                <div class="product-image">
+                    <span class="product-origin-flag">🇹🇿 Tanzania</span>
+                    <i class="fas fa-coffee-bean"></i>
+                </div>
+                <div class="product-details">
+                    <div class="product-seller">
+                        <i class="fas fa-store"></i>
+                        <span>Kilimanjaro Cooperative</span>
+                        <i class="fas fa-check-circle seller-verified"></i>
+                    </div>
+                    <div class="product-title">Peaberry AA Reserve</div>
+                    <div class="product-meta">
+                        <span>Washed</span>
+                        <span>Screen 15+</span>
+                        <span>SCA 86</span>
+                    </div>
+                    <div class="product-price">$8.50 <small>/kg FOB</small></div>
+                    <div class="product-meta">Lot: 350kg • Negotiable</div>
+                    <div class="product-actions">
+                        <button class="btn-primary">Contact Seller</button>
+                        <button class="btn-secondary"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 2 - Ethiopia -->
+            <div class="product-card">
+                <span class="product-badge b2b">B2B</span>
+                <div class="product-image">
+                    <span class="product-origin-flag">🇪🇹 Ethiopia</span>
+                    <i class="fas fa-coffee-bean"></i>
+                </div>
+                <div class="product-details">
+                    <div class="product-seller">
+                        <i class="fas fa-store"></i>
+                        <span>Yirgacheffe Farmers</span>
+                        <i class="fas fa-check-circle seller-verified"></i>
+                    </div>
+                    <div class="product-title">Natural G1</div>
+                    <div class="product-meta">
+                        <span>Natural</span>
+                        <span>Grade 1</span>
+                        <span>SCA 88</span>
+                    </div>
+                    <div class="product-price">$9.20 <small>/kg FOB</small></div>
+                    <div class="product-meta">Lot: 500kg • Negotiable</div>
+                    <div class="product-actions">
+                        <button class="btn-primary">Contact Seller</button>
+                        <button class="btn-secondary"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 3 - Brazil -->
+            <div class="product-card">
+                <span class="product-badge b2b">B2B</span>
+                <div class="product-image">
+                    <span class="product-origin-flag">🇧🇷 Brazil</span>
+                    <i class="fas fa-coffee-bean"></i>
+                </div>
+                <div class="product-details">
+                    <div class="product-seller">
+                        <i class="fas fa-store"></i>
+                        <span>Minas Gerais Estate</span>
+                        <i class="fas fa-check-circle seller-verified"></i>
+                    </div>
+                    <div class="product-title">Yellow Bourbon</div>
+                    <div class="product-meta">
+                        <span>Pulped Natural</span>
+                        <span>SCA 84+</span>
+                    </div>
+                    <div class="product-price">$7.80 <small>/kg FOB</small></div>
+                    <div class="product-meta">Lot: 1,200kg • Negotiable</div>
+                    <div class="product-actions">
+                        <button class="btn-primary">Contact Seller</button>
+                        <button class="btn-secondary"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 4 - Kenya -->
+            <div class="product-card">
+                <span class="product-badge b2b">B2B</span>
+                <div class="product-image">
+                    <span class="product-origin-flag">🇰🇪 Kenya</span>
+                    <i class="fas fa-coffee-bean"></i>
+                </div>
+                <div class="product-details">
+                    <div class="product-seller">
+                        <i class="fas fa-store"></i>
+                        <span>Nyeri Cooperative</span>
+                        <i class="fas fa-check-circle seller-verified"></i>
+                    </div>
+                    <div class="product-title">SL28 & SL34</div>
+                    <div class="product-meta">
+                        <span>Washed</span>
+                        <span>AA Top</span>
+                        <span>SCA 89</span>
+                    </div>
+                    <div class="product-price">$10.20 <small>/kg FOB</small></div>
+                    <div class="product-meta">Lot: 280kg • Negotiable</div>
+                    <div class="product-actions">
+                        <button class="btn-primary">Contact Seller</button>
+                        <button class="btn-secondary"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 5 - Roasted Coffee -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-origin-flag">🔥 Roasted</span>
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="product-details">
+                    <div class="product-seller">
+                        <i class="fas fa-store"></i>
+                        <span>Moshi Roasters</span>
+                        <i class="fas fa-check-circle seller-verified"></i>
+                    </div>
+                    <div class="product-title">Kilimanjaro Espresso Blend</div>
+                    <div class="product-meta">
+                        <span>Medium Roast</span>
+                        <span>Whole Bean</span>
+                    </div>
+                    <div class="product-price">$18.50 <small>/bag (250g)</small></div>
+                    <div class="product-actions">
+                        <button class="btn-primary">Add to Cart</button>
+                        <button class="btn-secondary"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 6 - Equipment -->
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-origin-flag">⚙️ Equipment</span>
+                    <i class="fas fa-blender"></i>
+                </div>
+                <div class="product-details">
+                    <div class="product-seller">
+                        <i class="fas fa-store"></i>
+                        <span>Espresso Supply Co.</span>
+                        <i class="fas fa-check-circle seller-verified"></i>
+                    </div>
+                    <div class="product-title">La Marzocco Linea Mini</div>
+                    <div class="product-meta">
+                        <span>Commercial Grade</span>
+                        <span>2-year warranty</span>
+                    </div>
+                    <div class="product-price">$5,900 <small>USD</small></div>
+                    <div class="product-actions">
+                        <button class="btn-primary">View Details</button>
+                        <button class="btn-secondary"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination" style="display: flex; justify-content: center; gap: 0.5rem; margin: 3rem 0;">
+            <button class="page-btn"
+                style="width: 40px; height: 40px; border: 1px solid var(--gray-light); background: var(--white); border-radius: 10px;"><i
+                    class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active"
+                style="width: 40px; height: 40px; border: 1px solid var(--gray-light); background: var(--accent-gold); border-radius: 10px;">1</button>
+            <button class="page-btn"
+                style="width: 40px; height: 40px; border: 1px solid var(--gray-light); background: var(--white); border-radius: 10px;">2</button>
+            <button class="page-btn"
+                style="width: 40px; height: 40px; border: 1px solid var(--gray-light); background: var(--white); border-radius: 10px;">3</button>
+            <button class="page-btn"
+                style="width: 40px; height: 40px; border: 1px solid var(--gray-light); background: var(--white); border-radius: 10px;"><i
+                    class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="seller-spotlight">
+        <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; color: var(--primary-dark);">Verified Sellers Spotlight</h2>
+            <p style="color: var(--gray);">Connect with trusted cooperatives and exporters</p>
+        </div>
+
+        <div class="seller-grid">
+            <div class="seller-card">
+                <div class="seller-avatar">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="seller-name">Kilimanjaro Native Cooperative</div>
+                <div class="seller-location"><i class="fas fa-map-marker-alt"></i> Moshi, Tanzania</div>
+                <div class="seller-stats">
+                    <span><i class="fas fa-coffee"></i> 12 lots</span>
+                    <span><i class="fas fa-star"></i> 4.9</span>
+                </div>
+                <p style="margin: 1rem 0; font-size: 0.9rem;">Direct from 2,500 smallholder farmers on the slopes of
+                    Kilimanjaro</p>
+                <button class="btn-primary" style="width: 100%;">View Profile</button>
+            </div>
+
+            <div class="seller-card">
+                <div class="seller-avatar">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <div class="seller-name">Yirgacheffe Women Producers</div>
+                <div class="seller-location"><i class="fas fa-map-marker-alt"></i> Yirgacheffe, Ethiopia</div>
+                <div class="seller-stats">
+                    <span><i class="fas fa-coffee"></i> 8 lots</span>
+                    <span><i class="fas fa-star"></i> 5.0</span>
+                </div>
+                <p style="margin: 1rem 0; font-size: 0.9rem;">Women-led cooperative producing exceptional natural
+                    processed coffees</p>
+                <button class="btn-primary" style="width: 100%;">View Profile</button>
+            </div>
+
+            <div class="seller-card">
+                <div class="seller-avatar">
+                    <i class="fas fa-tree"></i>
+                </div>
+                <div class="seller-name">Nyeri Hill Estate</div>
+                <div class="seller-location"><i class="fas fa-map-marker-alt"></i> Nyeri, Kenya</div>
+                <div class="seller-stats">
+                    <span><i class="fas fa-coffee"></i> 15 lots</span>
+                    <span><i class="fas fa-star"></i> 4.8</span>
+                </div>
+                <p style="margin: 1rem 0; font-size: 0.9rem;">Multi-generation farm known for classic Kenyan SL28
+                    profiles</p>
+                <button class="btn-primary" style="width: 100%;">View Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="newsletter">
+        <h2>Get Marketplace Updates</h2>
+        <p>New green coffee arrivals, equipment deals, and seller opportunities</p>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Your email address">
+            <button>Subscribe</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Trust & Safety</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sell</h4>
+                <ul>
+                    <li><a href="#">List Green Coffee</a></li>
+                    <li><a href="#">Seller Verification</a></li>
+                    <li><a href="#">Pricing & Fees</a></li>
+                    <li><a href="#">Success Stories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Buy</h4>
+                <ul>
+                    <li><a href="#">Green Coffee</a></li>
+                    <li><a href="#">Roasted Coffee</a></li>
+                    <li><a href="#">Equipment</a></li>
+                    <li><a href="#">Education</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Market Reports</a></li>
+                    <li><a href="#">Shipping Guide</a></li>
+                    <li><a href="#">Coffee Calculator</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Dispute Resolution</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
