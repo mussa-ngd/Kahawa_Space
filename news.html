@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="css/mobile-menu.css">
     <style>
         * {
             margin: 0;
@@ -547,6 +548,126 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* Mobile Menu Styles - Add to all pages */
+.mobile-menu {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+/* Mobile Navigation Overlay */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--primary-dark);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 1000;
+        padding: 2rem;
+        animation: slideIn 0.3s ease;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        color: white;
+        font-size: 1.2rem;
+        padding: 1rem;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .nav-links a i {
+        color: var(--accent-gold);
+        margin-right: 10px;
+    }
+
+    .nav-links a:hover {
+        color: var(--accent-gold);
+        background: rgba(255,255,255,0.05);
+    }
+
+    .nav-links .coming-soon {
+        background: rgba(255,255,255,0.1);
+        color: var(--accent-gold);
+        margin-left: 10px;
+    }
+
+    .mobile-menu {
+        display: block;
+        color: var(--primary-dark);
+    }
+
+    .mobile-menu.active {
+        color: var(--accent-gold);
+        position: relative;
+        z-index: 1002;
+    }
+
+    /* Close button when menu is open */
+    .mobile-menu.active i::before {
+        content: "\f00d"; /* Font Awesome X icon */
+    }
+
+    /* Animation for menu */
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    /* Adjust auth buttons on mobile */
+    .auth-buttons {
+        gap: 0.5rem;
+    }
+
+    .btn-login, .btn-signup {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    /* Logo size adjustment */
+    .logo span {
+        font-size: 1.2rem;
+    }
+
+    .logo i {
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .auth-buttons .btn-login,
+    .auth-buttons .btn-signup {
+        display: none; /* Hide login/signup buttons on very small screens */
+    }
+    
+    .mobile-menu {
+        display: block;
+    }
+}
     </style>
 </head>
 
@@ -660,6 +781,7 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
+    <script src="js/main.js" defer></script>
                 <h4>About</h4>
                 <ul>
                     <li><a href="#">Our Story</a></li>
