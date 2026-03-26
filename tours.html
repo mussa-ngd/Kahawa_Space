@@ -621,9 +621,11 @@
             <a href="reels.html"><i class="fas fa-video"></i> Reels</a>            
         </div>
         <div class="auth-buttons">
-            <button class="btn-login">Log In</button>
-            <button class="btn-signup">Join</button>
-            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </nav>
 
@@ -973,6 +975,30 @@
             </div>
         </div>
     </footer>
+<!-- Mobile Menu Script -->
+<script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', function () {
+            navLinks.classList.toggle('active');
+            this.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+    }
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+    });
+</script>
 </body>
 </html>
-    <script src="js/main.js" defer></script>

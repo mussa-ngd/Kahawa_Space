@@ -1043,12 +1043,12 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="logo" onclick="window.location.href='index.html'" class="active">
+        <div class="logo" onclick="window.location.href='index.html'">
             <i class="fas fa-mug-hot"></i>
             <span>KAHAWA</span>
             <span>SPACE</span>
         </div>
-        
+    
         <div class="nav-links">
             <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
             <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
@@ -1057,10 +1057,10 @@
             <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
             <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
-
+    
         <div class="auth-buttons">
-            <button class="btn-login">Log In</button>
-            <button class="btn-signup">Join</button>
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
             <div class="mobile-menu">
                 <i class="fas fa-bars"></i>
             </div>
@@ -1516,9 +1516,30 @@
             </div>
         </div>
     </footer>
-    <!-- Add these before </body> -->
-    <script src="js/auth.js" defer></script>
-    <script src="js/main.js" defer></script>
+<!-- Mobile Menu Script -->
+<script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', function () {
+            navLinks.classList.toggle('active');
+            this.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+    }
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+    });
+</script>
 </body>
-</html>
-    
+</html>  

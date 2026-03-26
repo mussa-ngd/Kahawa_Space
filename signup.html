@@ -1,13 +1,14 @@
-<!-- join.html -->
+<!-- signup.html - Fixed Version -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kahawa Space - Join the Coffee Community</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/mobile-menu.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -45,7 +46,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -116,6 +117,7 @@
         .auth-buttons {
             display: flex;
             gap: 1rem;
+            align-items: center;
         }
 
         .btn-login {
@@ -127,6 +129,8 @@
             color: var(--primary-dark);
             cursor: pointer;
             transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-login:hover {
@@ -142,6 +146,8 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-signup:hover {
@@ -166,7 +172,7 @@
         .signup-card {
             background: var(--white);
             border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 100%;
             overflow: hidden;
@@ -178,6 +184,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -288,9 +295,28 @@
             box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
         }
 
-        .form-group input.error,
-        .form-group select.error {
-            border-color: #d32f2f;
+        /* Password Input with Toggle */
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-wrapper input {
+            padding-right: 3rem;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            cursor: pointer;
+            color: var(--gray);
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .toggle-password:hover {
+            color: var(--accent-gold);
         }
 
         .form-row {
@@ -316,8 +342,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Document Upload */
@@ -360,6 +393,56 @@
             padding: 0.5rem 1rem;
             border-radius: 8px;
             margin-top: 0.5rem;
+        }
+
+        /* Multi-select styling */
+        select[multiple] {
+            min-height: 100px;
+            background: var(--white);
+        }
+
+        select[multiple] option {
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        select[multiple] option:checked {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        /* Interest Checkboxes */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .interest-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .interest-checkbox:hover {
+            border-color: var(--accent-gold);
+            background: rgba(201, 162, 39, 0.05);
+        }
+
+        .interest-checkbox input {
+            width: auto;
+            margin: 0;
+        }
+
+        .interest-checkbox span {
+            font-size: 0.9rem;
+            color: var(--primary-dark);
         }
 
         /* Terms & Conditions */
@@ -457,6 +540,7 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -481,10 +565,25 @@
             transition: all 0.3s;
         }
 
-        .strength-meter-fill.weak { background: #d32f2f; width: 25%; }
-        .strength-meter-fill.fair { background: #ff9800; width: 50%; }
-        .strength-meter-fill.good { background: #2196f3; width: 75%; }
-        .strength-meter-fill.strong { background: var(--success); width: 100%; }
+        .strength-meter-fill.weak {
+            background: #d32f2f;
+            width: 25%;
+        }
+
+        .strength-meter-fill.fair {
+            background: #ff9800;
+            width: 50%;
+        }
+
+        .strength-meter-fill.good {
+            background: #2196f3;
+            width: 75%;
+        }
+
+        .strength-meter-fill.strong {
+            background: var(--success);
+            width: 100%;
+        }
 
         .strength-text {
             font-size: 0.7rem;
@@ -548,18 +647,27 @@
             .nav-links {
                 display: none;
             }
+
             .mobile-menu {
                 display: block;
             }
+
             .signup-card {
                 margin: 1rem;
             }
+
             .form-row {
                 grid-template-columns: 1fr;
             }
+
             .role-selector {
                 flex-direction: column;
             }
+
+            .interests-grid {
+                grid-template-columns: 1fr;
+            }
+
             .footer-links {
                 gap: 1rem;
             }
@@ -594,7 +702,7 @@
                 padding: 1rem;
                 width: 100%;
                 text-align: center;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             .nav-links a i {
@@ -623,16 +731,19 @@
         }
 
         @media (max-width: 480px) {
+
             .auth-buttons .btn-login,
             .auth-buttons .btn-signup {
                 display: none;
             }
+
             .mobile-menu {
                 display: block;
             }
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
@@ -649,8 +760,8 @@
             <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
         <div class="auth-buttons">
-            <button class="btn-login" onclick="window.location.href='login.html'">Log In</button>
-            <button class="btn-signup" onclick="window.location.href='join.html'">Join</button>
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
             <div class="mobile-menu"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
@@ -703,7 +814,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="password">Password *</label>
-                            <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+                            <div class="password-wrapper">
+                                <input type="password" id="password" name="password"
+                                    placeholder="Create a strong password" required>
+                                <i class="fas fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+                            </div>
                             <div class="password-strength">
                                 <div class="strength-meter">
                                     <div class="strength-meter-fill" id="strengthFill"></div>
@@ -713,7 +828,12 @@
                         </div>
                         <div class="form-group">
                             <label for="confirmPassword">Confirm Password *</label>
-                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                            <div class="password-wrapper">
+                                <input type="password" id="confirmPassword" name="confirmPassword"
+                                    placeholder="Confirm your password" required>
+                                <i class="fas fa-eye toggle-password"
+                                    onclick="togglePassword('confirmPassword', this)"></i>
+                            </div>
                         </div>
                     </div>
 
@@ -740,7 +860,8 @@
                     <div id="sellerFields" class="seller-fields">
                         <div class="form-group">
                             <label for="businessName">Business Name *</label>
-                            <input type="text" id="businessName" name="businessName" placeholder="Your business/cooperative name">
+                            <input type="text" id="businessName" name="businessName"
+                                placeholder="Your business/cooperative name">
                         </div>
                         <div class="form-group">
                             <label for="businessReg">Business Registration Number (BRELA) *</label>
@@ -804,11 +925,13 @@
                                 <i class="fas fa-cloud-upload-alt"></i>
                                 <p>Click or drag to upload business registration</p>
                                 <p class="file-types">PDF, JPG, PNG (Max 10MB)</p>
-                                <input type="file" id="businessDoc" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                                <input type="file" id="businessDoc" accept=".pdf,.jpg,.jpeg,.png"
+                                    style="display: none;">
                             </div>
                             <div id="businessDocName" class="uploaded-file" style="display: none;">
                                 <span><i class="fas fa-file-pdf"></i> <span id="businessDocFileName"></span></span>
-                                <i class="fas fa-trash" style="cursor: pointer; color: #d32f2f;"></i>
+                                <i class="fas fa-trash" style="cursor: pointer; color: #d32f2f;"
+                                    onclick="clearFile('businessDoc', 'businessDocName')"></i>
                             </div>
                         </div>
 
@@ -822,7 +945,8 @@
                             </div>
                             <div id="originDocName" class="uploaded-file" style="display: none;">
                                 <span><i class="fas fa-file-pdf"></i> <span id="originDocFileName"></span></span>
-                                <i class="fas fa-trash" style="cursor: pointer; color: #d32f2f;"></i>
+                                <i class="fas fa-trash" style="cursor: pointer; color: #d32f2f;"
+                                    onclick="clearFile('originDoc', 'originDocName')"></i>
                             </div>
                         </div>
 
@@ -836,24 +960,52 @@
                             </div>
                             <div id="qualityDocName" class="uploaded-file" style="display: none;">
                                 <span><i class="fas fa-file-pdf"></i> <span id="qualityDocFileName"></span></span>
-                                <i class="fas fa-trash" style="cursor: pointer; color: #d32f2f;"></i>
+                                <i class="fas fa-trash" style="cursor: pointer; color: #d32f2f;"
+                                    onclick="clearFile('qualityDoc', 'qualityDocName')"></i>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Individual Fields -->
+                    <!-- Individual Fields - Updated with checkboxes for multiple interests -->
                     <div id="individualFields" class="seller-fields">
                         <div class="form-group">
-                            <label for="interests">Coffee Interests</label>
-                            <select id="interests" name="interests" multiple>
-                                <option value="home-brewing">Home Brewing</option>
-                                <option value="espresso">Espresso</option>
-                                <option value="latte-art">Latte Art</option>
-                                <option value="roasting">Home Roasting</option>
-                                <option value="cupping">Cupping/Tasting</option>
-                                <option value="origin-tours">Origin Tours</option>
-                            </select>
-                            <div class="help-text">Tell us what you're passionate about</div>
+                            <label>What are your coffee interests? (Select all that apply)</label>
+                            <div class="interests-grid" id="interestsGrid">
+                                <label class="interest-checkbox">
+                                    <input type="checkbox" name="interests" value="home-brewing">
+                                    <span>🏠 Home Brewing</span>
+                                </label>
+                                <label class="interest-checkbox">
+                                    <input type="checkbox" name="interests" value="espresso">
+                                    <span>☕ Espresso</span>
+                                </label>
+                                <label class="interest-checkbox">
+                                    <input type="checkbox" name="interests" value="latte-art">
+                                    <span>🎨 Latte Art</span>
+                                </label>
+                                <label class="interest-checkbox">
+                                    <input type="checkbox" name="interests" value="roasting">
+                                    <span>🔥 Home Roasting</span>
+                                </label>
+                                <label class="interest-checkbox">
+                                    <input type="checkbox" name="interests" value="cupping">
+                                    <span>👃 Cupping/Tasting</span>
+                                </label>
+                                <label class="interest-checkbox">
+                                    <input type="checkbox" name="interests" value="origin-tours">
+                                    <span>✈️ Origin Tours</span>
+                                </label>
+                                <label class="interest-checkbox">
+                                    <input type="checkbox" name="interests" value="sustainable">
+                                    <span>🌱 Sustainable Coffee</span>
+                                </label>
+                                <label class="interest-checkbox">
+                                    <input type="checkbox" name="interests" value="direct-trade">
+                                    <span>🤝 Direct Trade</span>
+                                </label>
+                            </div>
+                            <div class="help-text">Select all that interest you - we'll personalize your experience
+                            </div>
                         </div>
                     </div>
 
@@ -861,9 +1013,10 @@
                     <div class="terms-group">
                         <label class="checkbox-label">
                             <input type="checkbox" id="termsAgree" required>
-                            <span>I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and 
-                            <a href="privacy.html" target="_blank">Privacy Policy</a>. I understand that my information 
-                            will be used in accordance with Kahawa Space's practices.</span>
+                            <span>I agree to the <a href="terms.html" target="_blank">Terms of Service</a> and
+                                <a href="privacy.html" target="_blank">Privacy Policy</a>. I understand that my
+                                information
+                                will be used in accordance with Kahawa Space's practices.</span>
                         </label>
                     </div>
 
@@ -876,7 +1029,8 @@
 
                     <button type="submit" class="signup-btn" id="signupBtn">
                         <span id="btnText">Create Account</span>
-                        <span id="btnLoader" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Creating account...</span>
+                        <span id="btnLoader" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Creating
+                            account...</span>
                     </button>
                 </form>
 
@@ -904,15 +1058,15 @@
         // Mobile Menu Toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu');
         const navLinks = document.querySelector('.nav-links');
-        
+
         if (mobileMenuBtn && navLinks) {
-            mobileMenuBtn.addEventListener('click', function() {
+            mobileMenuBtn.addEventListener('click', function () {
                 navLinks.classList.toggle('active');
                 this.classList.toggle('active');
                 document.body.classList.toggle('menu-open');
             });
         }
-        
+
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLinks.classList.contains('active')) {
@@ -923,25 +1077,39 @@
             });
         });
 
+        // Toggle Password Visibility
+        function togglePassword(inputId, element) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                element.classList.remove('fa-eye');
+                element.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                element.classList.remove('fa-eye-slash');
+                element.classList.add('fa-eye');
+            }
+        }
+
         // Role Selection
         const roleOptions = document.querySelectorAll('.role-option');
         const buyerFields = document.getElementById('buyerFields');
         const sellerFields = document.getElementById('sellerFields');
         const individualFields = document.getElementById('individualFields');
-        
+
         let selectedRole = 'buyer';
-        
+
         roleOptions.forEach(option => {
             option.addEventListener('click', () => {
                 roleOptions.forEach(opt => opt.classList.remove('active'));
                 option.classList.add('active');
                 selectedRole = option.dataset.role;
-                
+
                 // Hide all fields first
                 buyerFields.classList.remove('show');
                 sellerFields.classList.remove('show');
                 individualFields.classList.remove('show');
-                
+
                 // Show selected role fields
                 if (selectedRole === 'buyer') {
                     buyerFields.classList.add('show');
@@ -957,22 +1125,22 @@
         const passwordInput = document.getElementById('password');
         const strengthFill = document.getElementById('strengthFill');
         const strengthText = document.getElementById('strengthText');
-        
+
         function checkPasswordStrength(password) {
             let strength = 0;
-            
+
             if (password.length >= 8) strength++;
             if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
             if (password.match(/\d/)) strength++;
             if (password.match(/[^a-zA-Z\d]/)) strength++;
-            
+
             if (password.length === 0) return { level: 0, text: '' };
             if (strength === 1) return { level: 1, text: 'Weak', class: 'weak' };
             if (strength === 2) return { level: 2, text: 'Fair', class: 'fair' };
             if (strength === 3) return { level: 3, text: 'Good', class: 'good' };
             return { level: 4, text: 'Strong', class: 'strong' };
         }
-        
+
         passwordInput.addEventListener('input', () => {
             const result = checkPasswordStrength(passwordInput.value);
             strengthFill.className = `strength-meter-fill ${result.class}`;
@@ -985,7 +1153,9 @@
             const fileInput = document.getElementById(fileInputId);
             const displayDiv = document.getElementById(displayId);
             const fileNameSpan = document.getElementById(fileNameSpanId);
-            
+
+            if (!uploadDiv || !fileInput) return;
+
             uploadDiv.addEventListener('click', () => fileInput.click());
             uploadDiv.addEventListener('dragover', (e) => {
                 e.preventDefault();
@@ -1000,14 +1170,14 @@
                 const files = e.dataTransfer.files;
                 if (files.length > 0) handleFileUpload(files[0], fileInput, displayDiv, fileNameSpan);
             });
-            
+
             fileInput.addEventListener('change', (e) => {
                 if (e.target.files.length > 0) {
                     handleFileUpload(e.target.files[0], fileInput, displayDiv, fileNameSpan);
                 }
             });
         }
-        
+
         function handleFileUpload(file, fileInput, displayDiv, fileNameSpan) {
             const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
             if (!validTypes.includes(file.type)) {
@@ -1018,14 +1188,25 @@
                 showAlert('File size must be less than 10MB', 'error');
                 return;
             }
-            
+
             fileNameSpan.textContent = file.name;
             displayDiv.style.display = 'flex';
-            
+
             // Store file for submission
             fileInput.file = file;
         }
-        
+
+        function clearFile(fileInputId, displayId) {
+            const fileInput = document.getElementById(fileInputId);
+            const displayDiv = document.getElementById(displayId);
+
+            if (fileInput) fileInput.value = '';
+            if (displayDiv) displayDiv.style.display = 'none';
+
+            // Clear stored file
+            if (fileInput) fileInput.file = null;
+        }
+
         // Setup document uploads for seller
         setupDocumentUpload('businessDocUpload', 'businessDoc', 'businessDocName', 'businessDocFileName');
         setupDocumentUpload('originDocUpload', 'originDoc', 'originDocName', 'originDocFileName');
@@ -1033,7 +1214,7 @@
 
         // Alert Functions
         const alertMessage = document.getElementById('alertMessage');
-        
+
         function showAlert(message, type = 'error') {
             alertMessage.style.display = 'block';
             alertMessage.className = `alert alert-${type}`;
@@ -1051,17 +1232,17 @@
         const signupBtn = document.getElementById('signupBtn');
         const btnText = document.getElementById('btnText');
         const btnLoader = document.getElementById('btnLoader');
-        
+
         function isValidEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         }
-        
+
         function validateBRELA(number) {
             const brelaPattern = /^\d{6,8}-\d{3,5}$/;
             return brelaPattern.test(number);
         }
-        
+
         async function handleSignup(formData) {
             // This will connect to your backend
             return new Promise((resolve) => {
@@ -1073,10 +1254,10 @@
                 }, 1500);
             });
         }
-        
+
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             // Get common fields
             const fullName = document.getElementById('fullName').value.trim();
             const email = document.getElementById('email').value.trim();
@@ -1084,64 +1265,64 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const termsAgree = document.getElementById('termsAgree').checked;
-            
+
             // Validation
             if (!fullName || !email || !password || !confirmPassword) {
                 showAlert('Please fill in all required fields', 'error');
                 return;
             }
-            
+
             if (!isValidEmail(email)) {
                 showAlert('Please enter a valid email address', 'error');
                 return;
             }
-            
+
             if (password !== confirmPassword) {
                 showAlert('Passwords do not match', 'error');
                 return;
             }
-            
+
             if (password.length < 8) {
                 showAlert('Password must be at least 8 characters', 'error');
                 return;
             }
-            
+
             if (!termsAgree) {
                 showAlert('Please agree to the Terms of Service and Privacy Policy', 'error');
                 return;
             }
-            
+
             // Role-specific validation
             if (selectedRole === 'seller') {
                 const businessName = document.getElementById('businessName').value.trim();
                 const businessReg = document.getElementById('businessReg').value.trim();
                 const country = document.getElementById('country').value;
-                
+
                 if (!businessName || !businessReg || !country) {
                     showAlert('Please fill in all seller business information', 'error');
                     return;
                 }
-                
+
                 if (country === 'Tanzania' && !validateBRELA(businessReg)) {
                     showAlert('Invalid BRELA number format. Should be like: 123456-789', 'error');
                     return;
                 }
-                
+
                 // Check document uploads
                 const businessDoc = document.getElementById('businessDoc').file;
                 const originDoc = document.getElementById('originDoc').file;
-                
+
                 if (!businessDoc || !originDoc) {
                     showAlert('Please upload business registration and origin documentation', 'error');
                     return;
                 }
             }
-            
+
             // Show loading state
             btnText.style.display = 'none';
             btnLoader.style.display = 'inline-block';
             signupBtn.disabled = true;
-            
+
             // Prepare form data for submission
             const formData = {
                 fullName,
@@ -1152,7 +1333,7 @@
                 termsAgree,
                 newsletter: document.getElementById('newsletterAgree').checked
             };
-            
+
             // Add role-specific data
             if (selectedRole === 'buyer') {
                 formData.companyName = document.getElementById('companyName').value;
@@ -1167,12 +1348,17 @@
                 formData.varieties = Array.from(document.getElementById('varieties').selectedOptions).map(opt => opt.value);
                 formData.processing = Array.from(document.getElementById('processing').selectedOptions).map(opt => opt.value);
             } else if (selectedRole === 'individual') {
-                formData.interests = Array.from(document.getElementById('interests').selectedOptions).map(opt => opt.value);
+                // Get selected interests from checkboxes
+                const selectedInterests = [];
+                document.querySelectorAll('input[name="interests"]:checked').forEach(checkbox => {
+                    selectedInterests.push(checkbox.value);
+                });
+                formData.interests = selectedInterests;
             }
-            
+
             try {
                 const response = await handleSignup(formData);
-                
+
                 if (response.success) {
                     showAlert(response.message, 'success');
                     setTimeout(() => {
@@ -1189,7 +1375,7 @@
                 signupBtn.disabled = false;
             }
         });
-        
+
         // Check for URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const error = urlParams.get('error');
@@ -1198,4 +1384,5 @@
         }
     </script>
 </body>
+
 </html>
