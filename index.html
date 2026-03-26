@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,8 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -43,7 +45,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -54,6 +56,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
         }
 
         .logo i {
@@ -113,6 +116,7 @@
         .auth-buttons {
             display: flex;
             gap: 1rem;
+            align-items: center;
         }
 
         .btn-login {
@@ -124,6 +128,8 @@
             color: var(--primary-dark);
             cursor: pointer;
             transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-login:hover {
@@ -139,6 +145,8 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-signup:hover {
@@ -187,82 +195,6 @@
             opacity: 0.9;
         }
 
-        /* Footer Styles - added across pages */
-        footer {
-            background: var(--primary-dark);
-            color: white;
-            padding: 4rem 5% 2rem;
-            margin-top: auto;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-col h4 {
-            color: var(--accent-gold);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .footer-col ul { list-style: none; padding: 0; }
-
-        .footer-col ul li { margin-bottom: 0.8rem; }
-
-        .footer-col ul li a {
-            color: #e6d5b8;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .footer-col ul li a:hover { color: var(--accent-gold); }
-
-        .footer-bottom {
-            border-top: 1px solid #3d2a1c;
-            padding-top: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            font-size: 0.9rem;
-            color: #e6d5b8;
-        }
-
-        .social-links { display: flex; gap: 1rem; }
-
-        .social-links a {
-            color: white;
-            background: #3d2a1c;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-            transform: translateY(-3px);
-        }
-
-        @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-            .footer-bottom { flex-direction: column; text-align: center; }
-            .social-links { justify-content: center; }
-        }
-
-        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
-
         .hero-stats {
             display: flex;
             justify-content: center;
@@ -298,7 +230,7 @@
             background: white;
             border-radius: 50px;
             padding: 0.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
         }
@@ -373,7 +305,7 @@
 
         .category-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border-color: var(--accent-gold);
         }
 
@@ -431,7 +363,7 @@
             background: white;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s;
         }
 
@@ -513,7 +445,7 @@
 
         .product-card:hover {
             border-color: var(--primary-brown);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
         }
 
         .product-image {
@@ -716,6 +648,7 @@
             background: var(--primary-dark);
             color: white;
             padding: 4rem 5% 2rem;
+            margin-top: auto;
         }
 
         .footer-grid {
@@ -790,51 +723,6 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
-        /* Hide mobile-only links on desktop */
-        .mobile-only {
-            display: none !important;
-        }
-
-        /* Show them only inside the mobile menu */
-        @media (max-width: 768px) {
-            .mobile-only {
-                display: block !important;
-            }
-            
-            /* Ensure the auth buttons are completely hidden on mobile so they don't break the layout */
-            .auth-buttons {
-                display: none !important;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-stats {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
 
         /* Reels Section */
         .reels-section {
@@ -883,7 +771,7 @@
             left: 0;
             right: 0;
             padding: 1rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
             color: white;
         }
 
@@ -899,7 +787,7 @@
             overflow: hidden;
             display: flex;
             margin-bottom: 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
         }
 
         .tour-image {
@@ -927,134 +815,140 @@
             .tour-card {
                 flex-direction: column;
             }
-            
+
             .tour-image {
                 width: 100%;
                 height: 200px;
             }
         }
-        /* Mobile Menu Styles - Add to all pages */
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 1001;
-        }
 
         /* Mobile Navigation Overlay */
         @media (max-width: 768px) {
-        .nav-links {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: var(--primary-dark);
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            z-index: 1000;
-            padding: 2rem;
-            animation: slideIn 0.3s ease;
-        }
-
-        .nav-links.active {
-            display: flex;
-        }
-
-        .nav-links a {
-            color: white;
-            font-size: 1.2rem;
-            padding: 1rem;
-            width: 100%;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .nav-links a i {
-            color: var(--accent-gold);
-            margin-right: 10px;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-gold);
-            background: rgba(255,255,255,0.05);
-        }
-
-        .nav-links .coming-soon {
-            background: rgba(255,255,255,0.1);
-            color: var(--accent-gold);
-            margin-left: 10px;
-        }
-
-        .mobile-menu {
-            display: block;
-            color: var(--primary-dark);
-        }
-
-        .mobile-menu.active {
-            color: var(--accent-gold);
-            position: relative;
-            z-index: 1002;
-        }
-
-        /* Close button when menu is open */
-        .mobile-menu.active i::before {
-            content: "\f00d"; /* Font Awesome X icon */
-        }
-
-        /* Animation for menu */
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--primary-dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1000;
+                padding: 2rem;
+                animation: slideIn 0.3s ease;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .nav-links.active {
+                display: flex;
             }
-        }
 
-        /* Prevent body scroll when menu is open */
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        /* Adjust auth buttons on mobile */
-        .auth-buttons {
-            gap: 0.5rem;
-        }
-
-        .btn-login, .btn-signup {
-            padding: 0.4rem 1rem;
-            font-size: 0.85rem;
-        }
-
-        /* Logo size adjustment */
-        .logo span {
-            font-size: 1.2rem;
-        }
-
-        .logo i {
-            font-size: 1.5rem;
-        }
-    }
-
-        /* Extra small devices */
-        @media (max-width: 480px) {
-            .auth-buttons .btn-login,
-            .auth-buttons .btn-signup {
-                display: none; /* Hide login/signup buttons on very small screens */
+            .nav-links a {
+                color: white;
+                font-size: 1.2rem;
+                padding: 1rem;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
-            
+
+            .nav-links a i {
+                color: var(--accent-gold);
+                margin-right: 10px;
+            }
+
+            .nav-links a:hover {
+                color: var(--accent-gold);
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-links .coming-soon {
+                background: rgba(255, 255, 255, 0.1);
+                color: var(--accent-gold);
+                margin-left: 10px;
+            }
+
             .mobile-menu {
                 display: block;
+                color: var(--primary-dark);
             }
-         }
+
+            .mobile-menu.active {
+                color: var(--accent-gold);
+                position: relative;
+                z-index: 1002;
+            }
+
+            /* Close button when menu is open */
+            .mobile-menu.active i::before {
+                content: "\f00d";
+            }
+
+            /* Animation for menu */
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Prevent body scroll when menu is open */
+            body.menu-open {
+                overflow: hidden;
+            }
+
+            /* Logo size adjustment */
+            .logo span {
+                font-size: 1.2rem;
+            }
+
+            .logo i {
+                font-size: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -1063,7 +957,7 @@
             <span>KAHAWA</span>
             <span>SPACE</span>
         </div>
-    
+
         <div class="nav-links">
             <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
             <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
@@ -1072,16 +966,13 @@
             <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
             <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
-    
+
         <div class="auth-buttons">
-            <a href="login.html" class="mobile-only"
-                style="color: var(--accent-gold, #c9a227); border-top: 1px solid rgba(255,255,255,0.1); margin-top: 10px;"><i
-                    class="fas fa-sign-in-alt"></i> Log In</a>
-            <a href="signup.html" class="mobile-only" style="color: var(--white);"><i class="fas fa-user-plus"></i> Join Kahawa
-                Space</a>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </nav>
 
@@ -1091,8 +982,9 @@
             Where Coffee Connects the World
             <span>Global Platform for Coffee Professionals & Lovers</span>
         </h1>
-        <p>Connect directly with producers, discover specialty coffee, and advance your coffee career through education and trade.</p>
-        
+        <p>Connect directly with producers, discover specialty coffee, and advance your coffee career through education
+            and trade.</p>
+
         <div class="hero-stats">
             <div class="stat-item">
                 <div class="stat-number">45+</div>
@@ -1124,7 +1016,7 @@
             <h2>The Marketplace</h2>
             <p>Source directly from origins, discover roasters, and equip your café</p>
         </div>
-        
+
         <div class="category-grid">
             <div class="category-card">
                 <div class="category-icon">
@@ -1134,7 +1026,7 @@
                 <p>Micro-lots, specialty grade, and cooperative supplies from Tanzania, Ethiopia, Kenya & Brazil</p>
                 <span class="badge">B2B Opportunity</span>
             </div>
-            
+
             <div class="category-card">
                 <div class="category-icon">
                     <i class="fas fa-fire"></i>
@@ -1143,7 +1035,7 @@
                 <p>Global brands, African specialty roasters, and subscription boxes</p>
                 <span class="badge">Direct to Consumer</span>
             </div>
-            
+
             <div class="category-card">
                 <div class="category-icon">
                     <i class="fas fa-blender"></i>
@@ -1152,7 +1044,7 @@
                 <p>Espresso machines, grinders, brewers, and full café setup packages</p>
                 <span class="badge">Professional Grade</span>
             </div>
-            
+
             <div class="category-card">
                 <div class="category-icon">
                     <i class="fas fa-book"></i>
@@ -1170,7 +1062,7 @@
             <h2>Featured Green Coffee</h2>
             <p>Direct from origin • Verified sellers • Negotiable pricing</p>
         </div>
-        
+
         <div class="product-grid">
             <div class="product-card">
                 <div class="product-image">
@@ -1185,7 +1077,7 @@
                 <div class="product-meta">Lot: 350kg • FOB</div>
                 <button class="btn-product">Negotiate Price</button>
             </div>
-            
+
             <div class="product-card">
                 <div class="product-image">
                     <i class="fas fa-coffee-bean"></i>
@@ -1199,7 +1091,7 @@
                 <div class="product-meta">Lot: 500kg • FOB</div>
                 <button class="btn-product">Negotiate Price</button>
             </div>
-            
+
             <div class="product-card">
                 <div class="product-image">
                     <i class="fas fa-coffee-bean"></i>
@@ -1213,7 +1105,7 @@
                 <div class="product-meta">Lot: 1,200kg • FOB</div>
                 <button class="btn-product">Negotiate Price</button>
             </div>
-            
+
             <div class="product-card">
                 <div class="product-image">
                     <i class="fas fa-coffee-bean"></i>
@@ -1236,7 +1128,7 @@
             <h2>Industry News & Intelligence</h2>
             <p>Stay ahead with market movements, origin stories, and industry innovation</p>
         </div>
-        
+
         <div class="news-grid">
             <div class="news-card">
                 <div class="news-image" style="background-image: linear-gradient(135deg, #8b5a2b, #2c1810);">
@@ -1249,7 +1141,7 @@
                     <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-            
+
             <div class="news-card">
                 <div class="news-image" style="background-image: linear-gradient(135deg, #2c1810, #c9a227);">
                     <div class="news-tag">Market Intelligence</div>
@@ -1261,7 +1153,7 @@
                     <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-            
+
             <div class="news-card">
                 <div class="news-image" style="background-image: linear-gradient(135deg, #b87c4b, #8b5a2b);">
                     <div class="news-tag">Innovation</div>
@@ -1273,7 +1165,7 @@
                     <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-            
+
             <div class="news-card">
                 <div class="news-image" style="background-image: linear-gradient(135deg, #c9a227, #b87c4b);">
                     <div class="news-tag">Competitions</div>
@@ -1294,7 +1186,7 @@
             <h2>Video & Reels</h2>
             <p>Stories from origin • Barista interviews • Equipment reviews</p>
         </div>
-        
+
         <div class="reels-grid">
             <div class="reel-card">
                 <div class="reel-thumbnail">
@@ -1305,7 +1197,7 @@
                     <div>2:30</div>
                 </div>
             </div>
-            
+
             <div class="reel-card">
                 <div class="reel-thumbnail">
                     <i class="fas fa-play-circle"></i>
@@ -1315,7 +1207,7 @@
                     <div>4:15</div>
                 </div>
             </div>
-            
+
             <div class="reel-card">
                 <div class="reel-thumbnail">
                     <i class="fas fa-play-circle"></i>
@@ -1325,7 +1217,7 @@
                     <div>3:45</div>
                 </div>
             </div>
-            
+
             <div class="reel-card">
                 <div class="reel-thumbnail">
                     <i class="fas fa-play-circle"></i>
@@ -1344,7 +1236,7 @@
             <h2>Coffee Origins Tours</h2>
             <p>Join curated trips • Visit farms • Meet producers</p>
         </div>
-        
+
         <div class="tour-card">
             <div class="tour-image">
                 <i class="fas fa-mountain"></i>
@@ -1352,7 +1244,8 @@
             <div class="tour-content">
                 <div class="tour-dates">June 15-22, 2026</div>
                 <h3>Tanzania: Kilimanjaro Coffee Trail</h3>
-                <p>Visit cooperative farms, witness harvest, and cup with producers on the slopes of Kilimanjaro. Includes farm stays and cultural experiences.</p>
+                <p>Visit cooperative farms, witness harvest, and cup with producers on the slopes of Kilimanjaro.
+                    Includes farm stays and cultural experiences.</p>
                 <div style="margin-top: 1rem; display: flex; gap: 1rem;">
                     <span><i class="fas fa-users"></i> 8 spots left</span>
                     <span><i class="fas fa-coffee"></i> 5 farms</span>
@@ -1360,7 +1253,7 @@
                 <button class="btn-product" style="width: auto; margin-top: 1rem;">View Tour</button>
             </div>
         </div>
-        
+
         <div class="tour-card">
             <div class="tour-image">
                 <i class="fas fa-leaf"></i>
@@ -1368,7 +1261,8 @@
             <div class="tour-content">
                 <div class="tour-dates">August 5-14, 2026</div>
                 <h3>Ethiopia: Origins of Coffee</h3>
-                <p>Trace the heritage of coffee in Yirgacheffe and Sidama. Visit washing stations, meet legendary producers, and explore Addis Ababa's coffee culture.</p>
+                <p>Trace the heritage of coffee in Yirgacheffe and Sidama. Visit washing stations, meet legendary
+                    producers, and explore Addis Ababa's coffee culture.</p>
                 <div style="margin-top: 1rem; display: flex; gap: 1rem;">
                     <span><i class="fas fa-users"></i> 12 spots left</span>
                     <span><i class="fas fa-coffee"></i> 8 farms</span>
@@ -1384,45 +1278,49 @@
             <h2>Coffee Education</h2>
             <p>Advance your skills from bean to cup</p>
         </div>
-        
+
         <div class="courses-grid">
             <div class="course-card">
                 <div class="course-level">Beginner • 4 weeks</div>
                 <div class="course-title">Barista Foundation</div>
-                <div class="course-desc">Master espresso extraction, milk texturing, and foundational barista skills.</div>
+                <div class="course-desc">Master espresso extraction, milk texturing, and foundational barista skills.
+                </div>
                 <div class="course-meta">
                     <span><i class="far fa-clock"></i> 12 hours</span>
                     <span><i class="fas fa-certificate"></i> Certificate</span>
                 </div>
                 <button class="btn-product">Enroll Now</button>
             </div>
-            
+
             <div class="course-card">
                 <div class="course-level">Intermediate • 6 weeks</div>
                 <div class="course-title">Brewing Mastery</div>
-                <div class="course-desc">Pour-over, French press, cold brew - understand extraction variables and perfect your technique.</div>
+                <div class="course-desc">Pour-over, French press, cold brew - understand extraction variables and
+                    perfect your technique.</div>
                 <div class="course-meta">
                     <span><i class="far fa-clock"></i> 18 hours</span>
                     <span><i class="fas fa-certificate"></i> Certificate</span>
                 </div>
                 <button class="btn-product">Enroll Now</button>
             </div>
-            
+
             <div class="course-card">
                 <div class="course-level">Advanced • 8 weeks</div>
                 <div class="course-title">Roasting Fundamentals</div>
-                <div class="course-desc">From green analysis to roast profiles - learn the science and art of coffee roasting.</div>
+                <div class="course-desc">From green analysis to roast profiles - learn the science and art of coffee
+                    roasting.</div>
                 <div class="course-meta">
                     <span><i class="far fa-clock"></i> 24 hours</span>
                     <span><i class="fas fa-certificate"></i> Certificate</span>
                 </div>
                 <button class="btn-product">Enroll Now</button>
             </div>
-            
+
             <div class="course-card">
                 <div class="course-level">Professional • 10 weeks</div>
                 <div class="course-title">Coffee Business Management</div>
-                <div class="course-desc">Open and scale a successful café, manage supply chains, and build your brand.</div>
+                <div class="course-desc">Open and scale a successful café, manage supply chains, and build your brand.
+                </div>
                 <div class="course-meta">
                     <span><i class="far fa-clock"></i> 30 hours</span>
                     <span><i class="fas fa-certificate"></i> Certificate</span>
@@ -1481,7 +1379,7 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-col">
                 <h4>Sell</h4>
                 <ul>
@@ -1491,7 +1389,7 @@
                     <li><a href="#">Success Stories</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-col">
                 <h4>Buy</h4>
                 <ul>
@@ -1501,7 +1399,7 @@
                     <li><a href="#">Education</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-col">
                 <h4>Resources</h4>
                 <ul>
@@ -1511,7 +1409,7 @@
                     <li><a href="#">Blog</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-col">
                 <h4>Legal</h4>
                 <ul>
@@ -1522,7 +1420,7 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
             <div class="social-links">
@@ -1534,30 +1432,31 @@
             </div>
         </div>
     </footer>
-<!-- Mobile Menu Script -->
-<script>
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
 
-    if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', function () {
-            navLinks.classList.toggle('active');
-            this.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-        });
-    }
+    <!-- Mobile Menu Script -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
 
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            }
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+                this.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                }
+            });
         });
-    });
-</script>
+    </script>
 </body>
-</html>  
+</html>
