@@ -1,0 +1,1016 @@
+<!-- profile.html - User Profile Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kahawa Space - My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2c1810;
+            background: #faf7f2;
+        }
+
+        :root {
+            --primary-dark: #2c1810;
+            --primary-brown: #8b5a2b;
+            --primary-medium: #b87c4b;
+            --primary-light: #e6d5b8;
+            --accent-gold: #c9a227;
+            --cream: #faf7f2;
+            --white: #ffffff;
+            --gray-light: #f0e9e0;
+            --gray: #9b8b7a;
+            --success: #2e7d32;
+            --warning: #ff9800;
+            --danger: #d32f2f;
+            --info: #2196f3;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo i { font-size: 2rem; color: var(--primary-brown); }
+        .logo span { font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); letter-spacing: -0.5px; }
+        .logo span:last-child { color: var(--accent-gold); font-weight: 400; font-size: 1rem; margin-left: 5px; }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a i { color: var(--primary-medium); }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-gold); }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .user-name { font-weight: 500; }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            min-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+            margin-top: 0.5rem;
+            z-index: 100;
+        }
+
+        .user-menu:hover .user-dropdown { display: block; }
+        .user-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.75rem 1rem;
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+        .user-dropdown a:hover { background: var(--cream); }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #3d2a1c 100%);
+            color: white;
+            padding: 2rem 5%;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            opacity: 0.8;
+        }
+
+        /* Profile Container */
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        /* Profile Layout */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .profile-sidebar {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .profile-avatar {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-brown));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .avatar-upload {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: var(--accent-gold);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .avatar-upload:hover {
+            transform: scale(1.1);
+        }
+
+        .avatar-upload i {
+            color: var(--primary-dark);
+            font-size: 1rem;
+        }
+
+        .profile-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-role {
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            background: var(--cream);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-brown);
+            margin-bottom: 1rem;
+        }
+
+        .profile-verification {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .verification-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-verified {
+            background: rgba(46,125,80,0.1);
+            color: var(--success);
+        }
+
+        .badge-pending {
+            background: rgba(255,152,0,0.1);
+            color: var(--warning);
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        .profile-menu {
+            list-style: none;
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .profile-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--primary-dark);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .profile-menu a:hover,
+        .profile-menu a.active {
+            background: var(--cream);
+            color: var(--accent-gold);
+        }
+
+        .profile-menu a i {
+            width: 20px;
+        }
+
+        /* Main Content */
+        .profile-main {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .profile-section {
+            display: none;
+        }
+
+        .profile-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-gold);
+            display: inline-block;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-save {
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-save:hover {
+            background: var(--primary-brown);
+            transform: translateY(-2px);
+        }
+
+        .btn-verify {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        /* Interests Grid */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .interest-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--cream);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .interest-tag:hover {
+            background: var(--gray-light);
+        }
+
+        .interest-tag.selected {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        .interest-tag input {
+            display: none;
+        }
+
+        /* Document Upload */
+        .document-item {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .document-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .document-status {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+        }
+
+        .status-approved {
+            background: rgba(46,125,80,0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background: rgba(255,152,0,0.1);
+            color: var(--warning);
+        }
+
+        .btn-upload {
+            background: transparent;
+            border: 2px dashed var(--gray-light);
+            padding: 1rem;
+            border-radius: 12px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-upload:hover {
+            border-color: var(--accent-gold);
+            background: var(--cream);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 3rem 5% 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col ul li a {
+            color: #e6d5b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #3d2a1c;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu { display: block; }
+            .profile-layout { grid-template-columns: 1fr; }
+            .profile-sidebar { position: static; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <i class="fas fa-mug-hot"></i>
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links">
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <div class="user-menu">
+                <div class="user-avatar"><i class="fas fa-user"></i></div>
+                <span class="user-name">John Doe</span>
+                <div class="user-dropdown">
+                    <a href="user.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a>
+                    <a href="orders.html"><i class="fas fa-shopping-bag"></i> Orders</a>
+                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>My Profile</h1>
+        <p>Manage your personal information, preferences, and account settings</p>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-layout">
+            <!-- Sidebar -->
+            <div class="profile-sidebar">
+                <div class="profile-avatar">
+                    <div class="avatar-image">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="avatar-upload" onclick="uploadAvatar()">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <div class="profile-name">John Doe</div>
+                <div class="profile-role">Coffee Lover</div>
+                <div class="profile-verification">
+                    <span class="verification-badge badge-verified">
+                        <i class="fas fa-check-circle"></i> Email Verified
+                    </span>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Orders</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Reviews</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">4.8</div>
+                        <div class="stat-label">Rating</div>
+                    </div>
+                </div>
+                <ul class="profile-menu">
+                    <li><a href="#" class="active" data-section="personal"><i class="fas fa-user"></i> Personal Info</a></li>
+                    <li><a href="#" data-section="business"><i class="fas fa-building"></i> Business Details</a></li>
+                    <li><a href="#" data-section="preferences"><i class="fas fa-heart"></i> Preferences</a></li>
+                    <li><a href="#" data-section="security"><i class="fas fa-lock"></i> Security</a></li>
+                    <li><a href="#" data-section="documents"><i class="fas fa-file-alt"></i> Documents</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="profile-main">
+                <!-- Personal Info Section -->
+                <div id="personal-section" class="profile-section active">
+                    <h2 class="section-title">Personal Information</h2>
+                    <form id="personalForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" id="firstName" value="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name *</label>
+                                <input type="text" id="lastName" value="Doe" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" id="email" value="john.doe@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="phone" value="+255 123 456 789">
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="location" value="Dar es Salaam, Tanzania">
+                        </div>
+                        <div class="form-group">
+                            <label>Bio</label>
+                            <textarea id="bio" rows="3" placeholder="Tell us about yourself...">Coffee enthusiast and home brewer. Love exploring different origins and brewing methods.</textarea>
+                        </div>
+                        <button type="submit" class="btn-save">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- Business Details Section (Shown for Sellers/Buyers) -->
+                <div id="business-section" class="profile-section">
+                    <h2 class="section-title">Business Information</h2>
+                    <form id="businessForm">
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input type="text" id="businessName" value="Coffee Import Co.">
+                        </div>
+                        <div class="form-group">
+                            <label>Business Registration Number (BRELA)</label>
+                            <input type="text" id="businessReg" value="123456-789">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Business Type</label>
+                                <select id="businessType">
+                                    <option value="roaster">Coffee Roaster</option>
+                                    <option value="cafe">Café Owner</option>
+                                    <option value="importer" selected>Importer/Distributor</option>
+                                    <option value="wholesaler">Wholesaler</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Year Established</label>
+                                <input type="number" id="yearEstablished" value="2015">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Website</label>
+                                <input type="url" id="website" value="https://coffeeimportco.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Tax ID/VAT</label>
+                                <input type="text" id="taxId" value="123456789">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Business Address</label>
+                            <textarea id="businessAddress" rows="2">Plot 123, Kijitonyama, Dar es Salaam, Tanzania</textarea>
+                        </div>
+                        <button type="submit" class="btn-save">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- Preferences Section -->
+                <div id="preferences-section" class="profile-section">
+                    <h2 class="section-title">Coffee Preferences</h2>
+                    <form id="preferencesForm">
+                        <div class="form-group">
+                            <label>Favorite Coffee Origins</label>
+                            <div class="interests-grid" id="originsGrid">
+                                <label class="interest-tag"><input type="checkbox" value="Tanzania" checked> 🇹🇿 Tanzania</label>
+                                <label class="interest-tag"><input type="checkbox" value="Ethiopia" checked> 🇪🇹 Ethiopia</label>
+                                <label class="interest-tag"><input type="checkbox" value="Kenya"> 🇰🇪 Kenya</label>
+                                <label class="interest-tag"><input type="checkbox" value="Brazil"> 🇧🇷 Brazil</label>
+                                <label class="interest-tag"><input type="checkbox" value="Colombia"> 🇨🇴 Colombia</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Processing Methods</label>
+                            <div class="interests-grid" id="processingGrid">
+                                <label class="interest-tag"><input type="checkbox" value="washed" checked> Washed</label>
+                                <label class="interest-tag"><input type="checkbox" value="natural" checked> Natural</label>
+                                <label class="interest-tag"><input type="checkbox" value="honey"> Honey</label>
+                                <label class="interest-tag"><input type="checkbox" value="anaerobic"> Anaerobic</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Interests</label>
+                            <div class="interests-grid" id="interestsGrid">
+                                <label class="interest-tag"><input type="checkbox" value="home-brewing" checked> 🏠 Home Brewing</label>
+                                <label class="interest-tag"><input type="checkbox" value="espresso" checked> ☕ Espresso</label>
+                                <label class="interest-tag"><input type="checkbox" value="latte-art"> 🎨 Latte Art</label>
+                                <label class="interest-tag"><input type="checkbox" value="roasting"> 🔥 Roasting</label>
+                                <label class="interest-tag"><input type="checkbox" value="cupping"> 👃 Cupping</label>
+                                <label class="interest-tag"><input type="checkbox" value="origin-tours"> ✈️ Origin Tours</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Newsletter Preferences</label>
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="marketUpdates" checked> Receive market intelligence updates
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="newArrivals" checked> New coffee arrivals
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="educationUpdates"> Educational content and courses
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-save">Save Preferences</button>
+                    </form>
+                </div>
+
+                <!-- Security Section -->
+                <div id="security-section" class="profile-section">
+                    <h2 class="section-title">Security Settings</h2>
+                    <form id="securityForm">
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="currentPassword" placeholder="Enter current password">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" id="newPassword" placeholder="Enter new password">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm New Password</label>
+                                <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-save">Update Password</button>
+                    </form>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h3 class="section-title" style="font-size: 1.1rem;">Two-Factor Authentication</h3>
+                        <p style="margin-bottom: 1rem;">Add an extra layer of security to your account.</p>
+                        <button class="btn-verify" onclick="enable2FA()">
+                            <i class="fas fa-shield-alt"></i> Enable 2FA
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Documents Section (For Sellers) -->
+                <div id="documents-section" class="profile-section">
+                    <h2 class="section-title">Verification Documents</h2>
+                    <div id="documentsList">
+                        <div class="document-item">
+                            <div class="document-info">
+                                <i class="fas fa-file-pdf" style="font-size: 1.5rem; color: var(--danger);"></i>
+                                <div>
+                                    <div><strong>Business Registration Certificate</strong></div>
+                                    <div class="document-status status-approved">✓ Approved</div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn-verify" style="padding: 0.25rem 1rem;">View</a>
+                        </div>
+                        <div class="document-item">
+                            <div class="document-info">
+                                <i class="fas fa-file-image" style="font-size: 1.5rem; color: var(--info);"></i>
+                                <div>
+                                    <div><strong>Origin Documentation (Land Deed)</strong></div>
+                                    <div class="document-status status-approved">✓ Approved</div>
+                                </div>
+                            </div>
+                            <a href="#" class="btn-verify" style="padding: 0.25rem 1rem;">View</a>
+                        </div>
+                        <div class="document-item">
+                            <div class="document-info">
+                                <i class="fas fa-file-alt" style="font-size: 1.5rem; color: var(--warning);"></i>
+                                <div>
+                                    <div><strong>Quality Certificate (Organic)</strong></div>
+                                    <div class="document-status status-pending">⏳ Pending Review</div>
+                                </div>
+                            </div>
+                            <button class="btn-verify" style="padding: 0.25rem 1rem;" onclick="uploadDocument()">Upload New</button>
+                        </div>
+                    </div>
+                    <button class="btn-upload" onclick="uploadDocument()">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload New Document
+                    </button>
+                    <div class="help-text" style="margin-top: 1rem; font-size: 0.8rem; color: var(--gray);">
+                        Accepted formats: PDF, JPG, PNG. Max size: 10MB per file.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Account</h4>
+                <ul>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="orders.html">Orders</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"
+        </div>
+    </footer>
+
+    <script>
+        // Section switching
+        const sections = {
+            personal: document.getElementById('personal-section'),
+            business: document.getElementById('business-section'),
+            preferences: document.getElementById('preferences-section'),
+            security: document.getElementById('security-section'),
+            documents: document.getElementById('documents-section')
+        };
+
+        document.querySelectorAll('.profile-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = link.dataset.section;
+                
+                // Update active class on menu
+                document.querySelectorAll('.profile-menu a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Show selected section
+                Object.values(sections).forEach(s => s.classList.remove('active'));
+                if (section && sections[section]) {
+                    sections[section].classList.add('active');
+                }
+            });
+        });
+
+        // Interest tag toggle
+        document.querySelectorAll('.interest-tag').forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                const checkbox = tag.querySelector('input');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    tag.classList.toggle('selected', checkbox.checked);
+                }
+            });
+            // Initialize selected state
+            const checkbox = tag.querySelector('input');
+            if (checkbox && checkbox.checked) {
+                tag.classList.add('selected');
+            }
+        });
+
+        // Form submissions
+        document.getElementById('personalForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('Personal information updated successfully!', 'success');
+        });
+
+        document.getElementById('businessForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('Business information updated successfully!', 'success');
+        });
+
+        document.getElementById('preferencesForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('Preferences saved successfully!', 'success');
+        });
+
+        document.getElementById('securityForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPass = document.getElementById('newPassword').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+            if (newPass !== confirmPass) {
+                showNotification('Passwords do not match!', 'error');
+                return;
+            }
+            if (newPass.length > 0 && newPass.length < 8) {
+                showNotification('Password must be at least 8 characters', 'error');
+                return;
+            }
+            showNotification('Password updated successfully!', 'success');
+            document.getElementById('securityForm').reset();
+        });
+
+        // Helper functions
+        function uploadAvatar() {
+            showNotification('Avatar upload feature coming soon!', 'info');
+        }
+
+        function uploadDocument() {
+            showNotification('Document upload feature coming soon!', 'info');
+        }
+
+        function enable2FA() {
+            showNotification('2FA setup will be available soon!', 'info');
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#2e7d32' : type === 'error' ? '#d32f2f' : '#ff9800'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                z-index: 3000;
+                animation: fadeIn 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            `;
+            notification.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // Mobile menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                this.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+        }
+
+        // Add mobile menu styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @media (max-width: 768px) {
+                .nav-links {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100vh;
+                    background: var(--primary-dark);
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 2rem;
+                    z-index: 1000;
+                }
+                .nav-links.active { display: flex; }
+                .nav-links a { color: white; font-size: 1.2rem; }
+                .nav-links a i { color: var(--accent-gold); }
+                .mobile-menu.active { color: var(--accent-gold); position: relative; z-index: 1001; }
+                body.menu-open { overflow: hidden; }
+                .checkbox-label { display: block; margin-bottom: 0.5rem; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
