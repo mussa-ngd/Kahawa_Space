@@ -1,4 +1,3 @@
-<!-- ordersforseller.html - Seller Orders Management -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kahawa Space - Seller Orders</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/ordersforseller.css">
+    <link rel="stylesheet" href="css/kahawa-style.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
 </head>
 
 <body>
@@ -37,7 +39,9 @@
                     <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
-            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </nav>
 
@@ -47,7 +51,6 @@
     </div>
 
     <div class="orders-container">
-        <!-- Stats Cards -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-clock"></i></div>
@@ -71,7 +74,6 @@
             </div>
         </div>
 
-        <!-- Filters -->
         <div class="filters-bar">
             <div class="filter-group">
                 <select class="filter-select" id="statusFilter">
@@ -89,44 +91,31 @@
                     <option value="90">Last 90 Days</option>
                 </select>
             </div>
-            <div class="search-orders">
-                <input type="text" id="searchInput" placeholder="Search by order ID or buyer...">
-                <i class="fas fa-search" onclick="filterOrders()"></i>
+            <div class="search-orders"><input type="text" id="searchInput"
+                    placeholder="Search by order ID or buyer..."><i class="fas fa-search" onclick="filterOrders()"></i>
             </div>
         </div>
 
-        <!-- Orders List -->
-        <div class="orders-list" id="ordersList">
-            <!-- Orders will be populated by JavaScript -->
-        </div>
+        <div class="orders-list" id="ordersList"></div>
     </div>
 
-    <!-- Update Status Modal -->
     <div id="statusModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Update Order Status</h3>
-                <button class="modal-close" onclick="closeStatusModal()">&times;</button>
+                <h3>Update Order Status</h3><button class="modal-close" onclick="closeStatusModal()">&times;</button>
             </div>
             <div class="modal-body">
                 <form id="statusForm">
-                    <div class="form-group">
-                        <label>Order Status</label>
-                        <select id="newStatus" required>
+                    <div class="form-group"><label>Order Status</label><select id="newStatus" required>
                             <option value="pending">Pending</option>
                             <option value="confirmed">Confirmed</option>
                             <option value="shipped">Shipped</option>
                             <option value="delivered">Delivered</option>
                             <option value="cancelled">Cancelled</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Tracking Number (if shipping)</label>
-                        <input type="text" id="trackingNumber" placeholder="Enter tracking number">
-                    </div>
-                    <div class="form-group">
-                        <label>Carrier</label>
-                        <select id="carrier">
+                        </select></div>
+                    <div class="form-group"><label>Tracking Number</label><input type="text" id="trackingNumber"
+                            placeholder="Enter tracking number"></div>
+                    <div class="form-group"><label>Carrier</label><select id="carrier">
                             <option value="">Select Carrier</option>
                             <option value="DHL">DHL Express</option>
                             <option value="FedEx">FedEx</option>
@@ -134,31 +123,21 @@
                             <option value="USPS">USPS</option>
                             <option value="EMS">EMS</option>
                             <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Notes (optional)</label>
-                        <textarea id="statusNotes" rows="2" placeholder="Add notes about this order..."></textarea>
-                    </div>
+                        </select></div>
+                    <div class="form-group"><label>Notes</label><textarea id="statusNotes" rows="2"
+                            placeholder="Add notes about this order..."></textarea></div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button class="btn-outline" onclick="closeStatusModal()">Cancel</button>
-                <button class="btn-primary" onclick="updateOrderStatus()">Update Status</button>
-            </div>
+            <div class="modal-footer"><button class="btn-outline" onclick="closeStatusModal()">Cancel</button><button
+                    class="btn-primary" onclick="updateOrderStatus()">Update Status</button></div>
         </div>
     </div>
-
-    <!-- Tracking Modal -->
     <div id="trackingModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Shipping Information</h3>
-                <button class="modal-close" onclick="closeTrackingModal()">&times;</button>
+                <h3>Shipping Information</h3><button class="modal-close" onclick="closeTrackingModal()">&times;</button>
             </div>
-            <div class="modal-body" id="trackingContent">
-                <!-- Tracking info will be inserted here -->
-            </div>
+            <div class="modal-body" id="trackingContent"></div>
         </div>
     </div>
 
@@ -189,12 +168,45 @@
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
-            © 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"
-        </div>
+        <div class="footer-bottom">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
     </footer>
-<script src="ordersforseller.js" defer></script>
-<script src="kahawa-main.js" defer></script>
+
+    <script>
+        let orders = [
+            { id: 'KAH-24015', date: '2026-03-15', status: 'pending', total: 2975, buyer: { name: 'Blue Bottle Coffee', email: 'orders@bluebottle.com', company: 'Blue Bottle Coffee Roasters', address: '123 Main St, Oakland, CA 94607, USA' }, items: [{ name: 'Tanzania Peaberry AA Reserve', origin: 'Tanzania', quantity: 350, unitPrice: 8.50, total: 2975, image: 'coffee-bean' }], shipping: null, notes: 'Please ensure quality certificate included' },
+            { id: 'KAH-24018', date: '2026-03-12', status: 'confirmed', total: 1840, buyer: { name: 'Intelligentsia Coffee', email: 'purchasing@intelligentsia.com', company: 'Intelligentsia Coffee', address: '53 W Jackson Blvd, Chicago, IL 60604, USA' }, items: [{ name: 'Ethiopia Yirgacheffe Natural G1', origin: 'Ethiopia', quantity: 200, unitPrice: 9.20, total: 1840, image: 'coffee-bean' }], shipping: { carrier: 'DHL Express', number: 'DH123456789TZ' }, notes: null },
+            { id: 'KAH-24022', date: '2026-03-10', status: 'shipped', total: 2550, buyer: { name: 'Stumptown Coffee', email: 'orders@stumptown.com', company: 'Stumptown Coffee Roasters', address: '100 SE Salmon St, Portland, OR 97214, USA' }, items: [{ name: 'Kenya AA SL28 & SL34', origin: 'Kenya', quantity: 250, unitPrice: 10.20, total: 2550, image: 'coffee-bean' }], shipping: { carrier: 'FedEx', number: 'FX987654321TZ', trackingUrl: 'https://www.fedex.com/tracking' }, notes: 'Expedited shipping requested' },
+            { id: 'KAH-24025', date: '2026-03-05', status: 'delivered', total: 4750, buyer: { name: 'La Colombe Coffee', email: 'buying@lacolombe.com', company: 'La Colombe Coffee Roasters', address: '1335 Frankford Ave, Philadelphia, PA 19125, USA' }, items: [{ name: 'Tanzania Peaberry AA Reserve', origin: 'Tanzania', quantity: 500, unitPrice: 9.50, total: 4750, image: 'coffee-bean' }], shipping: { carrier: 'UPS', number: '1Z9999999999999999' }, notes: 'Delivered on 2026-03-18' },
+            { id: 'KAH-24028', date: '2026-03-01', status: 'cancelled', total: 920, buyer: { name: 'Coffee Collective', email: 'orders@coffeecollective.dk', company: 'Coffee Collective', address: 'Godthåbsvej 34B, 2000 Frederiksberg, Denmark' }, items: [{ name: 'Brazil Yellow Bourbon', origin: 'Brazil', quantity: 100, unitPrice: 9.20, total: 920, image: 'coffee-bean' }], shipping: null, notes: 'Cancelled by buyer' }
+        ];
+        let currentStatusFilter = 'all', currentDateFilter = 'all', currentSearch = '', currentOrderId = null;
+        function formatDate(d) { const date = new Date(d); return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }); }
+        function showNotification(m, t = 'success') { const n = document.createElement('div'); n.style.cssText = `position:fixed;bottom:20px;right:20px;background:${t === 'success' ? '#2e7d32' : t === 'error' ? '#d32f2f' : '#ff9800'};color:white;padding:1rem 1.5rem;border-radius:12px;z-index:3000;animation:fadeInUp 0.3s ease;box-shadow:0 5px 15px rgba(0,0,0,0.2);`; n.innerHTML = `<i class="fas ${t === 'success' ? 'fa-check-circle' : t === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${m}`; document.body.appendChild(n); setTimeout(() => n.remove(), 3000); }
+        function updateStats() { const p = orders.filter(o => o.status === 'pending').length, c = orders.filter(o => o.status === 'confirmed').length, s = orders.filter(o => o.status === 'shipped').length, r = orders.filter(o => o.status !== 'cancelled').reduce((sum, o) => sum + o.total, 0); document.getElementById('pendingCount').textContent = p; document.getElementById('confirmedCount').textContent = c; document.getElementById('shippedCount').textContent = s; document.getElementById('totalRevenue').textContent = `$${r.toLocaleString()}`; }
+        function filterOrders() { currentStatusFilter = document.getElementById('statusFilter').value; currentDateFilter = document.getElementById('dateFilter').value; currentSearch = document.getElementById('searchInput').value; renderOrders(); }
+        function renderOrders() {
+            let filtered = orders.filter(o => { if (currentStatusFilter !== 'all' && o.status !== currentStatusFilter) return false; if (currentDateFilter !== 'all') { const d = new Date(o.date), days = (new Date() - d) / (1000 * 60 * 60 * 24); if (days > parseInt(currentDateFilter)) return false; } if (currentSearch && !o.id.toLowerCase().includes(currentSearch.toLowerCase()) && !o.buyer.name.toLowerCase().includes(currentSearch.toLowerCase())) return false; return true; }); updateStats(); const container = document.getElementById('ordersList'); if (filtered.length === 0) { container.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><h3>No Orders Found</h3><p>You haven't received any orders yet.</p><a href="listings.html" class="btn-primary" style="display:inline-block;text-decoration:none;">Manage Listings</a></div>`; return; }
+            container.innerHTML = filtered.map(o => `<div class="order-card"><div class="order-header"><div class="order-info"><span class="order-id">Order #${o.id}</span><span class="order-date">${formatDate(o.date)}</span><span class="order-status status-${o.status}">${o.status.charAt(0).toUpperCase() + o.status.slice(1)}</span>${o.status === 'pending' ? '<span class="badge badge-new"><i class="fas fa-clock"></i> New</span>' : ''}</div><div class="order-total">Total: $${o.total.toLocaleString()}</div></div><div class="order-body"><div class="order-items">${o.items.map(i => `<div class="order-item"><div class="item-image"><i class="fas fa-${i.image}"></i></div><div class="item-details"><div class="item-name">${i.name}</div><div class="item-meta">${i.origin} • ${i.quantity} kg @ $${i.unitPrice}/kg</div></div><div class="item-price">$${i.total.toLocaleString()}</div></div>`).join('')}</div><div class="order-footer"><div class="buyer-info"><i class="fas fa-user"></i><div><strong>${o.buyer.name}</strong><br><small>${o.buyer.email}</small></div></div><div class="order-actions">${o.status === 'pending' ? `<button class="btn-primary" onclick="openStatusModal('${o.id}','confirm')"><i class="fas fa-check"></i> Confirm Order</button><button class="btn-outline" onclick="declineOrder('${o.id}')"><i class="fas fa-times"></i> Decline</button>` : ''}${o.status === 'confirmed' ? `<button class="btn-primary" onclick="openStatusModal('${o.id}','ship')"><i class="fas fa-truck"></i> Mark as Shipped</button>` : ''}${o.status === 'shipped' ? `<button class="btn-outline" onclick="viewTracking('${o.id}')"><i class="fas fa-map-marker-alt"></i> Track</button>` : ''}<button class="btn-outline" onclick="viewOrderDetails('${o.id}')"><i class="fas fa-eye"></i> Details</button></div></div></div></div>`).join('');
+        }
+        function openStatusModal(id, action) { currentOrderId = id; const o = orders.find(o => o.id === id); const modal = document.getElementById('statusModal'); const statusSelect = document.getElementById('newStatus'); if (action === 'confirm') statusSelect.value = 'confirmed'; else if (action === 'ship') statusSelect.value = 'shipped'; document.getElementById('trackingNumber').value = o?.shipping?.number || ''; document.getElementById('carrier').value = o?.shipping?.carrier || ''; document.getElementById('statusNotes').value = ''; modal.classList.add('active'); }
+        function closeStatusModal() { document.getElementById('statusModal').classList.remove('active'); currentOrderId = null; }
+        function updateOrderStatus() { if (!currentOrderId) return; const o = orders.find(o => o.id === currentOrderId); const ns = document.getElementById('newStatus').value; const tn = document.getElementById('trackingNumber').value; const c = document.getElementById('carrier').value; const n = document.getElementById('statusNotes').value; if (o) { o.status = ns; if (ns === 'shipped' && tn) { o.shipping = { carrier: c, number: tn }; } if (n) o.notes = n; showNotification(`Order ${currentOrderId} status updated to ${ns}!`, 'success'); closeStatusModal(); renderOrders(); } }
+        function declineOrder(id) { if (confirm('Are you sure you want to decline this order?')) { const o = orders.find(o => o.id === id); if (o) { o.status = 'cancelled'; showNotification(`Order ${id} has been declined.`, 'info'); renderOrders(); } } }
+        function viewTracking(id) { const o = orders.find(o => o.id === id); if (o && o.shipping) { const modal = document.getElementById('trackingModal'), c = document.getElementById('trackingContent'); c.innerHTML = `<div><p><strong>Order #${o.id}</strong></p><p><strong>Carrier:</strong> ${o.shipping.carrier}</p><p><strong>Tracking Number:</strong> ${o.shipping.number}</p><p><strong>Buyer:</strong> ${o.buyer.name}</p></div><div class="tracking-timeline"><div class="tracking-step completed"><div class="step-title">Order Confirmed</div><div class="step-date">${formatDate(o.date)}</div></div><div class="tracking-step completed"><div class="step-title">Shipped</div><div class="step-date">${o.shipping.shippedDate || formatDate(o.date)}</div></div><div class="tracking-step"><div class="step-title">In Transit</div><div class="step-date">Estimated: ${(() => { const d = new Date(o.date); d.setDate(d.getDate() + 7); return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }); })()}</div></div></div>`; modal.classList.add('active'); } }
+        function closeTrackingModal() { document.getElementById('trackingModal').classList.remove('active'); }
+        function viewOrderDetails(id) { const o = orders.find(o => o.id === id); if (o) { alert(`Order #${o.id}\nDate: ${formatDate(o.date)}\nStatus: ${o.status}\nBuyer: ${o.buyer.name}\nEmail: ${o.buyer.email}\nTotal: $${o.total}\n${o.notes ? `Notes: ${o.notes}` : ''}`); } }
+        document.getElementById('statusFilter').addEventListener('change', filterOrders); document.getElementById('dateFilter').addEventListener('change', filterOrders); document.getElementById('searchInput').addEventListener('keyup', filterOrders);
+
+        const mobileMenuBtns = document.querySelectorAll('.mobile-menu'), navLinks = document.querySelector('.nav-links');
+        function closeMenu() { if (navLinks) navLinks.classList.remove('active'); mobileMenuBtns.forEach(b => b.classList.remove('active')); document.body.classList.remove('menu-open'); }
+        function toggleMenu() { if (navLinks) navLinks.classList.toggle('active'); mobileMenuBtns.forEach(b => b.classList.toggle('active')); document.body.classList.toggle('menu-open'); }
+        mobileMenuBtns.forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); }));
+        document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', closeMenu));
+        document.addEventListener('click', (e) => { if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && !e.target.closest('.mobile-menu')) closeMenu(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        window.onclick = function (e) { const sm = document.getElementById('statusModal'), tm = document.getElementById('trackingModal'); if (e.target === sm) closeStatusModal(); if (e.target === tm) closeTrackingModal(); };
+        renderOrders();
+    </script>
 </body>
 
 </html>

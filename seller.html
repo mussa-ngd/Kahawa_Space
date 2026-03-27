@@ -1,98 +1,18 @@
-<!-- seller.html - Seller Dashboard -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kahawa Space - Seller Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        /* Copy base styles from buyer.html */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #2c1810; background: #faf7f2; }
-        :root { --primary-dark: #2c1810; --primary-brown: #8b5a2b; --primary-medium: #b87c4b; --primary-light: #e6d5b8; --accent-gold: #c9a227; --cream: #faf7f2; --white: #ffffff; --gray-light: #f0e9e0; --gray: #9b8b7a; --success: #2e7d32; --warning: #ff9800; --danger: #d32f2f; }
-        
-        .navbar { background-color: var(--white); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 20px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--accent-gold); }
-        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo i { font-size: 2rem; color: var(--primary-brown); }
-        .logo span { font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); letter-spacing: -0.5px; }
-        .logo span:last-child { color: var(--accent-gold); font-weight: 400; font-size: 1rem; margin-left: 5px; }
-        .nav-links { display: flex; gap: 2rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--primary-dark); font-weight: 500; font-size: 0.95rem; transition: color 0.3s; display: flex; align-items: center; gap: 5px; }
-        .nav-links a i { color: var(--primary-medium); }
-        .nav-links a:hover, .nav-links a.active { color: var(--accent-gold); }
-        .auth-buttons { display: flex; gap: 1rem; align-items: center; }
-        .user-menu { display: flex; align-items: center; gap: 1rem; cursor: pointer; position: relative; }
-        .user-avatar { width: 40px; height: 40px; background: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
-        .user-name { font-weight: 500; }
-        .user-dropdown { position: absolute; top: 100%; right: 0; background: white; min-width: 200px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; margin-top: 0.5rem; z-index: 100; }
-        .user-menu:hover .user-dropdown { display: block; }
-        .user-dropdown a { display: flex; align-items: center; gap: 10px; padding: 0.75rem 1rem; color: var(--primary-dark); text-decoration: none; }
-        .user-dropdown a:hover { background: var(--cream); }
-        .mobile-menu { display: none; font-size: 1.5rem; cursor: pointer; }
-        
-        .dashboard-container { max-width: 1400px; margin: 0 auto; padding: 2rem 5%; }
-        .welcome-section { background: linear-gradient(135deg, var(--primary-dark) 0%, #3d2a1c 100%); border-radius: 24px; padding: 2rem; color: white; margin-bottom: 2rem; }
-        .welcome-section h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .stat-card { background: var(--white); border-radius: 20px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: transform 0.3s; }
-        .stat-card:hover { transform: translateY(-5px); }
-        .stat-icon { width: 50px; height: 50px; background: var(--cream); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
-        .stat-icon i { font-size: 1.5rem; color: var(--primary-brown); }
-        .stat-value { font-size: 2rem; font-weight: 800; color: var(--primary-dark); }
-        .stat-label { color: var(--gray); font-size: 0.9rem; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .section-header h2 { font-size: 1.5rem; color: var(--primary-dark); }
-        .section-header a { color: var(--primary-brown); text-decoration: none; font-weight: 600; }
-        
-        /* Product Listings */
-        .listings-grid { display: grid; gap: 1rem; margin-bottom: 2rem; }
-        .listing-card { background: var(--white); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--gray-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .listing-info h3 { margin-bottom: 0.5rem; }
-        .listing-meta { color: var(--gray); font-size: 0.9rem; margin: 0.5rem 0; }
-        .listing-stats { display: flex; gap: 1rem; color: var(--gray); font-size: 0.9rem; }
-        .listing-actions { display: flex; gap: 0.5rem; }
-        .btn-edit, .btn-view { padding: 0.5rem 1rem; border-radius: 20px; border: none; cursor: pointer; font-weight: 600; }
-        .btn-edit { background: var(--cream); color: var(--primary-dark); border: 1px solid var(--gray-light); }
-        .btn-view { background: var(--primary-dark); color: white; }
-        
-        /* Orders Grid */
-        .orders-grid { display: grid; gap: 1rem; margin-bottom: 2rem; }
-        .order-card { background: var(--white); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--gray-light); }
-        .order-header { display: flex; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
-        .order-status { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
-        .status-pending { background: rgba(255,152,0,0.1); color: var(--warning); }
-        .status-confirmed { background: rgba(33,150,243,0.1); color: #2196f3; }
-        .status-completed { background: rgba(46,125,80,0.1); color: var(--success); }
-        .order-details { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .btn-process { padding: 0.5rem 1rem; background: var(--primary-dark); color: white; border: none; border-radius: 20px; cursor: pointer; }
-        
-        /* Verification Status */
-        .verification-card { background: linear-gradient(135deg, #fff8f0, #fff); border-radius: 20px; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid var(--accent-gold); }
-        .verification-status { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-        .verification-badge { padding: 0.25rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
-        .badge-verified { background: rgba(46,125,80,0.1); color: var(--success); }
-        .badge-pending { background: rgba(255,152,0,0.1); color: var(--warning); }
-        
-        .btn-add-listing { background: var(--accent-gold); color: var(--primary-dark); padding: 0.75rem 1.5rem; border: none; border-radius: 30px; font-weight: 600; cursor: pointer; }
-        
-        footer { background: var(--primary-dark); color: white; padding: 3rem 5% 2rem; margin-top: 3rem; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-        .footer-col h4 { color: var(--accent-gold); margin-bottom: 1rem; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 0.5rem; }
-        .footer-col ul li a { color: #e6d5b8; text-decoration: none; font-size: 0.9rem; }
-        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #3d2a1c; font-size: 0.8rem; }
-        
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-menu { display: block; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .listing-card { flex-direction: column; text-align: center; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/seller.css">
+    <link rel="stylesheet" href="css/kahawa-style.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
@@ -138,16 +58,32 @@
             </div>
             <p>Your account is fully verified. You can list up to 50 products and access premium features.</p>
             <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray);">
-                <i class="fas fa-check-circle" style="color: var(--success);"></i> Business verified • 
+                <i class="fas fa-check-circle" style="color: var(--success);"></i> Business verified •
                 <i class="fas fa-check-circle" style="color: var(--success);"></i> Origin documents verified
             </div>
         </div>
 
         <div class="stats-grid">
-            <div class="stat-card"><div class="stat-icon"><i class="fas fa-coffee-bean"></i></div><div class="stat-value">1,280</div><div class="stat-label">KG Available</div></div>
-            <div class="stat-card"><div class="stat-icon"><i class="fas fa-truck"></i></div><div class="stat-value">4</div><div class="stat-label">Active Orders</div></div>
-            <div class="stat-card"><div class="stat-icon"><i class="fas fa-dollar-sign"></i></div><div class="stat-value">$12,450</div><div class="stat-label">Total Sales</div></div>
-            <div class="stat-card"><div class="stat-icon"><i class="fas fa-star"></i></div><div class="stat-value">4.9</div><div class="stat-label">Seller Rating</div></div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-coffee-bean"></i></div>
+                <div class="stat-value">1,280</div>
+                <div class="stat-label">KG Available</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-truck"></i></div>
+                <div class="stat-value">4</div>
+                <div class="stat-label">Active Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+                <div class="stat-value">$12,450</div>
+                <div class="stat-label">Total Sales</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-star"></i></div>
+                <div class="stat-value">4.9</div>
+                <div class="stat-label">Seller Rating</div>
+            </div>
         </div>
 
         <div class="section-header">
@@ -159,27 +95,34 @@
                 <div class="listing-info">
                     <h3>Tanzania Peaberry AA Reserve</h3>
                     <div class="listing-meta">Washed • Screen 15+ • SCA 86 • Harvest 2025</div>
-                    <div class="listing-stats"><span><i class="fas fa-weight-hanging"></i> 350kg available</span><span><i class="fas fa-dollar-sign"></i> $8.50/kg</span><span><i class="fas fa-eye"></i> 245 views</span></div>
+                    <div class="listing-stats"><span><i class="fas fa-weight-hanging"></i> 350kg
+                            available</span><span><i class="fas fa-dollar-sign"></i> $8.50/kg</span><span><i
+                                class="fas fa-eye"></i> 245 views</span></div>
                 </div>
-                <div class="listing-actions"><button class="btn-edit" onclick="editListing()">Edit</button><button class="btn-view" onclick="viewListing()">View</button></div>
+                <div class="listing-actions"><button class="btn-edit" onclick="editListing()">Edit</button><button
+                        class="btn-view" onclick="viewListing()">View</button></div>
             </div>
             <div class="listing-card">
                 <div class="listing-info">
                     <h3>Kilimanjaro Natural G1</h3>
                     <div class="listing-meta">Natural • Grade 1 • SCA 87 • Harvest 2025</div>
-                    <div class="listing-stats"><span><i class="fas fa-weight-hanging"></i> 500kg available</span><span><i class="fas fa-dollar-sign"></i> $9.50/kg</span><span><i class="fas fa-eye"></i> 189 views</span></div>
+                    <div class="listing-stats"><span><i class="fas fa-weight-hanging"></i> 500kg
+                            available</span><span><i class="fas fa-dollar-sign"></i> $9.50/kg</span><span><i
+                                class="fas fa-eye"></i> 189 views</span></div>
                 </div>
-                <div class="listing-actions"><button class="btn-edit" onclick="editListing()">Edit</button><button class="btn-view" onclick="viewListing()">View</button></div>
+                <div class="listing-actions"><button class="btn-edit" onclick="editListing()">Edit</button><button
+                        class="btn-view" onclick="viewListing()">View</button></div>
             </div>
         </div>
 
         <div class="section-header">
             <h2>Pending Orders</h2>
-            <a href="orders.html">View All →</a>
+            <a href="ordersforseller.html">View All →</a>
         </div>
         <div class="orders-grid">
             <div class="order-card">
-                <div class="order-header"><span><strong>Order #KAH-24015</strong></span><span class="order-status status-pending">Pending Confirmation</span></div>
+                <div class="order-header"><span><strong>Order #KAH-24015</strong></span><span
+                        class="order-status status-pending">Pending Confirmation</span></div>
                 <div class="order-details">
                     <div><strong>Tanzania Peaberry AA</strong><br>Quantity: 350kg</div>
                     <div><strong>Buyer:</strong> Blue Bottle Coffee<br><strong>Total:</strong> $2,975</div>
@@ -187,7 +130,8 @@
                 </div>
             </div>
             <div class="order-card">
-                <div class="order-header"><span><strong>Order #KAH-24018</strong></span><span class="order-status status-pending">Awaiting Payment</span></div>
+                <div class="order-header"><span><strong>Order #KAH-24018</strong></span><span
+                        class="order-status status-pending">Awaiting Payment</span></div>
                 <div class="order-details">
                     <div><strong>Kilimanjaro Natural G1</strong><br>Quantity: 200kg</div>
                     <div><strong>Buyer:</strong> Intelligentsia Coffee<br><strong>Total:</strong> $1,900</div>
@@ -201,10 +145,12 @@
         </div>
         <div class="orders-grid">
             <div class="order-card">
-                <div class="order-header"><span><strong>Interest from: Roast Coffee Co.</strong></span><span class="order-status status-pending">New Message</span></div>
+                <div class="order-header"><span><strong>Interest from: Roast Coffee Co.</strong></span><span
+                        class="order-status status-pending">New Message</span></div>
                 <div class="order-details">
                     <p>"Interested in your Peaberry AA. Can you provide sample and pricing for 500kg?"</p>
-                    <div style="margin-top: 0.5rem;"><button class="btn-edit" onclick="respondInquiry()">Respond</button></div>
+                    <div style="margin-top: 0.5rem;"><button class="btn-edit"
+                            onclick="respondInquiry()">Respond</button></div>
                 </div>
             </div>
         </div>
@@ -212,26 +158,51 @@
 
     <footer>
         <div class="footer-grid">
-            <div class="footer-col"><h4>Seller Resources</h4><ul><li><a href="#">Listing Guide</a></li><li><a href="#">Verification Process</a></li><li><a href="#">Shipping Templates</a></li><li><a href="#">Seller Analytics</a></li></ul></div>
-            <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Seller Support</a></li><li><a href="#">Payment Terms</a></li></ul></div>
-            <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Terms of Service</a></li><li><a href="#">Seller Agreement</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+            <div class="footer-col">
+                <h4>Seller Resources</h4>
+                <ul>
+                    <li><a href="#">Listing Guide</a></li>
+                    <li><a href="#">Verification Process</a></li>
+                    <li><a href="#">Shipping Templates</a></li>
+                    <li><a href="#">Seller Analytics</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Seller Support</a></li>
+                    <li><a href="#">Payment Terms</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Seller Agreement</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
         </div>
         <div class="footer-bottom">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
     </footer>
 
     <script>
-        function addListing() { alert('Create new coffee listing'); }
+        function addListing() { alert('Create new coffee listing'); window.location.href = 'listings.html?action=add'; }
         function editListing() { alert('Edit listing'); }
         function viewListing() { alert('View listing details'); }
         function processOrder() { alert('Process order'); }
         function respondInquiry() { alert('Respond to buyer inquiry'); }
-        // Mobile menu
-        const mobileMenuBtn = document.querySelector('.mobile-menu');
+
+        const mobileMenuBtns = document.querySelectorAll('.mobile-menu');
         const navLinks = document.querySelector('.nav-links');
-        if(mobileMenuBtn && navLinks) mobileMenuBtn.addEventListener('click', function() { navLinks.classList.toggle('active'); this.classList.toggle('active'); document.body.classList.toggle('menu-open'); });
-        const style = document.createElement('style');
-        style.textContent = `@media (max-width:768px){.nav-links{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--primary-dark);flex-direction:column;justify-content:center;align-items:center;gap:2rem;z-index:1000;}.nav-links.active{display:flex;}.nav-links a{color:white;font-size:1.2rem;}.nav-links a i{color:var(--accent-gold);}.mobile-menu.active{color:var(--accent-gold);z-index:1001;}body.menu-open{overflow:hidden;}}`;
-        document.head.appendChild(style);
+        function closeMenu() { if (navLinks) navLinks.classList.remove('active'); mobileMenuBtns.forEach(btn => btn.classList.remove('active')); document.body.classList.remove('menu-open'); }
+        function toggleMenu() { if (navLinks) navLinks.classList.toggle('active'); mobileMenuBtns.forEach(btn => btn.classList.toggle('active')); document.body.classList.toggle('menu-open'); }
+        mobileMenuBtns.forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); }));
+        document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+        document.addEventListener('click', (e) => { if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && !e.target.closest('.mobile-menu')) closeMenu(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
     </script>
 </body>
+
 </html>

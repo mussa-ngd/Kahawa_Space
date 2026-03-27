@@ -1,610 +1,18 @@
-<!-- tours.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kahawa Space - Coffee Origin Tours</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/tours.css">
+    <link rel="stylesheet" href="css/kahawa-style.css">
     <link rel="stylesheet" href="css/mobile-menu.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #2c1810;
-            background-color: #faf7f2;
-        }
-        :root {
-            --primary-dark: #2c1810;
-            --primary-brown: #8b5a2b;
-            --primary-medium: #b87c4b;
-            --primary-light: #e6d5b8;
-            --accent-gold: #c9a227;
-            --cream: #faf7f2;
-            --white: #ffffff;
-            --gray-light: #f0e9e0;
-            --gray: #9b8b7a;
-        }
-
-        /* Navigation (same as before) */
-        .navbar {
-            background-color: var(--white);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid var(--accent-gold);
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        .logo i {
-            font-size: 2rem;
-            color: var(--primary-brown);
-        }
-        .logo span {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            letter-spacing: -0.5px;
-        }
-        .logo span:last-child {
-            color: var(--accent-gold);
-            font-weight: 400;
-            font-size: 1rem;
-            margin-left: 5px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--primary-dark);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .nav-links a i { color: var(--primary-medium); }
-        .nav-links a:hover { color: var(--accent-gold); }
-        .nav-links a.active {
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-        .nav-links .coming-soon {
-            background: var(--gray-light);
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--primary-brown);
-            margin-left: 5px;
-        }
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-        .btn-login {
-            padding: 0.5rem 1.2rem;
-            border: 2px solid var(--primary-light);
-            background: transparent;
-            border-radius: 30px;
-            font-weight: 600;
-            color: var(--primary-dark);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-login:hover { border-color: var(--primary-brown); }
-        .btn-signup {
-            padding: 0.5rem 1.2rem;
-            background: var(--primary-dark);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-signup:hover { background: var(--primary-brown); }
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Page Header */
-        .page-header {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, #3d2a1c 100%);
-            color: white;
-            padding: 4rem 5%;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .page-header::before {
-            content: "✈️";
-            font-size: 15rem;
-            position: absolute;
-            right: 5%;
-            bottom: -20%;
-            opacity: 0.1;
-            transform: rotate(15deg);
-        }
-        .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        .page-header p {
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        /* Search Section */
-        .tour-search {
-            max-width: 800px;
-            margin: -2rem auto 2rem;
-            padding: 0 5%;
-            position: relative;
-            z-index: 10;
-        }
-        .search-bar {
-            background: white;
-            border-radius: 50px;
-            padding: 0.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-        }
-        .search-bar i {
-            color: var(--gray);
-            margin-left: 1.5rem;
-        }
-        .search-bar input {
-            flex: 1;
-            padding: 1rem;
-            border: none;
-            outline: none;
-            font-size: 1rem;
-            background: transparent;
-        }
-        .search-bar button {
-            background: var(--primary-dark);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .search-bar button:hover {
-            background: var(--primary-brown);
-        }
-
-        /* Destinations Grid */
-        .destinations {
-            padding: 3rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-        }
-        .section-header p {
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .destination-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .destination-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-        }
-        .destination-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-        .destination-image {
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        .destination-country {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        .destination-content {
-            padding: 2rem;
-        }
-        .destination-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        .destination-meta {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        .destination-meta i {
-            color: var(--primary-brown);
-            margin-right: 0.3rem;
-        }
-        .destination-highlights {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin: 1rem 0;
-        }
-        .highlight-tag {
-            background: var(--cream);
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        .destination-price {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--gray-light);
-        }
-        .price {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-        }
-        .price small {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: var(--gray);
-        }
-        .spots-left {
-            background: var(--primary-light);
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-        }
-        .btn-tour {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary-dark);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 1rem;
-        }
-        .btn-tour:hover {
-            background: var(--primary-brown);
-        }
-
-        /* Featured Tours */
-        .featured-tours {
-            background: var(--cream);
-            padding: 4rem 5%;
-        }
-        .tour-spotlight {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            background: white;
-            border-radius: 30px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        .spotlight-image {
-            height: 400px;
-            background: linear-gradient(135deg, var(--primary-brown), var(--primary-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 6rem;
-            color: white;
-        }
-        .spotlight-content {
-            padding: 3rem;
-        }
-        .spotlight-content h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .spotlight-features {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        .feature {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .feature i {
-            font-size: 1.5rem;
-            color: var(--accent-gold);
-        }
-
-        /* Why Tour Section */
-        .why-tour {
-            padding: 4rem 5%;
-            background: var(--white);
-        }
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        .benefit-card {
-            text-align: center;
-            padding: 2rem;
-        }
-        .benefit-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--cream);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-        }
-        .benefit-icon i {
-            font-size: 2rem;
-            color: var(--primary-brown);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-menu { display: block; }
-            .tour-spotlight { grid-template-columns: 1fr; }
-            .spotlight-image { height: 200px; }
-            .spotlight-features { grid-template-columns: 1fr; }
-        }
-
-        /* Footer Styles - Add this to every page */
-        footer {
-            background: var(--primary-dark);
-            color: white;
-            padding: 4rem 5% 2rem;
-            margin-top: auto;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-col h4 {
-            color: var(--accent-gold);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .footer-col ul { list-style: none; padding: 0; }
-
-        .footer-col ul li { margin-bottom: 0.8rem; }
-
-        .footer-col ul li a {
-            color: #e6d5b8;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .footer-col ul li a:hover { color: var(--accent-gold); }
-
-        .footer-bottom {
-            border-top: 1px solid #3d2a1c;
-            padding-top: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            font-size: 0.9rem;
-            color: #e6d5b8;
-        }
-
-        .social-links { display: flex; gap: 1rem; }
-
-        .social-links a {
-            color: white;
-            background: #3d2a1c;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-            transform: translateY(-3px);
-        }
-
-        @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-            .footer-bottom { flex-direction: column; text-align: center; }
-            .social-links { justify-content: center; }
-        }
-
-        @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } 
-    }
-    /* Mobile Menu Styles - Add to all pages */
-.mobile-menu {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 1001;
-}
-
-/* Mobile Navigation Overlay */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: var(--primary-dark);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        z-index: 1000;
-        padding: 2rem;
-        animation: slideIn 0.3s ease;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links a {
-        color: white;
-        font-size: 1.2rem;
-        padding: 1rem;
-        width: 100%;
-        text-align: center;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .nav-links a i {
-        color: var(--accent-gold);
-        margin-right: 10px;
-    }
-
-    .nav-links a:hover {
-        color: var(--accent-gold);
-        background: rgba(255,255,255,0.05);
-    }
-
-    .nav-links .coming-soon {
-        background: rgba(255,255,255,0.1);
-        color: var(--accent-gold);
-        margin-left: 10px;
-    }
-
-    .mobile-menu {
-        display: block;
-        color: var(--primary-dark);
-    }
-
-    .mobile-menu.active {
-        color: var(--accent-gold);
-        position: relative;
-        z-index: 1002;
-    }
-
-    /* Close button when menu is open */
-    .mobile-menu.active i::before {
-        content: "\f00d"; /* Font Awesome X icon */
-    }
-
-    /* Animation for menu */
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Prevent body scroll when menu is open */
-    body.menu-open {
-        overflow: hidden;
-    }
-
-    /* Adjust auth buttons on mobile */
-    .auth-buttons {
-        gap: 0.5rem;
-    }
-
-    .btn-login, .btn-signup {
-        padding: 0.4rem 1rem;
-        font-size: 0.85rem;
-    }
-
-    /* Logo size adjustment */
-    .logo span {
-        font-size: 1.2rem;
-    }
-
-    .logo i {
-        font-size: 1.5rem;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-    .auth-buttons .btn-login,
-    .auth-buttons .btn-signup {
-        display: none; /* Hide login/signup buttons on very small screens */
-    }
-    
-    .mobile-menu {
-        display: block;
-    }
-}
-    </style>
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
@@ -617,15 +25,13 @@
             <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
             <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
             <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
-            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>            
-            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>            
+            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
         <div class="auth-buttons">
             <a href="login.html" class="btn-login">Log In</a>
             <a href="signup.html" class="btn-signup">Join</a>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
 
@@ -635,11 +41,9 @@
     </div>
 
     <div class="tour-search">
-        <div class="search-bar">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search tours by destination, date, or experience...">
-            <button>Search Tours</button>
-        </div>
+        <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="searchTours"
+                placeholder="Search tours by destination, date, or experience..."><button onclick="searchTours()">Search
+                Tours</button></div>
     </div>
 
     <div class="featured-tours">
@@ -648,47 +52,37 @@
             <p>Our most immersive coffee experiences</p>
         </div>
         <div class="tour-spotlight">
-            <div class="spotlight-image">
-                <i class="fas fa-mountain"></i>
-            </div>
-            <div class="spotlight-content">
-                <span style="background: var(--accent-gold); padding: 0.3rem 1rem; border-radius: 20px; font-weight: 600;">FEATURED TOUR</span>
+            <div class="spotlight-image"><i class="fas fa-mountain"></i></div>
+            <div class="spotlight-content"><span
+                    style="background:var(--accent-gold);padding:0.3rem 1rem;border-radius:20px;">FEATURED TOUR</span>
                 <h3>Tanzania: The Kilimanjaro Coffee Trail</h3>
-                <p>Experience the magic of Tanzanian coffee on the slopes of Africa's highest mountain. Visit traditional coffee farms, learn from local farmers, and taste some of the world's best Peaberry coffee.</p>
+                <p>Experience the magic of Tanzanian coffee on the slopes of Africa's highest mountain.</p>
                 <div class="spotlight-features">
-                    <div class="feature">
-                        <i class="fas fa-calendar"></i>
-                        <div>
-                            <strong>8 Days</strong>
+                    <div class="feature"><i class="fas fa-calendar"></i>
+                        <div><strong>8 Days</strong>
                             <p>Full itinerary</p>
                         </div>
                     </div>
-                    <div class="feature">
-                        <i class="fas fa-users"></i>
-                        <div>
-                            <strong>Max 12</strong>
+                    <div class="feature"><i class="fas fa-users"></i>
+                        <div><strong>Max 12</strong>
                             <p>Intimate groups</p>
                         </div>
                     </div>
-                    <div class="feature">
-                        <i class="fas fa-home"></i>
-                        <div>
-                            <strong>Farm Stays</strong>
+                    <div class="feature"><i class="fas fa-home"></i>
+                        <div><strong>Farm Stays</strong>
                             <p>Local homestays</p>
                         </div>
                     </div>
-                    <div class="feature">
-                        <i class="fas fa-coffee"></i>
-                        <div>
-                            <strong>Cupping</strong>
+                    <div class="feature"><i class="fas fa-coffee"></i>
+                        <div><strong>Cupping</strong>
                             <p>Daily tastings</p>
                         </div>
                     </div>
                 </div>
-                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
-                    <button class="btn-tour" style="width: auto; padding: 1rem 3rem;">View Full Itinerary</button>
-                    <button class="btn-tour" style="width: auto; padding: 1rem 3rem; background: transparent; color: var(--primary-dark); border: 2px solid var(--primary-dark);">Check Dates</button>
-                </div>
+                <div><button class="btn-tour" style="width:auto;padding:1rem 2rem;" onclick="viewItinerary()">View Full
+                        Itinerary</button><button class="btn-tour"
+                        style="width:auto;padding:1rem 2rem;background:transparent;border:2px solid var(--primary-dark);color:var(--primary-dark);"
+                        onclick="checkDates()">Check Dates</button></div>
             </div>
         </div>
     </div>
@@ -698,174 +92,9 @@
             <h2>Upcoming Tours</h2>
             <p>Join us on a journey to the world's most exciting coffee origins</p>
         </div>
-        
-        <div class="destination-grid">
-            <!-- Tanzania Tour -->
-            <div class="destination-card">
-                <div class="destination-image" style="background: linear-gradient(135deg, #8b5a2b, #2c1810);">
-                    <span class="destination-country">🇹🇿 Tanzania</span>
-                </div>
-                <div class="destination-content">
-                    <div class="destination-title">Kilimanjaro Coffee Trail</div>
-                    <div class="destination-meta">
-                        <span><i class="fas fa-calendar"></i> Jun 15-22, 2026</span>
-                        <span><i class="fas fa-clock"></i> 8 days</span>
-                    </div>
-                    <div class="destination-highlights">
-                        <span class="highlight-tag">Farm visits</span>
-                        <span class="highlight-tag">Cupping sessions</span>
-                        <span class="highlight-tag">Homestay</span>
-                    </div>
-                    <p style="color: var(--gray); margin: 1rem 0;">Visit cooperative farms on the slopes of Kilimanjaro, meet producers, and experience Tanzanian coffee culture.</p>
-                    <div class="destination-price">
-                        <div>
-                            <div class="price">$2,850 <small>per person</small></div>
-                            <span class="spots-left"><i class="fas fa-users"></i> 8 spots left</span>
-                        </div>
-                    </div>
-                    <button class="btn-tour">Book Now</button>
-                </div>
-            </div>
-
-            <!-- Ethiopia Tour -->
-            <div class="destination-card">
-                <div class="destination-image" style="background: linear-gradient(135deg, #078930, #fcbb4d);">
-                    <span class="destination-country">🇪🇹 Ethiopia</span>
-                </div>
-                <div class="destination-content">
-                    <div class="destination-title">Origins of Coffee: Ethiopia</div>
-                    <div class="destination-meta">
-                        <span><i class="fas fa-calendar"></i> Aug 5-14, 2026</span>
-                        <span><i class="fas fa-clock"></i> 10 days</span>
-                    </div>
-                    <div class="destination-highlights">
-                        <span class="highlight-tag">Yirgacheffe</span>
-                        <span class="highlight-tag">Sidama</span>
-                        <span class="highlight-tag">Addis Ababa</span>
-                    </div>
-                    <p style="color: var(--gray); margin: 1rem 0;">Trace coffee's heritage in Yirgacheffe and Sidama. Visit legendary farms and participate in traditional ceremonies.</p>
-                    <div class="destination-price">
-                        <div>
-                            <div class="price">$3,250 <small>per person</small></div>
-                            <span class="spots-left"><i class="fas fa-users"></i> 12 spots left</span>
-                        </div>
-                    </div>
-                    <button class="btn-tour">Book Now</button>
-                </div>
-            </div>
-
-            <!-- Kenya Tour -->
-            <div class="destination-card">
-                <div class="destination-image" style="background: linear-gradient(135deg, #000000, #bb0000);">
-                    <span class="destination-country">🇰🇪 Kenya</span>
-                </div>
-                <div class="destination-content">
-                    <div class="destination-title">Kenya Coffee Experience</div>
-                    <div class="destination-meta">
-                        <span><i class="fas fa-calendar"></i> Sep 10-18, 2026</span>
-                        <span><i class="fas fa-clock"></i> 9 days</span>
-                    </div>
-                    <div class="destination-highlights">
-                        <span class="highlight-tag">Nyeri</span>
-                        <span class="highlight-tag">Nairobi</span>
-                        <span class="highlight-tag">Auction visit</span>
-                    </div>
-                    <p style="color: var(--gray); margin: 1rem 0;">Explore Kenya's famous coffee regions, visit washing stations, and witness the Nairobi Coffee Auction.</p>
-                    <div class="destination-price">
-                        <div>
-                            <div class="price">$2,950 <small>per person</small></div>
-                            <span class="spots-left"><i class="fas fa-users"></i> 6 spots left</span>
-                        </div>
-                    </div>
-                    <button class="btn-tour">Book Now</button>
-                </div>
-            </div>
-
-            <!-- Colombia Tour -->
-            <div class="destination-card">
-                <div class="destination-image" style="background: linear-gradient(135deg, #FFCD00, #003893);">
-                    <span class="destination-country">🇨🇴 Colombia</span>
-                </div>
-                <div class="destination-content">
-                    <div class="destination-title">Colombian Coffee Triangle</div>
-                    <div class="destination-meta">
-                        <span><i class="fas fa-calendar"></i> Oct 5-13, 2026</span>
-                        <span><i class="fas fa-clock"></i> 9 days</span>
-                    </div>
-                    <div class="destination-highlights">
-                        <span class="highlight-tag">Salento</span>
-                        <span class="highlight-tag">Coffee farms</span>
-                        <span class="highlight-tag">Medellín</span>
-                    </div>
-                    <p style="color: var(--gray); margin: 1rem 0;">Journey through Colombia's Coffee Triangle, visit family farms, and learn about specialty coffee production.</p>
-                    <div class="destination-price">
-                        <div>
-                            <div class="price">$3,150 <small>per person</small></div>
-                            <span class="spots-left"><i class="fas fa-users"></i> 10 spots left</span>
-                        </div>
-                    </div>
-                    <button class="btn-tour">Book Now</button>
-                </div>
-            </div>
-
-            <!-- Brazil Tour -->
-            <div class="destination-card">
-                <div class="destination-image" style="background: linear-gradient(135deg, #009c3b, #ffdf00);">
-                    <span class="destination-country">🇧🇷 Brazil</span>
-                </div>
-                <div class="destination-content">
-                    <div class="destination-title">Minas Gerais Harvest</div>
-                    <div class="destination-meta">
-                        <span><i class="fas fa-calendar"></i> Jul 20-28, 2026</span>
-                        <span><i class="fas fa-clock"></i> 9 days</span>
-                    </div>
-                    <div class="destination-highlights">
-                        <span class="highlight-tag">Large estates</span>
-                        <span class="highlight-tag">Harvest experience</span>
-                        <span class="highlight-tag">São Paulo</span>
-                    </div>
-                    <p style="color: var(--gray); margin: 1rem 0;">Experience the scale of Brazilian coffee production and participate in the harvest season.</p>
-                    <div class="destination-price">
-                        <div>
-                            <div class="price">$2,750 <small>per person</small></div>
-                            <span class="spots-left"><i class="fas fa-users"></i> 15 spots left</span>
-                        </div>
-                    </div>
-                    <button class="btn-tour">Book Now</button>
-                </div>
-            </div>
-
-            <!-- Costa Rica Tour -->
-            <div class="destination-card">
-                <div class="destination-image" style="background: linear-gradient(135deg, #002b7f, #ce1126);">
-                    <span class="destination-country">🇨🇷 🇹🇿Costa Rica</span>
-                </div>
-                <div class="destination-content">
-                    <div class="destination-title">Sustainable Coffee Tour</div>
-                    <div class="destination-meta">
-                        <span><i class="fas fa-calendar"></i> Nov 3-11, 2026</span>
-                        <span><i class="fas fa-clock"></i> 9 days</span>
-                    </div>
-                    <div class="destination-highlights">
-                        <span class="highlight-tag">Micro-mills</span>
-                        <span class="highlight-tag">Sustainability</span>
-                        <span class="highlight-tag">Tarrazú</span>
-                    </div>
-                    <p style="color: var(--gray); margin: 1rem 0;">Discover innovative micro-mills and sustainable farming practices in Costa Rica.</p>
-                    <div class="destination-price">
-                        <div>
-                            <div class="price">$3,450 <small>per person</small></div>
-                            <span class="spots-left"><i class="fas fa-users"></i> 8 spots left</span>
-                        </div>
-                    </div>
-                    <button class="btn-tour">Book Now</button>
-                </div>
-            </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 3rem;">
-            <button class="btn-tour" style="width: auto; padding: 1rem 3rem; background: transparent; border: 2px solid var(--primary-dark); color: var(--primary-dark);">Load More Tours</button>
-        </div>
+        <div class="destination-grid" id="toursGrid"></div>
+        <div style="text-align:center;margin-top:3rem;"><button class="btn-outline" style="padding:1rem 2rem;"
+                onclick="loadMoreTours()">Load More Tours</button></div>
     </div>
 
     <div class="why-tour">
@@ -875,43 +104,32 @@
         </div>
         <div class="benefits-grid">
             <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-handshake"></i>
-                </div>
+                <div class="benefit-icon"><i class="fas fa-handshake"></i></div>
                 <h3>Direct Connections</h3>
-                <p>Meet producers face-to-face and build lasting trade relationships</p>
+                <p>Meet producers face-to-face</p>
             </div>
             <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
+                <div class="benefit-icon"><i class="fas fa-graduation-cap"></i></div>
                 <h3>Educational Focus</h3>
-                <p>Learn from master farmers and participate in hands-on activities</p>
+                <p>Learn from master farmers</p>
             </div>
             <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-users"></i>
-                </div>
+                <div class="benefit-icon"><i class="fas fa-users"></i></div>
                 <h3>Small Groups</h3>
-                <p>Intimate groups of 8-12 people for personalized experiences</p>
+                <p>8-12 people per tour</p>
             </div>
             <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-leaf"></i>
-                </div>
+                <div class="benefit-icon"><i class="fas fa-leaf"></i></div>
                 <h3>Sustainable Tourism</h3>
-                <p>Support local communities and practice responsible travel</p>
+                <p>Support local communities</p>
             </div>
         </div>
     </div>
 
-    <!-- Newsletter and Footer -->
-    <section class="newsletter" style="background: var(--accent-gold); padding: 4rem 5%; text-align: center;">
-        <h2 style="color: var(--primary-dark); font-size: 2rem; margin-bottom: 1rem;">Get Tour Updates</h2>
-        <p style="color: var(--primary-dark); margin-bottom: 2rem;">New tours, early bird discounts, and origin stories</p>
-        <div class="newsletter-form" style="max-width: 500px; margin: 0 auto; display: flex; gap: 1rem;">
-            <input type="email" placeholder="Your email address" style="flex: 1; padding: 1rem; border: none; border-radius: 30px; outline: none;">
-            <button style="background: var(--primary-dark); color: white; border: none; padding: 1rem 2rem; border-radius: 30px; font-weight: 600; cursor: pointer;">Subscribe</button>
+    <section class="newsletter">
+        <h2>Get Tour Updates</h2>
+        <p>New tours, early bird discounts, and origin stories</p>
+        <div class="newsletter-form"><input type="email" placeholder="Your email address"><button>Subscribe</button>
         </div>
     </section>
 
@@ -966,39 +184,37 @@
         </div>
         <div class="footer-bottom">
             <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-            </div>
+            <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i
+                        class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i
+                        class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
         </div>
     </footer>
-<!-- Mobile Menu Script -->
-<script>
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
 
-    if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', function () {
-            navLinks.classList.toggle('active');
-            this.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-        });
-    }
+    <script>
+        let tours = [
+            { country: '🇹🇿 Tanzania', title: 'Kilimanjaro Coffee Trail', dates: 'Jun 15-22, 2026', days: 8, highlights: ['Farm visits', 'Cupping sessions', 'Homestay'], desc: 'Visit cooperative farms on the slopes of Kilimanjaro.', price: 2850, spots: 8 },
+            { country: '🇪🇹 Ethiopia', title: 'Origins of Coffee: Ethiopia', dates: 'Aug 5-14, 2026', days: 10, highlights: ['Yirgacheffe', 'Sidama', 'Addis Ababa'], desc: 'Trace coffee\'s heritage in Yirgacheffe and Sidama.', price: 3250, spots: 12 },
+            { country: '🇰🇪 Kenya', title: 'Kenya Coffee Experience', dates: 'Sep 10-18, 2026', days: 9, highlights: ['Nyeri', 'Nairobi', 'Auction visit'], desc: 'Explore Kenya\'s famous coffee regions.', price: 2950, spots: 6 },
+            { country: '🇨🇴 Colombia', title: 'Colombian Coffee Triangle', dates: 'Oct 5-13, 2026', days: 9, highlights: ['Salento', 'Coffee farms', 'Medellín'], desc: 'Journey through Colombia\'s Coffee Triangle.', price: 3150, spots: 10 },
+            { country: '🇧🇷 Brazil', title: 'Minas Gerais Harvest', dates: 'Jul 20-28, 2026', days: 9, highlights: ['Large estates', 'Harvest experience', 'São Paulo'], desc: 'Experience Brazilian coffee production.', price: 2750, spots: 15 },
+            { country: '🇨🇷 Costa Rica', title: 'Sustainable Coffee Tour', dates: 'Nov 3-11, 2026', days: 9, highlights: ['Micro-mills', 'Sustainability', 'Tarrazú'], desc: 'Discover innovative micro-mills.', price: 3450, spots: 8 }
+        ];
+        function renderTours() { const container = document.getElementById('toursGrid'); container.innerHTML = tours.map(t => `<div class="destination-card"><div class="destination-image" style="background:linear-gradient(135deg,var(--primary-brown),var(--primary-dark))"><span class="destination-country">${t.country}</span></div><div class="destination-content"><div class="destination-title">${t.title}</div><div class="destination-meta"><span><i class="fas fa-calendar"></i> ${t.dates}</span><span><i class="fas fa-clock"></i> ${t.days} days</span></div><div class="destination-highlights">${t.highlights.map(h => `<span class="highlight-tag">${h}</span>`).join('')}</div><p style="color:var(--gray);margin:1rem 0;">${t.desc}</p><div class="destination-price"><div><div class="price">$${t.price}<small>/person</small></div><span class="spots-left"><i class="fas fa-users"></i> ${t.spots} spots left</span></div></div><button class="btn-tour" onclick="bookTour('${t.title}')">Book Now</button></div></div>`).join(''); }
+        function searchTours() { const query = document.getElementById('searchTours').value.toLowerCase(); if (query) { const filtered = tours.filter(t => t.title.toLowerCase().includes(query) || t.country.toLowerCase().includes(query)); const container = document.getElementById('toursGrid'); if (filtered.length === 0) { container.innerHTML = `<div style="text-align:center;padding:3rem;"><i class="fas fa-search"></i><p>No tours found matching "${query}"</p></div>`; return; } container.innerHTML = filtered.map(t => `...`).join(''); } else { renderTours(); } }
+        function viewItinerary() { alert('Viewing full itinerary'); }
+        function checkDates() { alert('Checking available dates'); }
+        function bookTour(tour) { alert(`Booking ${tour}`); }
+        function loadMoreTours() { alert('Loading more tours'); }
 
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            }
-        });
-    });
-</script>
+        const mobileMenuBtns = document.querySelectorAll('.mobile-menu'), navLinks = document.querySelector('.nav-links');
+        function closeMenu() { if (navLinks) navLinks.classList.remove('active'); mobileMenuBtns.forEach(b => b.classList.remove('active')); document.body.classList.remove('menu-open'); }
+        function toggleMenu() { if (navLinks) navLinks.classList.toggle('active'); mobileMenuBtns.forEach(b => b.classList.toggle('active')); document.body.classList.toggle('menu-open'); }
+        mobileMenuBtns.forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); }));
+        document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', closeMenu));
+        document.addEventListener('click', (e) => { if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && !e.target.closest('.mobile-menu')) closeMenu(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        renderTours();
+    </script>
 </body>
+
 </html>

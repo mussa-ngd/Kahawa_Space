@@ -1,4 +1,3 @@
-<!-- news.html - Complete corrected version -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kahawa Space - Coffee News & Market Intelligence</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/mobile-menu.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/news.css">
-    <!-- Add this AFTER your existing styles -->
-    <link rel="stylesheet" href="css/news.css">   
+    <link rel="stylesheet" href="css/kahawa-style.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
 </head>
 
 <body>
@@ -27,106 +26,41 @@
             <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
             <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
             <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
-            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>            
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
         <div class="auth-buttons">
             <a href="login.html" class="btn-login">Log In</a>
             <a href="signup.html" class="btn-signup">Join</a>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
 
-    <!-- Rest of your news.html content here -->
     <div class="page-header">
         <h1>Coffee News & Market Intelligence</h1>
-        <p>Stay ahead with global coffee updates, market movements, and industry insights from producing and consuming
-            countries</p>
+        <p>Stay ahead with global coffee updates, market movements, and industry insights</p>
     </div>
 
     <div class="news-filter">
-        <div class="filter-container">
-            <button class="filter-btn active">All News</button>
-            <button class="filter-btn">Origin & Production</button>
-            <button class="filter-btn">Market & Trade</button>
-            <button class="filter-btn">Industry & Innovation</button>
-            <button class="filter-btn">Competitions</button>
-            <button class="filter-btn">Business News</button>
-        </div>
+        <div class="filter-container"><button class="filter-btn active" data-category="all">All News</button><button
+                class="filter-btn" data-category="origin">Origin & Production</button><button class="filter-btn"
+                data-category="market">Market & Trade</button><button class="filter-btn"
+                data-category="innovation">Industry & Innovation</button><button class="filter-btn"
+                data-category="competitions">Competitions</button><button class="filter-btn"
+                data-category="business">Business News</button></div>
     </div>
 
-    <div class="news-main">
-        <!-- Your existing news content -->
-        <div class="featured-news">
-            <div class="featured-main">
-                <div class="featured-image">
-                    <span class="featured-tag">Featured Story</span>
-                </div>
-                <div class="featured-content">
-                    <div class="news-date">March 6, 2026</div>
-                    <h2>Tanzania Coffee Exports Surge 25% as Specialty Market Grows</h2>
-                    <p>New data from the Tanzania Coffee Board shows record-breaking exports of specialty grade coffee,
-                        with smallholder farmers benefiting from direct trade relationships and premium prices.</p>
-                    <div class="featured-meta">
-                        <span><i class="fas fa-user"></i> By James Mwangi</span>
-                        <span><i class="fas fa-map-marker-alt"></i> Moshi, Tanzania</span>
-                        <span><i class="fas fa-clock"></i> 5 min read</span>
-                    </div>
-                    <a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            <div class="featured-side">
-                <div class="side-news-card">
-                    <span class="news-tag" style="position: relative; top: 0; left: 0; display: inline-block;">Market
-                        Update</span>
-                    <h4>C-Market Reaches 6-Month High</h4>
-                    <p class="news-date">March 5, 2026</p>
-                </div>
-                <div class="side-news-card">
-                    <span class="news-tag"
-                        style="position: relative; top: 0; left: 0; display: inline-block;">Innovation</span>
-                    <h4>New Fermentation Lab Opens in Ethiopia</h4>
-                    <p class="news-date">March 4, 2026</p>
-                </div>
-                <div class="side-news-card">
-                    <span class="news-tag"
-                        style="position: relative; top: 0; left: 0; display: inline-block;">Competition</span>
-                    <h4>Tanzanian Barista Wins East African Title</h4>
-                    <p class="news-date">March 3, 2026</p>
-                </div>
-            </div>
-        </div>
-
-        <h2 style="margin: 2rem 0;">Latest News</h2>
-        <div class="news-grid">
-            <!-- Add your news cards here -->
-        </div>
-
-        <div class="pagination">
-            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn">4</button>
-            <button class="page-btn">5</button>
-            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </div>
+    <div class="news-main" id="newsMain"></div>
 
     <section class="newsletter">
         <h2>Get the Latest Coffee News</h2>
-        <p>Weekly market intelligence, origin stories, and industry updates delivered to your inbox</p>
-        <div class="newsletter-form">
-            <input type="email" placeholder="Your email address">
-            <button>Subscribe</button>
+        <p>Weekly market intelligence, origin stories, and industry updates</p>
+        <div class="newsletter-form"><input type="email" placeholder="Your email address"><button>Subscribe</button>
         </div>
     </section>
 
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-    <script src="js/main.js" defer></script>
                 <h4>About</h4>
                 <ul>
                     <li><a href="#">Our Story</a></li>
@@ -175,39 +109,39 @@
         </div>
         <div class="footer-bottom">
             <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <div class="social-links"><a href="#">
+                <i class="fab fa-instagram"></i></a><a href="#">
+                    <i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
             </div>
         </div>
     </footer>
-<!-- Mobile Menu Script -->
-<script>
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
 
-    if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', function () {
-            navLinks.classList.toggle('active');
-            this.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-        });
-    }
+    <script>
+        let currentCategory = 'all';
+        let articles = [
+            { id: 1, title: 'Tanzania Harvest Report: Record Quality from Kilimanjaro', category: 'origin', date: 'March 5, 2026', excerpt: 'Early harvest samples show exceptional cup scores as farmers adopt new processing methods.', author: 'James Mwangi', location: 'Moshi, Tanzania', readTime: '5 min', image: 'origin' },
+            { id: 2, title: 'C-Market Analysis: Volatility and Opportunities', category: 'market', date: 'March 4, 2026', excerpt: 'Currency impacts and supply chain updates affecting green coffee prices this quarter.', author: 'Market Analyst', location: 'Global', readTime: '4 min', image: 'market' },
+            { id: 3, title: 'New Fermentation Techniques Reshaping Specialty Coffee', category: 'innovation', date: 'March 3, 2026', excerpt: 'How producers in Colombia and Kenya are experimenting with controlled fermentation.', author: 'Maria Santos', location: 'Bogotá', readTime: '6 min', image: 'innovation' },
+            { id: 4, title: 'World Barista Championship: Meet the Finalists', category: 'competitions', date: 'March 2, 2026', excerpt: 'Live coverage from the stage as competitors showcase their signature drinks.', author: 'Coffee Events', location: 'Melbourne', readTime: '8 min', image: 'competition' },
+            { id: 5, title: 'Café Expansion Trends: 2026 Market Report', category: 'business', date: 'March 1, 2026', excerpt: 'Analysis of global café openings and investment trends in key markets.', author: 'Business Desk', location: 'London', readTime: '5 min', image: 'business' },
+            { id: 6, title: 'Ethiopia: New Coffee Varieties Show Disease Resistance', category: 'origin', date: 'February 28, 2026', excerpt: 'Research center releases promising new varieties for smallholder farmers.', author: 'Agri Report', location: 'Addis Ababa', readTime: '4 min', image: 'origin' },
+            { id: 7, title: 'Sustainable Packaging Innovations in Coffee Industry', category: 'innovation', date: 'February 27, 2026', excerpt: 'New biodegradable materials set to revolutionize coffee packaging.', author: 'Green Coffee', location: 'Berlin', readTime: '5 min', image: 'innovation' }
+        ];
+        function renderNews() { let filtered = currentCategory === 'all' ? articles : articles.filter(a => a.category === currentCategory); const container = document.getElementById('newsMain'); container.innerHTML = `<div class="featured-news">${filtered[0] ? `<div class="featured-main"><div class="featured-image" style="background:linear-gradient(135deg,var(--primary-brown),var(--primary-dark))"><span class="featured-tag">Featured Story</span></div><div class="featured-content"><div class="news-date">${filtered[0].date}</div><h2>${filtered[0].title}</h2><p>${filtered[0].excerpt}</p><div class="featured-meta"><span><i class="fas fa-user"></i> By ${filtered[0].author}</span><span><i class="fas fa-map-marker-alt"></i> ${filtered[0].location}</span><span><i class="fas fa-clock"></i> ${filtered[0].readTime} read</span></div><a href="#" class="read-more">Read Full Article <i class="fas fa-arrow-right"></i></a></div></div><div class="featured-side">${filtered.slice(1, 4).map(a => `<div class="side-news-card"><span class="news-tag" style="position:relative;top:0;left:0;display:inline-block;">${a.category === 'origin' ? 'Origin & Production' : a.category === 'market' ? 'Market Intelligence' : a.category === 'innovation' ? 'Innovation' : a.category === 'competitions' ? 'Competitions' : 'Business News'}</span><h4>${a.title}</h4><p class="news-date">${a.date}</p></div>`).join('')}</div>` : `<div class="featured-main"><div class="featured-image"><span class="featured-tag">No Articles</span></div><div class="featured-content"><p>No articles found in this category.</p></div></div>`}<h2 style="margin:2rem 0;">Latest News</h2><div class="news-grid">${filtered.map(a => `<div class="news-card"><div class="news-image" style="background:linear-gradient(135deg,var(--primary-brown),var(--primary-dark))"><div class="news-tag">${a.category === 'origin' ? 'Origin & Production' : a.category === 'market' ? 'Market Intelligence' : a.category === 'innovation' ? 'Innovation' : a.category === 'competitions' ? 'Competitions' : 'Business News'}</div></div><div class="news-content"><div class="news-date">${a.date}</div><h3>${a.title}</h3><p>${a.excerpt}</p><a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a></div></div>`).join('')}</div><div class="pagination"><button class="page-btn"><i class="fas fa-chevron-left"></i></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn"><i class="fas fa-chevron-right"></i></button></div>`; }
+        document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentCategory = btn.dataset.category; renderNews(); }); });
 
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            }
-        });
-    });
-</script>
+        const mobileMenuBtns = document.querySelectorAll('.mobile-menu'), navLinks = document.querySelector('.nav-links');
+        function closeMenu() { if (navLinks) navLinks.classList.remove('active'); mobileMenuBtns.forEach(b => b.classList.remove('active')); document.body.classList.remove('menu-open'); }
+        function toggleMenu() { if (navLinks) navLinks.classList.toggle('active'); mobileMenuBtns.forEach(b => b.classList.toggle('active')); document.body.classList.toggle('menu-open'); }
+        mobileMenuBtns.forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); }));
+        document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', closeMenu));
+        document.addEventListener('click', (e) => { if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && !e.target.closest('.mobile-menu')) closeMenu(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        renderNews();
+    </script>
 </body>
+
 </html>

@@ -1,17 +1,21 @@
-<!-- login.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kahawa Space - Log In</title>
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/login.css">
-    <!-- Add this AFTER your existing styles -->
-    <link rel="stylesheet" href="css/kahawa-styles.css">
-
+    <link rel="stylesheet" href="css/kahawa-style.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
@@ -28,8 +32,8 @@
             <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
         <div class="auth-buttons">
-            <button class="btn-login" onclick="window.location.href='login.html'">Log In</button>
-            <button class="btn-signup" onclick="window.location.href='signup.html'">Join</button>
+            <a href="login.html" class="btn-login">Log In</a>
+            <a href="signup.html" class="btn-signup">Join</a>
             <div class="mobile-menu"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
@@ -42,35 +46,38 @@
             </div>
             <div class="login-body">
                 <div id="alertMessage" style="display: none;"></div>
-                
+
                 <form id="loginForm">
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required
+                            autocomplete="email">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required autocomplete="current-password">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required
+                            autocomplete="current-password">
                     </div>
-                    
+
                     <div class="form-options">
                         <label class="checkbox-label">
                             <input type="checkbox" id="rememberMe"> Remember me
                         </label>
                         <a href="forgot-password.html" class="forgot-password">Forgot password?</a>
                     </div>
-                    
+
                     <button type="submit" class="login-btn" id="loginBtn">
                         <span id="btnText">Log In</span>
-                        <span id="btnLoader" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Logging in...</span>
+                        <span id="btnLoader" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Logging
+                            in...</span>
                     </button>
                 </form>
-                
+
                 <div class="divider">
                     <span>Or continue with</span>
                 </div>
-                
+
                 <div class="social-login">
                     <button class="social-btn google" onclick="socialLogin('google')">
                         <i class="fab fa-google"></i> Google
@@ -79,13 +86,14 @@
                         <i class="fab fa-facebook-f"></i> Facebook
                     </button>
                 </div>
-                
+
                 <div class="signup-link">
                     Don't have an account? <a href="signup.html">Sign up</a>
                 </div>
             </div>
         </div>
     </div>
+
     <footer>
         <div class="footer-links">
             <a href="about.html">About</a>
@@ -98,6 +106,157 @@
             © 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"
         </div>
     </footer>
-<script src="js/kahawa-main.js" defer></script>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtns = document.querySelectorAll('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        function closeMenu() {
+            if (navLinks) navLinks.classList.remove('active');
+            mobileMenuBtns.forEach(btn => btn.classList.remove('active'));
+            document.body.classList.remove('menu-open');
+        }
+
+        function toggleMenu() {
+            if (navLinks) navLinks.classList.toggle('active');
+            mobileMenuBtns.forEach(btn => btn.classList.toggle('active'));
+            document.body.classList.toggle('menu-open');
+        }
+
+        mobileMenuBtns.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                toggleMenu();
+            });
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('click', function (event) {
+            if (navLinks && navLinks.classList.contains('active')) {
+                if (!navLinks.contains(event.target) && !event.target.closest('.mobile-menu')) {
+                    closeMenu();
+                }
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') closeMenu();
+        });
+
+        // Login Form Handler
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const btnText = document.getElementById('btnText');
+        const btnLoader = document.getElementById('btnLoader');
+        const alertMessage = document.getElementById('alertMessage');
+
+        function showAlert(message, type = 'error') {
+            alertMessage.style.display = 'block';
+            alertMessage.className = `alert alert-${type}`;
+            alertMessage.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            setTimeout(() => {
+                alertMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        async function handleLogin(email, password, rememberMe) {
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                const sessionData = {
+                    user: { email: email, fullName: email.split('@')[0], role: 'buyer' },
+                    token: 'demo_token_' + Math.random().toString(36).substr(2, 32),
+                    expires: new Date().getTime() + (rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000)
+                };
+
+                if (rememberMe) {
+                    localStorage.setItem('kahawa_session', JSON.stringify(sessionData));
+                } else {
+                    sessionStorage.setItem('kahawa_session', JSON.stringify(sessionData));
+                }
+
+                showAlert(`Welcome back, ${sessionData.user.fullName}!`, 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } catch (error) {
+                showAlert('Login failed. Please try again.', 'error');
+            }
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            if (!email || !password) {
+                showAlert('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showAlert('Please enter a valid email address', 'error');
+                return;
+            }
+
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'inline-block';
+            loginBtn.disabled = true;
+
+            await handleLogin(email, password, rememberMe);
+
+            btnText.style.display = 'inline';
+            btnLoader.style.display = 'none';
+            loginBtn.disabled = false;
+        });
+
+        function socialLogin(provider) {
+            showAlert(`${provider} login coming soon!`, 'info');
+        }
+
+        function checkExistingSession() {
+            const session = localStorage.getItem('kahawa_session') || sessionStorage.getItem('kahawa_session');
+            if (session) {
+                try {
+                    const data = JSON.parse(session);
+                    if (data.expires && data.expires > new Date().getTime()) {
+                        window.location.href = 'index.html';
+                    } else {
+                        localStorage.removeItem('kahawa_session');
+                        sessionStorage.removeItem('kahawa_session');
+                    }
+                } catch (e) {
+                    console.error('Session parse error:', e);
+                }
+            }
+        }
+
+        checkExistingSession();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const verified = urlParams.get('verified');
+        const message = urlParams.get('message');
+
+        if (verified === 'true') {
+            showAlert('Email verified successfully! You can now log in.', 'success');
+        } else if (message) {
+            showAlert(decodeURIComponent(message), 'info');
+        }
+    </script>
 </body>
+
 </html>

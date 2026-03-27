@@ -1,15 +1,18 @@
-<!-- user.html - General User Dashboard -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kahawa Space - My Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/kahawa-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/user.css">
+    <link rel="stylesheet" href="css/kahawa-style.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
@@ -26,9 +29,7 @@
         </div>
         <div class="auth-buttons">
             <div class="user-menu">
-                <div class="user-avatar">
-                    <i class="fas fa-user"></i>
-                </div>
+                <div class="user-avatar"><i class="fas fa-user"></i></div>
                 <span class="user-name">John Doe</span>
                 <div class="user-dropdown">
                     <a href="user.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
@@ -43,81 +44,60 @@
     </nav>
 
     <div class="dashboard-container">
-        <!-- Welcome Section -->
         <div class="welcome-section">
             <h1>Welcome back, John! 👋</h1>
-            <p>Your coffee journey continues. Explore new coffees, track your orders, and discover learning opportunities.</p>
+            <p>Your coffee journey continues. Explore new coffees, track your orders, and discover learning
+                opportunities.</p>
         </div>
 
-        <!-- Stats Grid -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-shopping-bag"></i>
-                </div>
+                <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
                 <div class="stat-value">8</div>
                 <div class="stat-label">Total Orders</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
+                <div class="stat-icon"><i class="fas fa-heart"></i></div>
                 <div class="stat-value">12</div>
                 <div class="stat-label">Saved Items</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
+                <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
                 <div class="stat-value">3</div>
                 <div class="stat-label">Courses Enrolled</div>
             </div>
             <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-coffee"></i>
-                </div>
+                <div class="stat-icon"><i class="fas fa-coffee"></i></div>
                 <div class="stat-value">24</div>
                 <div class="stat-label">Coffees Tasted</div>
             </div>
         </div>
 
-        <!-- Recent Orders -->
         <div class="section-header">
-            <h2>Recent Orders</h2>
-            <a href="orders.html">View All →</a>
+            <h2>Recent Orders</h2><a href="ordersforuser.html">View All →</a>
         </div>
         <div class="orders-grid">
             <div class="order-card">
-                <div class="order-header">
-                    <span class="order-id">Order #KAH-2024-0012</span>
-                    <span class="order-status status-delivered">Delivered</span>
-                </div>
+                <div class="order-header"><span class="order-id">Order #KAH-2024-0012</span><span
+                        class="order-status status-delivered">Delivered</span></div>
                 <div class="order-details">
                     <div class="order-product">
-                        <div class="order-product-image">
-                            <i class="fas fa-coffee-bean"></i>
-                        </div>
-                        <div>
-                            <div><strong>Tanzania Peaberry AA Reserve</strong></div>
-                            <div class="order-meta" style="font-size: 0.8rem; color: var(--gray);">2kg • Green Coffee</div>
+                        <div class="order-product-image"><i class="fas fa-coffee-bean"></i></div>
+                        <div><strong>Tanzania Peaberry AA Reserve</strong>
+                            <div class="order-meta">2kg • Green Coffee</div>
                         </div>
                     </div>
                     <div class="order-price">$17.00</div>
                 </div>
             </div>
             <div class="order-card">
-                <div class="order-header">
-                    <span class="order-id">Order #KAH-2024-0015</span>
-                    <span class="order-status status-shipped">Shipped</span>
-                </div>
+                <div class="order-header"><span class="order-id">Order #KAH-2024-0015</span><span
+                        class="order-status status-shipped">Shipped</span></div>
                 <div class="order-details">
                     <div class="order-product">
-                        <div class="order-product-image">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <div>
-                            <div><strong>Ethiopia Yirgacheffe Natural G1</strong></div>
-                            <div class="order-meta" style="font-size: 0.8rem; color: var(--gray);">1kg • Roasted Coffee</div>
+                        <div class="order-product-image"><i class="fas fa-fire"></i></div>
+                        <div><strong>Ethiopia Yirgacheffe Natural G1</strong>
+                            <div class="order-meta">1kg • Roasted Coffee</div>
                         </div>
                     </div>
                     <div class="order-price">$18.40</div>
@@ -125,33 +105,26 @@
             </div>
         </div>
 
-        <!-- Recent Activity -->
         <div class="section-header">
             <h2>Recent Activity</h2>
         </div>
         <div class="activity-list">
             <div class="activity-item">
-                <div class="activity-icon">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
+                <div class="activity-icon"><i class="fas fa-shopping-cart"></i></div>
                 <div class="activity-content">
                     <div class="activity-title">You placed an order for Ethiopia Yirgacheffe</div>
                     <div class="activity-time">2 days ago</div>
                 </div>
             </div>
             <div class="activity-item">
-                <div class="activity-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
+                <div class="activity-icon"><i class="fas fa-graduation-cap"></i></div>
                 <div class="activity-content">
                     <div class="activity-title">Completed "Barista Foundation" course</div>
                     <div class="activity-time">5 days ago</div>
                 </div>
             </div>
             <div class="activity-item">
-                <div class="activity-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
+                <div class="activity-icon"><i class="fas fa-heart"></i></div>
                 <div class="activity-content">
                     <div class="activity-title">Saved "La Marzocco Linea Mini" to wishlist</div>
                     <div class="activity-time">1 week ago</div>
@@ -159,33 +132,26 @@
             </div>
         </div>
 
-        <!-- Recommendations -->
         <div class="section-header">
             <h2>Recommended for You</h2>
         </div>
         <div class="recommendations-grid">
             <div class="rec-card">
-                <div class="rec-image">
-                    <i class="fas fa-coffee-bean"></i>
-                </div>
+                <div class="rec-image"><i class="fas fa-coffee-bean"></i></div>
                 <div class="rec-info">
                     <div class="rec-title">Kenya AA SL28 & SL34</div>
                     <div class="rec-price">$10.20/kg</div>
                 </div>
             </div>
             <div class="rec-card">
-                <div class="rec-image">
-                    <i class="fas fa-fire"></i>
-                </div>
+                <div class="rec-image"><i class="fas fa-fire"></i></div>
                 <div class="rec-info">
                     <div class="rec-title">Colombia Geisha Natural</div>
                     <div class="rec-price">$24.50/kg</div>
                 </div>
             </div>
             <div class="rec-card">
-                <div class="rec-image">
-                    <i class="fas fa-blender"></i>
-                </div>
+                <div class="rec-image"><i class="fas fa-blender"></i></div>
                 <div class="rec-info">
                     <div class="rec-title">Fellow Ode Grinder</div>
                     <div class="rec-price">$349.00</div>
@@ -220,10 +186,19 @@
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
-        </div>
-            <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+        <div class="footer-bottom">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+    </footer>
 
-    </footer>    
+    <script>
+        const mobileMenuBtns = document.querySelectorAll('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        function closeMenu() { if (navLinks) navLinks.classList.remove('active'); mobileMenuBtns.forEach(btn => btn.classList.remove('active')); document.body.classList.remove('menu-open'); }
+        function toggleMenu() { if (navLinks) navLinks.classList.toggle('active'); mobileMenuBtns.forEach(btn => btn.classList.toggle('active')); document.body.classList.toggle('menu-open'); }
+        mobileMenuBtns.forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); }));
+        document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+        document.addEventListener('click', (e) => { if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && !e.target.closest('.mobile-menu')) closeMenu(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    </script>
 </body>
+
 </html>

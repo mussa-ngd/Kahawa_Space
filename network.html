@@ -1,586 +1,18 @@
-<!-- network.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kahawa Space - Professional Coffee Network</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/network.css">
+    <link rel="stylesheet" href="css/kahawa-style.css">
     <link rel="stylesheet" href="css/mobile-menu.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #2c1810;
-            background-color: #faf7f2;
-        }
-        :root {
-            --primary-dark: #2c1810;
-            --primary-brown: #8b5a2b;
-            --primary-medium: #b87c4b;
-            --primary-light: #e6d5b8;
-            --accent-gold: #c9a227;
-            --cream: #faf7f2;
-            --white: #ffffff;
-            --gray-light: #f0e9e0;
-            --gray: #9b8b7a;
-        }
-
-        /* Navigation */
-        .navbar {
-            background-color: var(--white);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid var(--accent-gold);
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        .logo i {
-            font-size: 2rem;
-            color: var(--primary-brown);
-        }
-        .logo span {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            letter-spacing: -0.5px;
-        }
-        .logo span:last-child {
-            color: var(--accent-gold);
-            font-weight: 400;
-            font-size: 1rem;
-            margin-left: 5px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: var(--primary-dark);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .nav-links a i { color: var(--primary-medium); }
-        .nav-links a:hover { color: var(--accent-gold); }
-        .nav-links a.active {
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-        .nav-links .coming-soon {
-            background: var(--gray-light);
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--primary-brown);
-            margin-left: 5px;
-        }
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-        .btn-login {
-            padding: 0.5rem 1.2rem;
-            border: 2px solid var(--primary-light);
-            background: transparent;
-            border-radius: 30px;
-            font-weight: 600;
-            color: var(--primary-dark);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-login:hover { border-color: var(--primary-brown); }
-        .btn-signup {
-            padding: 0.5rem 1.2rem;
-            background: var(--primary-dark);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-signup:hover { background: var(--primary-brown); }
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Coming Soon Hero */
-        .coming-soon-hero {
-            min-height: 80vh;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, #3d2a1c 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .coming-soon-hero::before {
-            content: "☕";
-            font-size: 20rem;
-            position: absolute;
-            right: 5%;
-            bottom: -20%;
-            opacity: 0.1;
-            transform: rotate(15deg);
-        }
-        .coming-soon-hero::after {
-            content: "☕";
-            font-size: 15rem;
-            position: absolute;
-            left: 5%;
-            top: -10%;
-            opacity: 0.1;
-            transform: rotate(-15deg);
-        }
-        .coming-soon-content {
-            max-width: 800px;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-        .coming-soon-badge {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-            padding: 0.5rem 2rem;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            display: inline-block;
-            margin-bottom: 2rem;
-            letter-spacing: 2px;
-        }
-        .coming-soon-content h1 {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-        .coming-soon-content h1 span {
-            color: var(--accent-gold);
-            display: block;
-            font-size: 2rem;
-            font-weight: 400;
-        }
-        .coming-soon-content p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Features Preview */
-        .features-preview {
-            padding: 4rem 5%;
-            background: var(--white);
-        }
-        .preview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .preview-card {
-            text-align: center;
-            padding: 2rem;
-            background: var(--cream);
-            border-radius: 20px;
-            transition: transform 0.3s;
-        }
-        .preview-card:hover {
-            transform: translateY(-5px);
-        }
-        .preview-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--primary-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-        }
-        .preview-icon i {
-            font-size: 2rem;
-            color: var(--primary-brown);
-        }
-        .preview-card h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-dark);
-        }
-        .preview-card p {
-            color: var(--gray);
-            font-size: 0.95rem;
-        }
-
-        /* Waitlist Section */
-        .waitlist-section {
-            background: var(--cream);
-            padding: 5rem 5%;
-            text-align: center;
-        }
-        .waitlist-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--white);
-            padding: 3rem;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        .waitlist-container h2 {
-            font-size: 2rem;
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-        }
-        .waitlist-container p {
-            color: var(--gray);
-            margin-bottom: 2rem;
-        }
-        .waitlist-form {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        .waitlist-form input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            border: 2px solid var(--gray-light);
-            border-radius: 30px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .waitlist-form input:focus {
-            border-color: var(--accent-gold);
-        }
-        .waitlist-form button {
-            padding: 1rem 2rem;
-            background: var(--primary-dark);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .waitlist-form button:hover {
-            background: var(--primary-brown);
-        }
-        .waitlist-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--accent-gold);
-        }
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* Roadmap */
-        .roadmap {
-            padding: 4rem 5%;
-            background: var(--white);
-        }
-        .roadmap h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--primary-dark);
-            margin-bottom: 3rem;
-        }
-        .roadmap-timeline {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        .roadmap-timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: var(--gray-light);
-        }
-        .roadmap-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        .roadmap-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-        .roadmap-date {
-            width: 120px;
-            padding: 0.5rem;
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-            font-weight: 700;
-            text-align: center;
-            border-radius: 30px;
-        }
-        .roadmap-content {
-            width: calc(50% - 60px);
-            padding: 1.5rem;
-            background: var(--cream);
-            border-radius: 20px;
-        }
-        .roadmap-content h3 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-dark);
-        }
-        .roadmap-content p {
-            color: var(--gray);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-menu { display: block; }
-            .coming-soon-content h1 { font-size: 2.5rem; }
-            .waitlist-form { flex-direction: column; }
-            .roadmap-timeline::before { left: 30px; }
-            .roadmap-item,
-            .roadmap-item:nth-child(even) {
-                flex-direction: column;
-                align-items: flex-start;
-                margin-left: 60px;
-            }
-            .roadmap-date { margin-bottom: 1rem; }
-            .roadmap-content { width: 100%; }
-        }
-
-            /* Footer Styles - added across pages */
-            footer {
-                background: var(--primary-dark);
-                color: white;
-                padding: 4rem 5% 2rem;
-                margin-top: auto;
-            }
-
-            .footer-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 3rem;
-                margin-bottom: 3rem;
-            }
-
-            .footer-col h4 {
-                color: var(--accent-gold);
-                margin-bottom: 1.5rem;
-                font-size: 1.1rem;
-                font-weight: 600;
-            }
-
-            .footer-col ul { list-style: none; padding: 0; }
-
-            .footer-col ul li { margin-bottom: 0.8rem; }
-
-            .footer-col ul li a {
-                color: #e6d5b8;
-                text-decoration: none;
-                transition: color 0.3s;
-                font-size: 0.9rem;
-            }
-
-            .footer-col ul li a:hover { color: var(--accent-gold); }
-
-            .footer-bottom {
-                border-top: 1px solid #3d2a1c;
-                padding-top: 2rem;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-wrap: wrap;
-                gap: 1rem;
-                font-size: 0.9rem;
-                color: #e6d5b8;
-            }
-
-            .social-links { display: flex; gap: 1rem; }
-
-            .social-links a {
-                color: white;
-                background: #3d2a1c;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.3s;
-                text-decoration: none;
-            }
-
-            .social-links a:hover {
-                background: var(--accent-gold);
-                color: var(--primary-dark);
-                transform: translateY(-3px);
-            }
-
-            @media (max-width: 768px) {
-                .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-                .footer-bottom { flex-direction: column; text-align: center; }
-                .social-links { justify-content: center; }
-            }
-
-            @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } 
-        }
-        /* Mobile Menu Styles - Add to all pages */
-.mobile-menu {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 1001;
-}
-
-/* Mobile Navigation Overlay */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: var(--primary-dark);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        z-index: 1000;
-        padding: 2rem;
-        animation: slideIn 0.3s ease;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links a {
-        color: white;
-        font-size: 1.2rem;
-        padding: 1rem;
-        width: 100%;
-        text-align: center;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .nav-links a i {
-        color: var(--accent-gold);
-        margin-right: 10px;
-    }
-
-    .nav-links a:hover {
-        color: var(--accent-gold);
-        background: rgba(255,255,255,0.05);
-    }
-
-    .nav-links .coming-soon {
-        background: rgba(255,255,255,0.1);
-        color: var(--accent-gold);
-        margin-left: 10px;
-    }
-
-    .mobile-menu {
-        display: block;
-        color: var(--primary-dark);
-    }
-
-    .mobile-menu.active {
-        color: var(--accent-gold);
-        position: relative;
-        z-index: 1002;
-    }
-
-    /* Close button when menu is open */
-    .mobile-menu.active i::before {
-        content: "\f00d"; /* Font Awesome X icon */
-    }
-
-    /* Animation for menu */
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* Prevent body scroll when menu is open */
-    body.menu-open {
-        overflow: hidden;
-    }
-
-    /* Adjust auth buttons on mobile */
-    .auth-buttons {
-        gap: 0.5rem;
-    }
-
-    .btn-login, .btn-signup {
-        padding: 0.4rem 1rem;
-        font-size: 0.85rem;
-    }
-
-    /* Logo size adjustment */
-    .logo span {
-        font-size: 1.2rem;
-    }
-
-    .logo i {
-        font-size: 1.5rem;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-    .auth-buttons .btn-login,
-    .auth-buttons .btn-signup {
-        display: none; /* Hide login/signup buttons on very small screens */
-    }
-    
-    .mobile-menu {
-        display: block;
-    }
-}
-    </style>
 </head>
+
 <body>
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
@@ -588,65 +20,51 @@
             <span>KAHAWA</span>
             <span>SPACE</span>
         </div>
-    
         <div class="nav-links">
             <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
             <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
             <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
-            <a href="network.html">Network <span class="coming-soon">Coming Soon</span></a>
+            <a href="network.html" class="active">Network <span class="coming-soon">Coming Soon</span></a>
             <a href="tours.html"><i class="fas fa-plane"></i> Coffee Tours</a>
             <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
         </div>
-    
         <div class="auth-buttons">
             <a href="login.html" class="btn-login">Log In</a>
             <a href="signup.html" class="btn-signup">Join</a>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
 
     <div class="coming-soon-hero">
         <div class="coming-soon-content">
             <div class="coming-soon-badge">COMING SOON</div>
-            <h1>
-                Kahawa Network
-                <span>Connect with Coffee Professionals Worldwide</span>
-            </h1>
-            <p>A dedicated space for coffee professionals to build relationships, find trade partners, and grow their global network.</p>
+            <h1>Kahawa Network<span>Connect with Coffee Professionals Worldwide</span></h1>
+            <p>A dedicated space for coffee professionals to build relationships, find trade partners, and grow their
+                global network.</p>
         </div>
     </div>
 
     <div class="features-preview">
         <div class="preview-grid">
             <div class="preview-card">
-                <div class="preview-icon">
-                    <i class="fas fa-user-tie"></i>
-                </div>
+                <div class="preview-icon"><i class="fas fa-user-tie"></i></div>
                 <h3>Professional Profiles</h3>
-                <p>Create detailed profiles showcasing your expertise, certifications, and coffee portfolio.</p>
+                <p>Create detailed profiles showcasing your expertise.</p>
             </div>
             <div class="preview-card">
-                <div class="preview-icon">
-                    <i class="fas fa-handshake"></i>
-                </div>
+                <div class="preview-icon"><i class="fas fa-handshake"></i></div>
                 <h3>Trade Connections</h3>
-                <p>Connect directly with verified buyers, sellers, and industry professionals.</p>
+                <p>Connect with verified buyers, sellers, and professionals.</p>
             </div>
             <div class="preview-card">
-                <div class="preview-icon">
-                    <i class="fas fa-users"></i>
-                </div>
+                <div class="preview-icon"><i class="fas fa-users"></i></div>
                 <h3>Industry Groups</h3>
-                <p>Join specialized groups for roasters, producers, baristas, and café owners.</p>
+                <p>Join groups for roasters, producers, and baristas.</p>
             </div>
             <div class="preview-card">
-                <div class="preview-icon">
-                    <i class="fas fa-calendar-alt"></i>
-                </div>
+                <div class="preview-icon"><i class="fas fa-calendar-alt"></i></div>
                 <h3>Networking Events</h3>
-                <p>Access virtual and in-person networking events with industry leaders.</p>
+                <p>Access virtual and in-person networking events.</p>
             </div>
         </div>
     </div>
@@ -654,11 +72,9 @@
     <div class="waitlist-section">
         <div class="waitlist-container">
             <h2>Get Early Access</h2>
-            <p>Be among the first to join the Kahawa Network when we launch. Get exclusive updates and early access invitations.</p>
-            <div class="waitlist-form">
-                <input type="email" placeholder="Enter your email address">
-                <button>Join Waitlist</button>
-            </div>
+            <p>Be among the first to join the Kahawa Network when we launch.</p>
+            <div class="waitlist-form"><input type="email" id="waitlistEmail"
+                    placeholder="Enter your email address"><button onclick="joinWaitlist()">Join Waitlist</button></div>
             <div class="waitlist-stats">
                 <div class="stat-item">
                     <div class="stat-number">2,500+</div>
@@ -683,21 +99,21 @@
                 <div class="roadmap-date">Q1 2026</div>
                 <div class="roadmap-content">
                     <h3>Beta Testing</h3>
-                    <p>Invite-only beta for verified sellers and select buyers. Gather feedback and refine features.</p>
+                    <p>Invite-only beta for verified sellers and select buyers.</p>
                 </div>
             </div>
             <div class="roadmap-item">
                 <div class="roadmap-date">Q2 2026</div>
                 <div class="roadmap-content">
                     <h3>Producer Onboarding</h3>
-                    <p>Mass onboarding of cooperatives from Tanzania, Ethiopia, Kenya, and other origins.</p>
+                    <p>Onboarding cooperatives from Tanzania, Ethiopia, Kenya.</p>
                 </div>
             </div>
             <div class="roadmap-item">
                 <div class="roadmap-date">Q3 2026</div>
                 <div class="roadmap-content">
                     <h3>Public Launch</h3>
-                    <p>Full public launch with networking features, messaging, and industry groups.</p>
+                    <p>Full launch with networking features and messaging.</p>
                 </div>
             </div>
             <div class="roadmap-item">
@@ -710,13 +126,10 @@
         </div>
     </div>
 
-    <!-- Newsletter and Footer same as previous pages -->
-    <section class="newsletter" style="background: var(--accent-gold); padding: 4rem 5%; text-align: center;">
-        <h2 style="color: var(--primary-dark); font-size: 2rem; margin-bottom: 1rem;">Stay Updated on Network Launch</h2>
-        <p style="color: var(--primary-dark); margin-bottom: 2rem;">Get notified when we launch and receive exclusive invites</p>
-        <div class="newsletter-form" style="max-width: 500px; margin: 0 auto; display: flex; gap: 1rem;">
-            <input type="email" placeholder="Your email address" style="flex: 1; padding: 1rem; border: none; border-radius: 30px; outline: none;">
-            <button style="background: var(--primary-dark); color: white; border: none; padding: 1rem 2rem; border-radius: 30px; font-weight: 600; cursor: pointer;">Subscribe</button>
+    <section class="newsletter">
+        <h2>Stay Updated on Network Launch</h2>
+        <p>Get notified when we launch and receive exclusive invites</p>
+        <div class="newsletter-form"><input type="email" placeholder="Your email address"><button>Subscribe</button>
         </div>
     </section>
 
@@ -771,39 +184,23 @@
         </div>
         <div class="footer-bottom">
             <div>© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-            </div>
+            <div class="social-links"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i
+                        class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i
+                        class="fab fa-youtube"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div>
         </div>
     </footer>
-<!-- Mobile Menu Script -->
-<script>
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
 
-    if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', function () {
-            navLinks.classList.toggle('active');
-            this.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-        });
-    }
+    <script>
+        function joinWaitlist() { const email = document.getElementById('waitlistEmail').value; if (email && email.includes('@')) { alert(`Thank you! ${email} has been added to the waitlist.`); document.getElementById('waitlistEmail').value = ''; } else { alert('Please enter a valid email address'); } }
 
-    // Close mobile menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
-                document.body.classList.remove('menu-open');
-            }
-        });
-    });
-</script>
+        const mobileMenuBtns = document.querySelectorAll('.mobile-menu'), navLinks = document.querySelector('.nav-links');
+        function closeMenu() { if (navLinks) navLinks.classList.remove('active'); mobileMenuBtns.forEach(b => b.classList.remove('active')); document.body.classList.remove('menu-open'); }
+        function toggleMenu() { if (navLinks) navLinks.classList.toggle('active'); mobileMenuBtns.forEach(b => b.classList.toggle('active')); document.body.classList.toggle('menu-open'); }
+        mobileMenuBtns.forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); }));
+        document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', closeMenu));
+        document.addEventListener('click', (e) => { if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && !e.target.closest('.mobile-menu')) closeMenu(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    </script>
 </body>
+
 </html>

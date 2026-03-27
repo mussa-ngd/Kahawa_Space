@@ -1,4 +1,3 @@
-<!-- buyer.html - Buyer Dashboard -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,11 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kahawa Space - Buyer Dashboard</title>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/buyer.css">
     <link rel="stylesheet" href="css/kahawa-style.css">
     <link rel="stylesheet" href="css/mobile-menu.css">
@@ -18,9 +15,6 @@
 
 <body>
     <nav class="navbar">
-        <div class="mobile-menu">
-            <i class="fas fa-bars"></i>
-        </div>
         <div class="logo" onclick="window.location.href='index.html'">
             <i class="fas fa-mug-hot"></i>
             <span>KAHAWA</span>
@@ -40,7 +34,7 @@
                 <div class="user-dropdown">
                     <a href="buyer.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                     <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
-                    <a href="orders.html"><i class="fas fa-shopping-bag"></i> Orders</a>
+                    <a href="ordersforbuyer.html"><i class="fas fa-shopping-bag"></i> Orders</a>
                     <a href="rfq.html"><i class="fas fa-file-invoice"></i> RFQs</a>
                     <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
@@ -81,7 +75,7 @@
 
         <div class="section-header">
             <h2>Open Orders & Shipments</h2>
-            <a href="orders.html">View All →</a>
+            <a href="ordersforbuyer.html">View All →</a>
         </div>
         <div class="orders-table">
             <table>
@@ -157,9 +151,7 @@
                 <div class="opportunity-title">Looking for: Washed Ethiopian Guji</div>
                 <div class="opportunity-details">Quantity: 500-1000kg • Grade: Specialty 84+ • Destination: USA</div>
                 <div class="opportunity-price">Budget: $9-12/kg</div>
-                <button class="btn-negotiate"
-                    style="background: transparent; border: 2px solid var(--primary-dark); color: var(--primary-dark);"
-                    onclick="viewRFQ()">View Responses (3)</button>
+                <button class="btn-negotiate btn-outline" onclick="viewRFQ()">View Responses (3)</button>
             </div>
         </div>
     </div>
@@ -196,13 +188,16 @@
     <script>
         function negotiatePrice(product) { alert(`Initiating price negotiation for ${product}`); }
         function viewRFQ() { alert('Viewing RFQ responses'); }
-        // Mobile menu
-        const mobileMenuBtn = document.querySelector('.mobile-menu');
+
+        // Mobile Menu
+        const mobileMenuBtns = document.querySelectorAll('.mobile-menu');
         const navLinks = document.querySelector('.nav-links');
-        if (mobileMenuBtn && navLinks) mobileMenuBtn.addEventListener('click', function () { navLinks.classList.toggle('active'); this.classList.toggle('active'); document.body.classList.toggle('menu-open'); });
-        const style = document.createElement('style');
-        style.textContent = `@media (max-width:768px){.nav-links{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--primary-dark);flex-direction:column;justify-content:center;align-items:center;gap:2rem;z-index:1000;}.nav-links.active{display:flex;}.nav-links a{color:white;font-size:1.2rem;}.nav-links a i{color:var(--accent-gold);}.mobile-menu.active{color:var(--accent-gold);z-index:1001;}body.menu-open{overflow:hidden;}}`;
-        document.head.appendChild(style);
+        function closeMenu() { if (navLinks) navLinks.classList.remove('active'); mobileMenuBtns.forEach(btn => btn.classList.remove('active')); document.body.classList.remove('menu-open'); }
+        function toggleMenu() { if (navLinks) navLinks.classList.toggle('active'); mobileMenuBtns.forEach(btn => btn.classList.toggle('active')); document.body.classList.toggle('menu-open'); }
+        mobileMenuBtns.forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); }));
+        document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+        document.addEventListener('click', (e) => { if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && !e.target.closest('.mobile-menu')) closeMenu(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
     </script>
 </body>
 
