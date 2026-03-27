@@ -3,27 +3,570 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Kahawa Space - Log In</title>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
         rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/kahawa-style.css">
-    <link rel="stylesheet" href="css/mobile-menu.css">
+    <style>
+        /* ========== COMPLETE STYLES (merged & fixed) ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2c1810;
+            background: linear-gradient(135deg, #faf7f2 0%, #f0e9e0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        :root {
+            --primary-dark: #2c1810;
+            --primary-brown: #8b5a2b;
+            --primary-medium: #b87c4b;
+            --primary-light: #e6d5b8;
+            --accent-gold: #c9a227;
+            --cream: #faf7f2;
+            --white: #ffffff;
+            --gray-light: #f0e9e0;
+            --gray: #9b8b7a;
+            --success: #2e7d32;
+            --error: #d32f2f;
+            --info: #2196f3;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary-brown);
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span:last-child {
+            color: var(--accent-gold);
+            font-weight: 400;
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a i {
+            color: var(--primary-medium);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-gold);
+        }
+
+        .coming-soon {
+            background: var(--gray-light);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--primary-brown);
+            margin-left: 5px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-login {
+            padding: 0.5rem 1.2rem;
+            border: 2px solid var(--primary-light);
+            background: transparent;
+            border-radius: 30px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-login:hover {
+            border-color: var(--primary-brown);
+            background: rgba(139, 90, 43, 0.05);
+        }
+
+        .btn-signup {
+            padding: 0.5rem 1.2rem;
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-signup:hover {
+            background: var(--primary-brown);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-dark);
+        }
+
+        /* Login Container */
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 5%;
+            min-height: calc(100vh - 140px);
+        }
+
+        .login-card {
+            max-width: 480px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #3d2a1c 100%);
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .login-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .login-header p {
+            opacity: 0.85;
+            font-size: 0.95rem;
+        }
+
+        .login-body {
+            padding: 2rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid var(--gray-light);
+            border-radius: 16px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .checkbox-label input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--accent-gold);
+        }
+
+        .forgot-password {
+            color: var(--primary-brown);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .forgot-password:hover {
+            color: var(--accent-gold);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .login-btn:hover:not(:disabled) {
+            background: var(--primary-brown);
+            transform: translateY(-2px);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Divider */
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: calc(50% - 70px);
+            height: 1px;
+            background: var(--gray-light);
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .divider span {
+            background: var(--white);
+            padding: 0 1rem;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        /* Social Login */
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid var(--gray-light);
+            background: var(--white);
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--primary-dark);
+        }
+
+        .social-btn:hover {
+            border-color: var(--accent-gold);
+            background: var(--cream);
+        }
+
+        .social-btn.google i {
+            color: #db4437;
+        }
+
+        .social-btn.facebook i {
+            color: #4267B2;
+        }
+
+        /* Signup Link */
+        .signup-link {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .signup-link a {
+            color: var(--primary-brown);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 0.9rem 1rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-success {
+            background: rgba(46, 125, 80, 0.1);
+            border-left: 4px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(211, 47, 47, 0.1);
+            border-left: 4px solid var(--error);
+            color: var(--error);
+        }
+
+        .alert-info {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--info);
+            color: var(--info);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 2rem 5%;
+            margin-top: auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #e6d5b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #e6d5b8;
+            opacity: 0.7;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--primary-dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1000;
+                padding: 2rem;
+                animation: slideIn 0.3s ease;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                color: white;
+                font-size: 1.2rem;
+                padding: 1rem;
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a i {
+                color: var(--accent-gold);
+                margin-right: 10px;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .mobile-menu.active {
+                color: var(--accent-gold);
+            }
+
+            body.menu-open {
+                overflow: hidden;
+            }
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .login-card {
+                margin: 1rem;
+            }
+
+            .login-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .auth-buttons .btn-login,
+            .auth-buttons .btn-signup {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .login-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
+
     <nav class="navbar">
         <div class="logo" onclick="window.location.href='index.html'">
             <i class="fas fa-mug-hot"></i>
             <span>KAHAWA</span>
             <span>SPACE</span>
         </div>
-        <div class="nav-links">
+        <div class="nav-links" id="navLinks">
             <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
             <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
             <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
@@ -34,7 +577,9 @@
         <div class="auth-buttons">
             <a href="login.html" class="btn-login">Log In</a>
             <a href="signup.html" class="btn-signup">Join</a>
-            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+            <div class="mobile-menu" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </nav>
 
@@ -79,10 +624,10 @@
                 </div>
 
                 <div class="social-login">
-                    <button class="social-btn google" onclick="socialLogin('google')">
+                    <button class="social-btn google" id="googleLoginBtn">
                         <i class="fab fa-google"></i> Google
                     </button>
-                    <button class="social-btn facebook" onclick="socialLogin('facebook')">
+                    <button class="social-btn facebook" id="facebookLoginBtn">
                         <i class="fab fa-facebook-f"></i> Facebook
                     </button>
                 </div>
@@ -108,7 +653,7 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle (Fixed)
         const mobileMenuBtns = document.querySelectorAll('.mobile-menu');
         const navLinks = document.querySelector('.nav-links');
 
@@ -116,12 +661,29 @@
             if (navLinks) navLinks.classList.remove('active');
             mobileMenuBtns.forEach(btn => btn.classList.remove('active'));
             document.body.classList.remove('menu-open');
+            // Reset icon
+            mobileMenuBtns.forEach(btn => {
+                const icon = btn.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            });
         }
 
         function toggleMenu() {
             if (navLinks) navLinks.classList.toggle('active');
             mobileMenuBtns.forEach(btn => btn.classList.toggle('active'));
             document.body.classList.toggle('menu-open');
+
+            // Toggle icon between bars and times
+            mobileMenuBtns.forEach(btn => {
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    if (btn.classList.contains('active')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                }
+            });
         }
 
         mobileMenuBtns.forEach(btn => {
@@ -147,7 +709,7 @@
             if (event.key === 'Escape') closeMenu();
         });
 
-        // Login Form Handler
+        // Login Form Handler (Fixed)
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
         const btnText = document.getElementById('btnText');
@@ -158,12 +720,23 @@
             alertMessage.style.display = 'block';
             alertMessage.className = `alert alert-${type}`;
             alertMessage.innerHTML = `
-                <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
-                <span>${message}</span>
-            `;
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+            <span>${escapeHtml(message)}</span>
+        `;
+            // Auto-hide after 5 seconds
             setTimeout(() => {
                 alertMessage.style.display = 'none';
             }, 5000);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
         }
 
         function isValidEmail(email) {
@@ -172,28 +745,32 @@
         }
 
         async function handleLogin(email, password, rememberMe) {
-            try {
-                await new Promise(resolve => setTimeout(resolve, 1000));
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
-                const sessionData = {
-                    user: { email: email, fullName: email.split('@')[0], role: 'buyer' },
-                    token: 'demo_token_' + Math.random().toString(36).substr(2, 32),
-                    expires: new Date().getTime() + (rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000)
-                };
-
-                if (rememberMe) {
-                    localStorage.setItem('kahawa_session', JSON.stringify(sessionData));
-                } else {
-                    sessionStorage.setItem('kahawa_session', JSON.stringify(sessionData));
-                }
-
-                showAlert(`Welcome back, ${sessionData.user.fullName}!`, 'success');
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1500);
-            } catch (error) {
-                showAlert('Login failed. Please try again.', 'error');
+            // Demo credentials: any valid email with password length >= 1 works
+            if (!password || password.length < 1) {
+                throw new Error('Password cannot be empty');
             }
+
+            const sessionData = {
+                user: {
+                    email: email,
+                    fullName: email.split('@')[0].replace(/[.]/g, ' '),
+                    role: 'buyer',
+                    avatar: email.charAt(0).toUpperCase()
+                },
+                token: 'demo_token_' + Math.random().toString(36).substr(2, 32),
+                expires: new Date().getTime() + (rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000)
+            };
+
+            if (rememberMe) {
+                localStorage.setItem('kahawa_session', JSON.stringify(sessionData));
+            } else {
+                sessionStorage.setItem('kahawa_session', JSON.stringify(sessionData));
+            }
+
+            return sessionData;
         }
 
         loginForm.addEventListener('submit', async (e) => {
@@ -213,40 +790,59 @@
                 return;
             }
 
+            // Show loading state
             btnText.style.display = 'none';
             btnLoader.style.display = 'inline-block';
             loginBtn.disabled = true;
 
-            await handleLogin(email, password, rememberMe);
-
-            btnText.style.display = 'inline';
-            btnLoader.style.display = 'none';
-            loginBtn.disabled = false;
+            try {
+                const session = await handleLogin(email, password, rememberMe);
+                showAlert(`Welcome back, ${session.user.fullName}! Redirecting...`, 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } catch (error) {
+                showAlert(error.message || 'Login failed. Please try again.', 'error');
+                btnText.style.display = 'inline';
+                btnLoader.style.display = 'none';
+                loginBtn.disabled = false;
+            }
         });
 
+        // Social Login Handlers
         function socialLogin(provider) {
-            showAlert(`${provider} login coming soon!`, 'info');
+            showAlert(`${provider} login coming soon! We're integrating this feature for a seamless experience.`, 'info');
         }
 
+        document.getElementById('googleLoginBtn')?.addEventListener('click', () => socialLogin('Google'));
+        document.getElementById('facebookLoginBtn')?.addEventListener('click', () => socialLogin('Facebook'));
+
+        // Check Existing Session
         function checkExistingSession() {
-            const session = localStorage.getItem('kahawa_session') || sessionStorage.getItem('kahawa_session');
-            if (session) {
-                try {
+            try {
+                const session = localStorage.getItem('kahawa_session') || sessionStorage.getItem('kahawa_session');
+                if (session) {
                     const data = JSON.parse(session);
                     if (data.expires && data.expires > new Date().getTime()) {
+                        // User is already logged in, redirect to home
                         window.location.href = 'index.html';
                     } else {
+                        // Session expired, clear it
                         localStorage.removeItem('kahawa_session');
                         sessionStorage.removeItem('kahawa_session');
                     }
-                } catch (e) {
-                    console.error('Session parse error:', e);
                 }
+            } catch (e) {
+                console.error('Session parse error:', e);
+                // Clear invalid session data
+                localStorage.removeItem('kahawa_session');
+                sessionStorage.removeItem('kahawa_session');
             }
         }
 
         checkExistingSession();
 
+        // Handle URL parameters for verification messages
         const urlParams = new URLSearchParams(window.location.search);
         const verified = urlParams.get('verified');
         const message = urlParams.get('message');
@@ -255,6 +851,23 @@
             showAlert('Email verified successfully! You can now log in.', 'success');
         } else if (message) {
             showAlert(decodeURIComponent(message), 'info');
+        }
+
+        // Fix for any broken footer links
+        const footerLinks = document.querySelectorAll('.footer-links a');
+        footerLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showAlert(`"${link.textContent}" page coming soon! Stay tuned for updates.`, 'info');
+            });
+        });
+
+        // Logo click handler
+        const logo = document.querySelector('.logo');
+        if (logo) {
+            logo.addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
         }
     </script>
 </body>

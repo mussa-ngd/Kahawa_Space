@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kahawa Space - Seller Analytics Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ========== COMPLETE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2c1810;
+            background-color: #faf7f2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        :root {
+            --primary-dark: #2c1810;
+            --primary-brown: #8b5a2b;
+            --primary-medium: #b87c4b;
+            --primary-light: #e6d5b8;
+            --accent-gold: #c9a227;
+            --cream: #faf7f2;
+            --white: #ffffff;
+            --gray-light: #f0e9e0;
+            --gray: #9b8b7a;
+            --success: #2e7d32;
+            --warning: #ff9800;
+            --info: #2196f3;
+            --error: #d32f2f;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary-brown);
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span:last-child {
+            color: var(--accent-gold);
+            font-weight: 400;
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a i {
+            color: var(--primary-medium);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-gold);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-brown);
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: var(--primary-dark);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            min-width: 220px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: none;
+            margin-top: 0.75rem;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .user-menu:hover .user-dropdown {
+            display: block;
+        }
+
+        .user-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.85rem 1.25rem;
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .user-dropdown a i {
+            width: 20px;
+            color: var(--primary-brown);
+        }
+
+        .user-dropdown a:hover,
+        .user-dropdown a.active {
+            background: var(--cream);
+            color: var(--accent-gold);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-dark);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #3d2a1c 100%);
+            color: white;
+            padding: 2rem 5%;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            opacity: 0.9;
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Date Range Picker */
+        .date-range {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .date-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .date-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-light);
+            background: var(--white);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .date-btn:hover,
+        .date-btn.active {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        .custom-date {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .custom-date input {
+            padding: 0.5rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--cream);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon i {
+            font-size: 1.5rem;
+            color: var(--primary-brown);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .stat-trend {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .trend-up {
+            color: var(--success);
+        }
+
+        .trend-down {
+            color: var(--error);
+        }
+
+        /* Section Header */
+        .section-header {
+            margin: 2rem 0 1.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+        }
+
+        /* Top Products Table */
+        .top-products {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .products-table th,
+        .products-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .products-table th {
+            background: var(--cream);
+            font-weight: 600;
+        }
+
+        .products-table tr:hover {
+            background: var(--cream);
+        }
+
+        /* Sales by Origin */
+        .origin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .origin-item {
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .origin-name {
+            font-weight: 600;
+        }
+
+        .origin-sales {
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 3rem 5% 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col ul li a {
+            color: #e6d5b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #3d2a1c;
+            font-size: 0.8rem;
+            color: #e6d5b8;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--primary-dark);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1000;
+                padding: 2rem;
+                animation: slideIn 0.3s ease;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                color: white;
+                font-size: 1.2rem;
+                padding: 1rem;
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a i {
+                color: var(--accent-gold);
+                margin-right: 10px;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            body.menu-open {
+                overflow: hidden;
+            }
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .date-range {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .custom-date {
+                flex-direction: column;
+            }
+
+            .user-name {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-table {
+                font-size: 0.8rem;
+            }
+
+            .products-table th,
+            .products-table td {
+                padding: 0.5rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'"><i
+                class="fas fa-mug-hot"></i><span>KAHAWA</span><span>SPACE</span></div>
+        <div class="nav-links" id="navLinks">
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <div class="user-menu">
+                <div class="user-avatar"><i class="fas fa-store"></i></div>
+                <span class="user-name">Kilimanjaro Cooperative</span>
+                <div class="user-dropdown">
+                    <a href="seller.html/"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="listings.html"><i class="fas fa-list"></i> My Listings</a>
+                    <a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a>
+                    <a href="analytics.html" class="active"><i class="fas fa-chart-line"></i> Analytics</a>
+                    <a href="index.html" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <div class="mobile-menu" id="mobileMenuToggle"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Seller Analytics</h1>
+        <p>Track your sales performance, inventory trends, and customer insights</p>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Date Range Selector -->
+        <div class="date-range">
+            <div class="date-buttons">
+                <button class="date-btn active" data-range="7d">Last 7 Days</button>
+                <button class="date-btn" data-range="30d">Last 30 Days</button>
+                <button class="date-btn" data-range="90d">Last 90 Days</button>
+                <button class="date-btn" data-range="year">This Year</button>
+            </div>
+            <div class="custom-date">
+                <input type="date" id="startDate">
+                <span>to</span>
+                <input type="date" id="endDate">
+                <button class="date-btn" id="applyCustomBtn">Apply</button>
+            </div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <!-- Charts -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>Sales Trend</h3>
+                <div class="chart-container">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>Top Selling Products</h3>
+                <div class="chart-container">
+                    <canvas id="productsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Products Table -->
+        <div class="top-products">
+            <h3>Top Performing Products</h3>
+            <table class="products-table" id="productsTable">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity Sold</th>
+                        <th>Revenue</th>
+                        <th>Views</th>
+                        <th>Conversion Rate</th>
+                    </tr>
+                </thead>
+                <tbody id="productsTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Sales by Origin -->
+        <div class="top-products">
+            <h3>Sales by Origin</h3>
+            <div class="origin-grid" id="originGrid"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Seller Resources</h4>
+                <ul>
+                    <li><a href="#">Listing Guide</a></li>
+                    <li><a href="#">Analytics Help</a></li>
+                    <li><a href="#">Pricing Strategy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Seller Support</a></li>
+                    <li><a href="#">Payment Terms</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Seller Agreement</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Mock Analytics Data
+        let analyticsData = {
+            sales: {
+                '7d': [1250, 1450, 1380, 1620, 1890, 2100, 1950],
+                '30d': [1250, 1450, 1380, 1620, 1890, 2100, 1950, 1780, 1820, 1980, 2050, 2120, 1980, 1850, 1920, 2010, 2150, 2280, 2350, 2420, 2380, 2250, 2180, 2100, 2050, 1980, 1920, 1880, 1850, 1780],
+                '90d': Array(90).fill(0).map((_, i) => 1200 + Math.random() * 800),
+                'year': Array(12).fill(0).map((_, i) => 15000 + Math.random() * 5000)
+            },
+            products: [
+                { name: 'Tanzania Peaberry AA', sold: 850, revenue: 7225, views: 1245, conversion: 6.8 },
+                { name: 'Kilimanjaro Natural G1', sold: 620, revenue: 5890, views: 980, conversion: 6.3 },
+                { name: 'Ethiopia Yirgacheffe', sold: 480, revenue: 4416, views: 756, conversion: 6.4 },
+                { name: 'Kenya AA SL28', sold: 320, revenue: 3264, views: 520, conversion: 6.2 },
+                { name: 'Brazil Yellow Bourbon', sold: 280, revenue: 2184, views: 450, conversion: 6.2 }
+            ],
+            origins: [
+                { name: 'Tanzania', sales: 1470, revenue: 13115 },
+                { name: 'Ethiopia', sales: 480, revenue: 4416 },
+                { name: 'Kenya', sales: 320, revenue: 3264 },
+                { name: 'Brazil', sales: 280, revenue: 2184 }
+            ]
+        };
+
+        let currentRange = '7d';
+        let salesChart, productsChart;
+
+        function getDateLabels() {
+            const today = new Date();
+            if (currentRange === '7d') {
+                return Array(7).fill().map((_, i) => {
+                    const d = new Date(today);
+                    d.setDate(today.getDate() - (6 - i));
+                    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                });
+            } else if (currentRange === '30d') {
+                return Array(30).fill().map((_, i) => {
+                    const d = new Date(today);
+                    d.setDate(today.getDate() - (29 - i));
+                    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                });
+            } else if (currentRange === '90d') {
+                return Array(90).fill().map((_, i) => {
+                    const d = new Date(today);
+                    d.setDate(today.getDate() - (89 - i));
+                    return `${d.getMonth() + 1}/${d.getDate()}`;
+                });
+            } else {
+                return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            }
+        }
+
+        function getSalesData() {
+            return analyticsData.sales[currentRange] || analyticsData.sales['7d'];
+        }
+
+        function updateStats() {
+            const salesData = getSalesData();
+            const totalRevenue = salesData.reduce((a, b) => a + b, 0);
+            const avgOrderValue = totalRevenue / (analyticsData.products.reduce((a, b) => a + b.sold, 0) || 1);
+            const totalOrders = analyticsData.products.reduce((a, b) => a + b.sold, 0);
+            const totalViews = analyticsData.products.reduce((a, b) => a + b.views, 0);
+            const conversionRate = ((totalOrders / totalViews) * 100).toFixed(1);
+
+            document.getElementById('statsGrid').innerHTML = `
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-dollar-sign"></i></div><div class="stat-value">$${totalRevenue.toLocaleString()}</div><div class="stat-label">Total Revenue</div><div class="stat-trend trend-up"><i class="fas fa-arrow-up"></i> +12.5% vs previous</div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-shopping-cart"></i></div><div class="stat-value">${totalOrders}</div><div class="stat-label">Total Orders</div><div class="stat-trend trend-up"><i class="fas fa-arrow-up"></i> +8.3% vs previous</div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-value">$${Math.round(avgOrderValue)}</div><div class="stat-label">Avg Order Value</div><div class="stat-trend trend-up"><i class="fas fa-arrow-up"></i> +5.2% vs previous</div></div>
+            <div class="stat-card"><div class="stat-icon"><i class="fas fa-percent"></i></div><div class="stat-value">${conversionRate}%</div><div class="stat-label">Conversion Rate</div><div class="stat-trend trend-up"><i class="fas fa-arrow-up"></i> +0.8% vs previous</div></div>
+        `;
+        }
+
+        function updateSalesChart() {
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            const labels = getDateLabels();
+            const data = getSalesData();
+
+            if (salesChart) salesChart.destroy();
+            salesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Revenue ($)',
+                        data: data,
+                        borderColor: '#c9a227',
+                        backgroundColor: 'rgba(201, 162, 39, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#8b5a2b',
+                        pointBorderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+        }
+
+        function updateProductsChart() {
+            const ctx = document.getElementById('productsChart').getContext('2d');
+            const topProducts = analyticsData.products.slice(0, 5);
+            const productNames = topProducts.map(p => p.name.split(' ').slice(0, 2).join(' '));
+            const salesData = topProducts.map(p => p.sold);
+
+            if (productsChart) productsChart.destroy();
+            productsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: productNames,
+                    datasets: [{
+                        label: 'Units Sold',
+                        data: salesData,
+                        backgroundColor: '#b87c4b',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+        }
+
+        function updateProductsTable() {
+            const tbody = document.getElementById('productsTableBody');
+            tbody.innerHTML = analyticsData.products.map(p => `
+            <tr>
+                <td><strong>${p.name}</strong></td>
+                <td>${p.sold} kg</td>
+                <td>$${p.revenue.toLocaleString()}</td>
+                <td>${p.views}</td>
+                <td>${p.conversion}%</td>
+            </tr>
+        `).join('');
+        }
+
+        function updateOriginsGrid() {
+            const grid = document.getElementById('originGrid');
+            grid.innerHTML = analyticsData.origins.map(o => `
+            <div class="origin-item">
+                <span class="origin-name">${o.name}</span>
+                <span class="origin-sales">${o.sales} kg ($${o.revenue.toLocaleString()})</span>
+            </div>
+        `).join('');
+        }
+
+        function refreshAll() {
+            updateStats();
+            updateSalesChart();
+            updateProductsChart();
+            updateProductsTable();
+            updateOriginsGrid();
+        }
+
+        // Date range handlers
+        function setDateRange(range) {
+            currentRange = range;
+            document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-range="${range}"]`).classList.add('active');
+            refreshAll();
+        }
+
+        function applyCustomDate() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            if (start && end) {
+                showNotification(`Analytics from ${start} to ${end} - Custom range coming soon!`, 'info');
+            } else {
+                showNotification('Please select both start and end dates', 'error');
+            }
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? '#2e7d32' : type === 'error' ? '#d32f2f' : '#ff9800';
+            const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+            notification.style.cssText = `position: fixed; bottom: 20px; right: 20px; background: ${bgColor}; color: white; padding: 1rem 1.5rem; border-radius: 12px; z-index: 3000; animation: fadeInUp 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.2);`;
+            notification.innerHTML = `<i class="fas ${icon}"></i> ${message}`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // Mobile Menu
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navLinksElem = document.getElementById('navLinks');
+            if (!mobileToggle || !navLinksElem) return;
+            const closeMenu = () => {
+                navLinksElem.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                const icon = mobileToggle.querySelector('i');
+                if (icon) icon.className = 'fas fa-bars';
+            };
+            const toggleMenu = (e) => {
+                e.stopPropagation();
+                if (navLinksElem.classList.contains('active')) closeMenu();
+                else {
+                    navLinksElem.classList.add('active');
+                    mobileToggle.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    const icon = mobileToggle.querySelector('i');
+                    if (icon) icon.className = 'fas fa-times';
+                }
+            };
+            mobileToggle.addEventListener('click', toggleMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+            document.addEventListener('click', (e) => {
+                if (navLinksElem.classList.contains('active') && !navLinksElem.contains(e.target) && !mobileToggle.contains(e.target)) closeMenu();
+            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        }
+
+        function initFooterLinks() {
+            document.querySelectorAll('.footer-col ul li a').forEach(link => {
+                link.addEventListener('click', (e) => { e.preventDefault(); showNotification(`"${link.textContent}" feature coming soon!`, 'info'); });
+            });
+            const logoutLink = document.getElementById('logoutLink');
+            if (logoutLink) {
+                logoutLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (confirm('Log out from Kahawa Space?')) {
+                        localStorage.removeItem('kahawa_session');
+                        sessionStorage.removeItem('kahawa_session');
+                        showNotification('Logged out successfully!', 'success');
+                        setTimeout(() => window.location.href = 'index.html', 1000);
+                    }
+                });
+            }
+        }
+
+        function initLogo() { document.querySelector('.logo')?.addEventListener('click', () => window.location.href = 'index.html'); }
+
+        // Event listeners
+        document.querySelectorAll('.date-btn[data-range]').forEach(btn => {
+            btn.addEventListener('click', () => setDateRange(btn.dataset.range));
+        });
+        document.getElementById('applyCustomBtn')?.addEventListener('click', applyCustomDate);
+
+        // Set default dates
+        const today = new Date();
+        const thirtyDaysAgo = new Date(today);
+        thirtyDaysAgo.setDate(today.getDate() - 30);
+        document.getElementById('startDate').value = thirtyDaysAgo.toISOString().split('T')[0];
+        document.getElementById('endDate').value = today.toISOString().split('T')[0];
+
+        // Initialize
+        initMobileMenu();
+        initFooterLinks();
+        initLogo();
+        refreshAll();
+    </script>
+</body>
+
+</html>

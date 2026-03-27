@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kahawa Space - My Purchases</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/ordersforbuyer.css">
+    <link rel="stylesheet" href="css/kahawa-style.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <i class="fas fa-mug-hot"></i>
+            <span>KAHAWA</span>
+            <span>SPACE</span>
+        </div>
+        <div class="nav-links">
+            <a href="marketplace.html"><i class="fas fa-store"></i> Marketplace</a>
+            <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            <a href="education.html"><i class="fas fa-graduation-cap"></i> Education</a>
+            <a href="tours.html"><i class="fas fa-plane"></i> Tours</a>
+            <a href="reels.html"><i class="fas fa-video"></i> Reels</a>
+        </div>
+        <div class="auth-buttons">
+            <div class="user-menu">
+                <div class="user-avatar"><i class="fas fa-user"></i></div>
+                <span class="user-name">John Doe</span>
+                <div class="user-dropdown">
+                    <a href="user.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="ordersforbuyer.html" class="active"><i class="fas fa-shopping-bag"></i> My Orders</a>
+                    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <div class="mobile-menu"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>My Orders</h1>
+        <p>Track your coffee orders, view order history, and reorder your favorites</p>
+    </div>
+
+    <div class="orders-container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+                <div class="stat-value" id="totalOrders">5</div>
+                <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-truck"></i></div>
+                <div class="stat-value" id="activeOrders">2</div>
+                <div class="stat-label">Active Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-value" id="deliveredOrders">2</div>
+                <div class="stat-label">Delivered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+                <div class="stat-value" id="totalSpent">$13,035</div>
+                <div class="stat-label">Total Spent</div>
+            </div>
+        </div>
+
+        <div class="filters-bar">
+            <div class="filter-group">
+                <select class="filter-select" id="statusFilter">
+                    <option value="all">All Orders</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <select class="filter-select" id="dateFilter">
+                    <option value="all">All Time</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="365">Last Year</option>
+                </select>
+            </div>
+            <div class="search-orders"><input type="text" id="searchInput"
+                    placeholder="Search by order ID or product..."><i class="fas fa-search"
+                    onclick="filterOrders()"></i></div>
+        </div>
+
+        <div class="orders-list" id="ordersList"></div>
+    </div>
+
+    <div id="trackingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Order Tracking</h3><button class="modal-close" onclick="closeTrackingModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="trackingContent"></div>
+        </div>
+    </div>
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Write a Review</h3><button class="modal-close" onclick="closeReviewModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"><label>Rating</label>
+                    <div class="rating-stars" id="ratingStars"><i class="far fa-star" data-rating="1"></i><i
+                            class="far fa-star" data-rating="2"></i><i class="far fa-star" data-rating="3"></i><i
+                            class="far fa-star" data-rating="4"></i><i class="far fa-star" data-rating="5"></i></div>
+                </div>
+                <div class="form-group"><label>Review</label><textarea id="reviewText" rows="4"
+                        placeholder="Share your experience with this coffee..."></textarea></div>
+            </div>
+            <div class="modal-footer"><button class="btn-outline" onclick="closeReviewModal()">Cancel</button><button
+                    class="btn-primary" onclick="submitReview()">Submit Review</button></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Account</h4>
+                <ul>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="ordersforbuyer.html">My Orders</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 Kahawa Space. All rights reserved. "Where Coffee Connects the World"</div>
+    </footer>
+
+    <script>
+        let orders = [
+            { id: 'KAH-24015', date: '2026-03-15', status: 'shipped', total: 2975, seller: { name: 'Kilimanjaro Cooperative', location: 'Moshi, Tanzania', rating: 4.9 }, items: [{ id: 'PROD-001', name: 'Tanzania Peaberry AA Reserve', origin: 'Tanzania', quantity: 350, unitPrice: 8.50, total: 2975, image: 'coffee-bean', reviewed: false }], shipping: { carrier: 'DHL Express', number: 'DH123456789TZ', timeline: [{ status: 'Order Placed', date: '2026-03-15 10:30', completed: true }, { status: 'Confirmed', date: '2026-03-16 09:15', completed: true }, { status: 'Shipped', date: '2026-03-17 14:20', completed: true }, { status: 'In Transit', date: '2026-03-18 08:00', completed: false }, { status: 'Delivered', date: null, completed: false }] }, trackingUrl: 'https://www.dhl.com/tracking' },
+            { id: 'KAH-24018', date: '2026-03-10', status: 'delivered', total: 1840, seller: { name: 'Yirgacheffe Farmers Coop', location: 'Yirgacheffe, Ethiopia', rating: 4.8 }, items: [{ id: 'PROD-002', name: 'Ethiopia Yirgacheffe Natural G1', origin: 'Ethiopia', quantity: 200, unitPrice: 9.20, total: 1840, image: 'coffee-bean', reviewed: true }], shipping: { carrier: 'FedEx', number: 'FX987654321TZ', timeline: [{ status: 'Order Placed', date: '2026-03-10 14:20', completed: true }, { status: 'Confirmed', date: '2026-03-11 10:45', completed: true }, { status: 'Shipped', date: '2026-03-12 16:30', completed: true }, { status: 'In Transit', date: '2026-03-13 09:00', completed: true }, { status: 'Delivered', date: '2026-03-18 11:15', completed: true }] }, trackingUrl: 'https://www.fedex.com/tracking' },
+            { id: 'KAH-24022', date: '2026-03-05', status: 'pending', total: 2550, seller: { name: 'Nyeri Hill Estate', location: 'Nyeri, Kenya', rating: 4.7 }, items: [{ id: 'PROD-003', name: 'Kenya AA SL28 & SL34', origin: 'Kenya', quantity: 250, unitPrice: 10.20, total: 2550, image: 'coffee-bean', reviewed: false }], shipping: null, trackingUrl: null },
+            { id: 'KAH-24025', date: '2026-02-28', status: 'confirmed', total: 4750, seller: { name: 'Minas Gerais Estate', location: 'Minas Gerais, Brazil', rating: 4.6 }, items: [{ id: 'PROD-004', name: 'Brazil Yellow Bourbon', origin: 'Brazil', quantity: 500, unitPrice: 9.50, total: 4750, image: 'coffee-bean', reviewed: false }], shipping: null, trackingUrl: null },
+            { id: 'KAH-24028', date: '2026-02-20', status: 'delivered', total: 920, seller: { name: 'Colombia Coffee Growers', location: 'Huila, Colombia', rating: 4.9 }, items: [{ id: 'PROD-005', name: 'Colombia Supremo', origin: 'Colombia', quantity: 100, unitPrice: 9.20, total: 920, image: 'coffee-bean', reviewed: false }], shipping: { carrier: 'UPS', number: '1Z9999999999999999', timeline: [{ status: 'Order Placed', date: '2026-02-20 09:00', completed: true }, { status: 'Confirmed', date: '2026-02-21 14:30', completed: true }, { status: 'Shipped', date: '2026-02-22 11:45', completed: true }, { status: 'In Transit', date: '2026-02-23 08:00', completed: true }, { status: 'Delivered', date: '2026-02-28 15:20', completed: true }] }, trackingUrl: 'https://www.ups.com/tracking' }
+        ];
+
+        let currentStatusFilter = 'all', currentDateFilter = 'all', currentSearch = '', currentReviewOrderId = null, selectedRating = 0;
+
+        function formatDate(dateString) { const date = new Date(dateString); return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }); }
+        function showNotification(message, type = 'success') { const n = document.createElement('div'); n.style.cssText = `position:fixed;bottom:20px;right:20px;background:${type === 'success' ? '#2e7d32' : type === 'error' ? '#d32f2f' : '#ff9800'};color:white;padding:1rem 1.5rem;border-radius:12px;z-index:3000;animation:fadeInUp 0.3s ease;box-shadow:0 5px 15px rgba(0,0,0,0.2);`; n.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`; document.body.appendChild(n); setTimeout(() => n.remove(), 3000); }
+        function updateStats() { const total = orders.length, active = orders.filter(o => ['pending', 'confirmed', 'shipped'].includes(o.status)).length, delivered = orders.filter(o => o.status === 'delivered').length, totalSpent = orders.filter(o => o.status !== 'cancelled').reduce((s, o) => s + o.total, 0); document.getElementById('totalOrders').textContent = total; document.getElementById('activeOrders').textContent = active; document.getElementById('deliveredOrders').textContent = delivered; document.getElementById('totalSpent').textContent = `$${totalSpent.toLocaleString()}`; }
+        function filterOrders() { currentStatusFilter = document.getElementById('statusFilter').value; currentDateFilter = document.getElementById('dateFilter').value; currentSearch = document.getElementById('searchInput').value; renderOrders(); }
+        function renderOrders() {
+            let filtered = orders.filter(o => { if (currentStatusFilter !== 'all' && o.status !== currentStatusFilter) return false; if (currentDateFilter !== 'all') { const d = new Date(o.date), days = (new Date() - d) / (1000 * 60 * 60 * 24); if (days > parseInt(currentDateFilter)) return false; } if (currentSearch && !o.id.toLowerCase().includes(currentSearch.toLowerCase()) && !o.items.some(i => i.name.toLowerCase().includes(currentSearch.toLowerCase()))) return false; return true; }); updateStats(); const container = document.getElementById('ordersList'); if (filtered.length === 0) { container.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><h3>No Orders Found</h3><p style="color: var(--gray);">You haven't placed any orders yet.</p><a href="marketplace.html" class="btn-primary" style="display: inline-block; text-decoration: none;">Start Shopping</a></div>`; return; }
+            container.innerHTML = filtered.map(order => `<div class="order-card"><div class="order-header"><div class="order-info"><span class="order-id">Order #${order.id}</span><span class="order-date">${formatDate(order.date)}</span><span class="order-status status-${order.status}">${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span></div><div class="order-total">Total: $${order.total.toLocaleString()}</div></div><div class="order-body"><div class="order-items">${order.items.map(item => `<div class="order-item"><div class="item-image"><i class="fas fa-${item.image}"></i></div><div class="item-details"><div class="item-name">${item.name}</div><div class="item-meta">${item.origin} • ${item.quantity} kg @ $${item.unitPrice}/kg</div></div><div class="item-price">$${item.total.toLocaleString()}</div></div>`).join('')}</div><div class="order-footer"><div class="seller-info"><i class="fas fa-store"></i><div><strong>${order.seller.name}</strong><br><small>${order.seller.location}</small></div></div><div class="order-actions">${order.status === 'shipped' && order.shipping ? `<button class="btn-outline" onclick="viewTracking('${order.id}')"><i class="fas fa-map-marker-alt"></i> Track Order</button>` : ''}${order.status === 'delivered' ? `<button class="btn-outline" onclick="writeReview('${order.id}')"><i class="fas fa-star"></i> Write Review</button><button class="btn-primary btn-reorder" onclick="reorder('${order.id}')"><i class="fas fa-redo-alt"></i> Reorder</button>` : ''}${order.status === 'pending' ? `<button class="btn-outline" onclick="cancelOrder('${order.id}')"><i class="fas fa-times"></i> Cancel Order</button>` : ''}<button class="btn-outline" onclick="viewOrderDetails('${order.id}')"><i class="fas fa-eye"></i> Details</button></div></div></div></div>`).join('');
+        }
+
+        function viewTracking(orderId) { const o = orders.find(o => o.id === orderId); if (o && o.shipping) { const modal = document.getElementById('trackingModal'), content = document.getElementById('trackingContent'); content.innerHTML = `<div><p><strong>Order #${o.id}</strong></p><p><strong>Carrier:</strong> ${o.shipping.carrier}</p><p><strong>Tracking Number:</strong> ${o.shipping.number}</p><p><strong>Seller:</strong> ${o.seller.name}</p></div><div class="tracking-timeline">${o.shipping.timeline.map(s => `<div class="tracking-step ${s.completed ? 'completed' : ''}"><div class="step-title">${s.status}</div><div class="step-date">${s.date ? s.date : 'Pending'}</div></div>`).join('')}</div>${o.trackingUrl ? `<div><a href="${o.trackingUrl}" target="_blank" class="btn-primary">Track on Carrier Website</a></div>` : ''}`; modal.classList.add('active'); } }
+        function closeTrackingModal() { document.getElementById('trackingModal').classList.remove('active'); }
+        function writeReview(orderId) { const o = orders.find(o => o.id === orderId); if (o && o.items.length) { currentReviewOrderId = orderId; selectedRating = 0; document.getElementById('reviewText').value = ''; document.querySelectorAll('#ratingStars i').forEach(s => { s.classList.remove('fas', 'active'); s.classList.add('far'); }); document.getElementById('reviewModal').classList.add('active'); } }
+        function closeReviewModal() { document.getElementById('reviewModal').classList.remove('active'); currentReviewOrderId = null; }
+        function submitReview() { if (selectedRating === 0) { alert('Please select a rating'); return; } const reviewText = document.getElementById('reviewText').value; if (!reviewText.trim()) { alert('Please write a review'); return; } const o = orders.find(o => o.id === currentReviewOrderId); if (o && o.items.length) { o.items[0].reviewed = true; showNotification('Thank you for your review!', 'success'); closeReviewModal(); renderOrders(); } }
+        function reorder(orderId) { const o = orders.find(o => o.id === orderId); if (o) { showNotification(`Adding items from order ${orderId} to cart...`, 'info'); setTimeout(() => { window.location.href = 'cart.html'; }, 1500); } }
+        function cancelOrder(orderId) { if (confirm('Are you sure you want to cancel this order?')) { const o = orders.find(o => o.id === orderId); if (o) { o.status = 'cancelled'; showNotification(`Order ${orderId} has been cancelled.`, 'info'); renderOrders(); } } }
+        function viewOrderDetails(orderId) { const o = orders.find(o => o.id === orderId); if (o) { alert(`Order #${o.id}\nDate: ${formatDate(o.date)}\nStatus: ${o.status}\nSeller: ${o.seller.name}\nTotal: $${o.total}\nItems:\n${o.items.map(i => `- ${i.name}: ${i.quantity}kg @ $${i.unitPrice}/kg`).join('\n')}`); } }
+        document.addEventListener('click', function (e) { if (e.target.closest('#ratingStars i')) { const star = e.target.closest('#ratingStars i'); const rating = parseInt(star.dataset.rating); selectedRating = rating; document.querySelectorAll('#ratingStars i').forEach((s, idx) => { if (idx < rating) { s.classList.remove('far'); s.classList.add('fas', 'active'); } else { s.classList.remove('fas', 'active'); s.classList.add('far'); } }); } });
+        document.getElementById('statusFilter').addEventListener('change', filterOrders); document.getElementById('dateFilter').addEventListener('change', filterOrders); document.getElementById('searchInput').addEventListener('keyup', filterOrders);
+
+        const mobileMenuBtns = document.querySelectorAll('.mobile-menu'), navLinks = document.querySelector('.nav-links');
+        function closeMenu() { if (navLinks) navLinks.classList.remove('active'); mobileMenuBtns.forEach(b => b.classList.remove('active')); document.body.classList.remove('menu-open'); }
+        function toggleMenu() { if (navLinks) navLinks.classList.toggle('active'); mobileMenuBtns.forEach(b => b.classList.toggle('active')); document.body.classList.toggle('menu-open'); }
+        mobileMenuBtns.forEach(b => b.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); }));
+        document.querySelectorAll('.nav-links a').forEach(l => l.addEventListener('click', closeMenu));
+        document.addEventListener('click', (e) => { if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && !e.target.closest('.mobile-menu')) closeMenu(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+        window.onclick = function (e) { const tm = document.getElementById('trackingModal'), rm = document.getElementById('reviewModal'); if (e.target === tm) closeTrackingModal(); if (e.target === rm) closeReviewModal(); };
+        renderOrders();
+    </script>
+</body>
+
+</html>
